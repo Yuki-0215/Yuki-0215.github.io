@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd /Users/beiyiwangdejiyi/Desktop/lixie-work/lvycoder.github.io/
+cd /Users/beiyiwangdejiyi/Desktop/lixie-work/Yuki-0215.github.io/
 
 # 切换到工作目录
-if ! cd ~/Desktop/lixie-work/lvycoder.github.io/; then
+if ! cd ~/Desktop/lixie-work/Yuki-0215.github.io/; then
     echo "无法切换到指定目录,请检查路径是否正确"
     exit 1
 fi

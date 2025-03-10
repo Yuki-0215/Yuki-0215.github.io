@@ -1,7 +1,7 @@
 ## 阿勰的博客
   Hello，大家好！
     我叫阿勰，北漂一族。在弄这个网站的初衷主要是为了记录自己工作和生活的内容。
-    大家可以点击进入[《Kubernetes 进阶训练营》](https://lvycoder.github.io/site/)以后也将持续更新～
+    大家可以点击进入[《Kubernetes 进阶训练营》](https://Yuki-0215.github.io/site/)以后也将持续更新～
 
   - 主要记录工作以及生活内容
   - 把工作和生活的事情列清楚，为了以后做复盘
@@ -33,8 +33,8 @@ pip3 install mkdocs-material==8.0.0
 ## 启动测试
 
 ```
-git clone https://github.com/lvycoder/lvycoder.github.io.git
-cd barry-boy.github.io
+git clone https://github.com/Yuki-0215/Yuki-0215.github.io.git
+cd Yuki-0215.github.io
 mkdocs serve
 ```
 
