@@ -3319,68 +3319,70 @@
 </code></pre></div>
 <h2 id="_1">参数详解<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>模型路径</strong> <code>/openbayes/input/input0/DeepSeek-R1-Distill-Qwen-1.5B</code></li>
-<li>指定要加载的模型文件所在位置</li>
 <li>
-<p>这是命令的第一个参数</p>
+<p><strong>模型路径</strong> <code>/openbayes/input/input0/DeepSeek-R1-Distill-Qwen-1.5B</code></p>
+<ul>
+<li>指定要加载的模型文件所在位置</li>
+<li>这是命令的第一个参数</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--served-model-name DeepSeek-R1-Distill-Qwen-1.5B</code></strong></p>
-</li>
+<ul>
 <li>设置服务中使用的模型名称</li>
-<li>
-<p>此名称会在 API 响应中显示</p>
+<li>此名称会在 API 响应中显示</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--disable-log-requests</code></strong></p>
-</li>
+<ul>
 <li>禁用请求日志记录</li>
-<li>
-<p>可以减少日志输出，提高性能</p>
+<li>可以减少日志输出，提高性能</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--trust-remote-code</code></strong></p>
-</li>
+<ul>
 <li>允许执行模型中的自定义代码</li>
-<li>
-<p>对于一些需要特殊处理的模型(如 Qwen)是必需的</p>
+<li>对于一些需要特殊处理的模型(如 Qwen)是必需的</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--host 0.0.0.0 --port $PORT</code></strong></p>
-</li>
+<ul>
 <li>设置服务监听的主机地址和端口</li>
 <li><code>0.0.0.0</code> 表示监听所有网络接口</li>
-<li>
-<p><code>$PORT</code> 是环境变量，表示具体使用的端口号</p>
+<li><code>$PORT</code> 是环境变量，表示具体使用的端口号</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--gpu-memory-utilization 0.98</code></strong></p>
-</li>
+<ul>
 <li>设置 GPU 显存利用率上限为 98%</li>
-<li>
-<p>控制模型可以使用的最大显存比例</p>
+<li>控制模型可以使用的最大显存比例</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--max-model-len 8192</code></strong></p>
-</li>
+<ul>
 <li>设置模型处理的最大序列长度为 8192 个 token</li>
-<li>
-<p>影响模型能处理的输入文本长度</p>
+<li>影响模型能处理的输入文本长度</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--enable-prefix-caching</code></strong></p>
-</li>
+<ul>
 <li>启用前缀缓存功能</li>
-<li>
-<p>可以提高连续生成文本时的性能</p>
+<li>可以提高连续生成文本时的性能</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--tensor-parallel-size $GPU_COUNT</code></strong></p>
-</li>
+<ul>
 <li>设置张量并行的 GPU 数量</li>
 <li><code>$GPU_COUNT</code> 是环境变量，表示要使用的 GPU 数量</li>
-<li>
-<p>用于多 GPU 并行推理</p>
+<li>用于多 GPU 并行推理</li>
+</ul>
 </li>
 <li>
 <p><strong><code>--dtype=half</code></strong></p>
