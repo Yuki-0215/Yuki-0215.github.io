@@ -19,7 +19,7 @@
     
     
       
-        <title>2025 3 21 Gitignore doc - Kubernetes 进阶训练营</title>
+        <title>Gitignore 特定文件忽略 - Kubernetes 进阶训练营</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2025 3 21 Gitignore doc
+              Gitignore 特定文件忽略
             
           </span>
         </div>
@@ -303,13 +303,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../2024-9-26-Git-docs/" class="md-tabs__link">
+      <a href="../2024-9-26-Git-docs/" class="md-tabs__link md-tabs__link--active">
         6、Gitops
       </a>
     </li>
@@ -2314,15 +2316,19 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
       
       
       
+        
+          
         
           
         
@@ -2351,6 +2357,70 @@
       <a href="../2024-9-26-Git-docs/" class="md-nav__link">
         Git Commit 问题
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Gitignore 特定文件忽略
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Gitignore 特定文件忽略
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    问题说明
+  </a>
+  
+    <nav class="md-nav" aria-label="问题说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    推荐的解决步骤 ✅：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2400,8 +2470,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_9">
@@ -2424,20 +2492,6 @@
     <li class="md-nav__item">
       <a href="../../Devops/git-error-docs/" class="md-nav__link">
         Git 报错指南
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../Devops/2025-3-21-Gitignore-doc.md" class="md-nav__link">
-        Gitignore 文件
       </a>
     </li>
   
@@ -3273,7 +3327,7 @@
 </a>
 
 
-  <h1>2025 3 21 Gitignore doc</h1>
+  <h1>Gitignore 特定文件忽略</h1>
 
 <h2 id="_1">问题说明<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>我在.gitignore 中配置kubernetes/environ/kubeconfig/*.yaml  忽略这下面的 yaml 文件,但是 git status 还是可以看到代码变更,为什么无法生效</p>
@@ -3323,6 +3377,77 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <p>这样之后，你的 <code>.gitignore</code> 规则就可以生效了。</p>
 <hr />
 <p>你可以优先尝试以上方式进行排查，问题应该可以顺利解决。</p>
+<p>You:</p>
+<p>但是我的这些 yaml 文件已经提交到代码仓库,我只是希望忽略目前的代码变动</p>
+<p>ChatGPT:</p>
+<p>你这种情况，如果文件之前已提交，但当前希望本地改动不被 <code>git status</code> 显示出来，可以使用：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<p>🚩 <strong>原因解释：</strong></p>
+<ul>
+<li>
+<p><code>.gitignore</code> 只能忽略未跟踪（untracked）的文件，而你当前的文件已经被 Git 跟踪（tracked），因此 <code>.gitignore</code> 无法生效。</p>
+</li>
+<li>
+<p>此时适合使用的是 Git 提供的另一种方式：</p>
+</li>
+</ul>
+<p><code>git update-index --assume-unchanged</code> 命令。</p>
+<hr />
+<p>🚩 <strong>具体操作：</strong></p>
+<ol>
+<li><strong>忽略目前本地修改</strong> （不再显示这些文件的修改）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<ol>
+<li><strong>恢复原状</strong> （当你希望重新追踪时）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--no-assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<hr />
+<p>🚩 **你这种情况，如果文件之前已提交，但当前希望本地改动不被 <code>git status</code> 显示出来，可以使用：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<p>🚩 <strong>原因解释：</strong></p>
+<ul>
+<li>
+<p><code>.gitignore</code> 只能忽略未跟踪（untracked）的文件，而你当前的文件已经被 Git 跟踪（tracked），因此 <code>.gitignore</code> 无法生效。</p>
+</li>
+<li>
+<p>此时适合使用的是 Git 提供的另一种方式：</p>
+</li>
+</ul>
+<p><code>git update-index --assume-unchanged</code> 命令。</p>
+<hr />
+<p>🚩 <strong>具体操作：</strong></p>
+<ol>
+<li><strong>忽略目前本地修改</strong> （不再显示这些文件的修改）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<ol>
+<li><strong>恢复原状</strong> （当你希望重新追踪时）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>update-index<span class="w"> </span>--no-assume-unchanged<span class="w"> </span>kubernetes/environ/kubeconfig/*.yaml
+</code></pre></div>
+<hr />
+<p>🚩 查看当前被设置为<code>assume-unchanged</code>的文件** ：</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>ls-files<span class="w"> </span>-v<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;^h&#39;</span>
+</code></pre></div>
+<hr />
+<p><strong>注意：</strong></p>
+<ul>
+<li>
+<p>此方法仅适合<strong>临时忽略本地修改</strong> ，对其他开发人员不起作用，也不会影响远程仓库的状态。</p>
+</li>
+<li>
+<p>当远程仓库有对应文件变动时，<code>git pull</code> 可能会遇到冲突，此时需解除设置后再进行操作。</p>
+</li>
+</ul>
+<hr />
+<p>推荐的实践方式：</p>
+<p>如果这些文件是配置文件（如 kubeconfig），后续推荐统一使用样例文件或模板（例如：<code>kubeconfig.example.yaml</code>），正式使用时在本地生成实际文件，然后再用 <code>.gitignore</code> 真正忽略，这样才是更规范的做法。</p>
 
               
             </article>
@@ -3337,6 +3462,41 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../2024-9-26-Git-docs/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Git Commit 问题" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Git Commit 问题
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../2024-10-10-Github-rsync-Gitee/" class="md-footer__link md-footer__link--next" aria-label="下一页: Github Rysnc 同步 Gitee" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              Github Rysnc 同步 Gitee
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
