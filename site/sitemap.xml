@@ -606,7 +606,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://barry-boy.github.io/Ai-tools/langfuse-deployment-guide/</loc>
+         <lastmod>2025-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://barry-boy.github.io/Ai-tools/mj-doc/</loc>
+         <lastmod>2025-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/Ai-tools/opentelemetry-doc/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -636,11 +646,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/Ai-tools/wan-openbayes-deploy/</loc>
-         <lastmod>2025-03-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/Devops/3-github-docs/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
@@ -661,17 +666,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://barry-boy.github.io/Helm/2025-3-21-helm-cli-doc/</loc>
+         <lastmod>2025-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://barry-boy.github.io/Helm/helm-chart/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://barry-boy.github.io/Helm/helm-install/</loc>
-         <lastmod>2025-03-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Helm/helm/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -712,11 +717,6 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/Nvidia/Nvidia-k8s-rdma/</loc>
-         <lastmod>2025-03-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Nvidia/fake-gpu-operator-doc/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -1157,11 +1157,6 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/python/time-module-docs/</loc>
-         <lastmod>2025-03-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/redcat/tmp/</loc>
          <lastmod>2025-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
