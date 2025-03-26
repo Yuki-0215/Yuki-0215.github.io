@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /Users/beiyiwangdejiyi/Desktop/lixie-work/Yuki-0215.github.io/
+cd ~/Desktop/lixie-work/Yuki-0215.github.io/
 
 # 切换到工作目录
 if ! cd ~/Desktop/lixie-work/Yuki-0215.github.io/; then
