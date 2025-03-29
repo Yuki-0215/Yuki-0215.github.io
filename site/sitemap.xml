@@ -171,77 +171,97 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-20-chatgpt-docs/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-20-chatgpt-pulgin-docs/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-20-google-ai-docs/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-20-gpts-docs/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-27-cursor-latest-features/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-27-cursor-model-performance/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-28-vllm-chatglm3-6b-doc/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-02-28-vllm-docs/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-03-vllm-Qwen2.5-VL-72B/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-03-vllm-Qwen2.5-VL/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-06-mj-doc/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-13-vllm-docs-2/</loc>
+         <loc>https://barry-boy.github.io/10.Ai-tools/Langfuse/2024-03-14-opentelemetry-doc/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-14-opentelemetry-doc/</loc>
+         <loc>https://barry-boy.github.io/10.Ai-tools/Langfuse/2024-03-17-langfuse-deployment-guide/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-17-langfuse-deployment-guide/</loc>
+         <loc>https://barry-boy.github.io/10.Ai-tools/chatgpt/2024-02-20-chatgpt-docs/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/10.Ai-tools/2024-03-27-wan-openbayes-deploy/</loc>
+         <loc>https://barry-boy.github.io/10.Ai-tools/chatgpt/2024-02-20-chatgpt-pulgin-docs/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/chatgpt/2024-02-20-gpts-docs/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/cursor/2024-02-27-cursor-latest-features/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/cursor/2024-02-27-cursor-model-performance/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/nvidia/LiteLLM-Proxy-doc/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/nvidia/Nvidia-drive/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/nvidia/Nvidia-gpu-compare/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/nvidia/Nvidia-k8s-rdma/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/nvidia/fake-gpu-operator-doc/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/openbayes/2024-03-27-wan-openbayes-deploy/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/vllm/2024-02-28-vllm-chatglm3-6b-doc/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/vllm/2024-02-28-vllm-docs/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL-72B/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/10.Ai-tools/vllm/2024-03-13-vllm-docs-2/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -601,12 +621,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/3.develop/python/2024-02-20-2-python-interaction-doc/</loc>
+         <loc>https://barry-boy.github.io/3.develop/python/2024-02-20-1-python-base-doc/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/3.develop/python/2024-02-21-1-python-base-doc/</loc>
+         <loc>https://barry-boy.github.io/3.develop/python/2024-02-20-2-python-interaction-doc/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -841,7 +861,12 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/7.Web/2025-3-27-certbot_ssl_doc/</loc>
+         <loc>https://barry-boy.github.io/7.Web/http/1-2025-03-30-http-web-doc/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/7.Web/nginx/2025-3-27-certbot_ssl_doc/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -1156,31 +1181,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/Nvidia/LiteLLM-Proxy-doc/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Nvidia/Nvidia-drive/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Nvidia/Nvidia-gpu-compare/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Nvidia/Nvidia-k8s-rdma/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/Nvidia/fake-gpu-operator-doc/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/basic/5-kubernetes-UI-docs/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
@@ -1271,11 +1271,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/http/web-01/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/k3s/k3s-docs/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
@@ -1292,11 +1287,6 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/prometheus/1.%20prometheus/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/redcat/tmp/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
