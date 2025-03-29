@@ -1021,6 +1021,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://barry-boy.github.io/9.other/Opsdaily/1-2025-03-27-ops-screen-docs/</loc>
+         <lastmod>2025-03-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://barry-boy.github.io/9.other/misc/argo-rollouts/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
@@ -1277,11 +1282,6 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/basic/overview/</loc>
-         <lastmod>2025-03-29</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/prometheus/1.%20prometheus/</loc>
          <lastmod>2025-03-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
