@@ -1,11 +1,3 @@
-/* 调整导航栏宽度 */
-.md-sidebar--primary {
-  width: 300px !important;
-  /* 根据需求调整数值 */
-}
-
-/* 调整内容区域宽度 */
-.md-content {
-  max-width: 200% !important;
-  /* 根据需求调整数值 */
+.md-grid {
+  max-width: 1440px;
 }
