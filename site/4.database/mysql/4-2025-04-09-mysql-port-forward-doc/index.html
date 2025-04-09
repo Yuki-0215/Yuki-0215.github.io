@@ -12,21 +12,21 @@
         <meta name="author" content="Li">
       
       
-        <link rel="canonical" href="https://barry-boy.github.io/2.k8s/2024-03-10-kubeadm-doc/">
+        <link rel="canonical" href="https://barry-boy.github.io/4.database/mysql/4-2025-04-09-mysql-port-forward-doc/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.0.0">
     
     
       
-        <title>2024 03 10 kubeadm doc - Kubernetes 进阶训练营</title>
+        <title>客户端通过port-forward连接mysql-server - Kubernetes 进阶训练营</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ad626c1e.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ad626c1e.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
         
       
     
@@ -40,9 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
     
       
 
@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#port-forward-mysql" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -82,9 +87,9 @@
 
 <header class="md-header md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="../.." title="Kubernetes 进阶训练营" class="md-header__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
+    <a href="../../.." title="Kubernetes 进阶训练营" class="md-header__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
       
-  <img src="../../material/logo.jpg" alt="logo">
+  <img src="../../../material/logo.jpg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -100,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2024 03 10 kubeadm doc
+              客户端通过port-forward连接mysql-server
             
           </span>
         </div>
@@ -193,7 +198,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../custom_home.html" class="md-tabs__link">
+    <a href="../../../custom_home.html" class="md-tabs__link">
       首页
     </a>
   </li>
@@ -208,7 +213,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-tabs__link">
+      <a href="../../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-tabs__link">
         0、网络基础
       </a>
     </li>
@@ -229,7 +234,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../1.Linux/hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-tabs__link">
+      <a href="../../../1.Linux/hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-tabs__link">
         1、Linux
       </a>
     </li>
@@ -247,7 +252,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../basic/cncf-docs/" class="md-tabs__link">
+      <a href="../../../basic/cncf-docs/" class="md-tabs__link">
         2、kubernetes
       </a>
     </li>
@@ -268,7 +273,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-tabs__link">
+      <a href="../../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-tabs__link">
         3、运维开发
       </a>
     </li>
@@ -279,6 +284,8 @@
       
         
   
+  
+    
   
 
 
@@ -291,7 +298,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../4.database/mysql/2024-02-20-1-mysql-base-doc/" class="md-tabs__link">
+      <a href="../2024-02-20-1-mysql-base-doc/" class="md-tabs__link md-tabs__link--active">
         4、数据库
       </a>
     </li>
@@ -309,7 +316,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-tabs__link">
+      <a href="../../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-tabs__link">
         5、存储服务
       </a>
     </li>
@@ -325,7 +332,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../6.Devops/2024-9-26-Git-docs/" class="md-tabs__link">
+      <a href="../../../6.Devops/2024-9-26-Git-docs/" class="md-tabs__link">
         6、Devops
       </a>
     </li>
@@ -341,7 +348,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-tabs__link">
+      <a href="../../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-tabs__link">
         7、Web
       </a>
     </li>
@@ -357,7 +364,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../8.Ansible/2024-02-20-ansible-case1/" class="md-tabs__link">
+      <a href="../../../8.Ansible/2024-02-20-ansible-case1/" class="md-tabs__link">
         8、运维自动化
       </a>
     </li>
@@ -378,7 +385,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-tabs__link">
+      <a href="../../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-tabs__link">
         9、其他
       </a>
     </li>
@@ -401,7 +408,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-tabs__link">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-tabs__link">
         10、Ai
       </a>
     </li>
@@ -419,7 +426,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../20.mylife/2024-9-24-myblog-life-docs/" class="md-tabs__link">
+      <a href="../../../20.mylife/2024-9-24-myblog-life-docs/" class="md-tabs__link">
         关于我
       </a>
     </li>
@@ -453,9 +460,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Kubernetes 进阶训练营" class="md-nav__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
+    <a href="../../.." title="Kubernetes 进阶训练营" class="md-nav__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
       
-  <img src="../../material/logo.jpg" alt="logo">
+  <img src="../../../material/logo.jpg" alt="logo">
 
     </a>
     Kubernetes 进阶训练营
@@ -483,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../custom_home.html" class="md-nav__link">
+      <a href="../../../custom_home.html" class="md-nav__link">
         首页
       </a>
     </li>
@@ -542,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-nav__link">
         网络 Tcp/IP
       </a>
     </li>
@@ -556,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-5g-docs/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-5g-docs/" class="md-nav__link">
         网络 思科设备
       </a>
     </li>
@@ -570,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-IB-ET-docs/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-IB-ET-docs/" class="md-nav__link">
         网络 网卡模式调整
       </a>
     </li>
@@ -584,7 +591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-ZeroTier/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-ZeroTier/" class="md-nav__link">
         ZeroTier组网
       </a>
     </li>
@@ -598,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-frp/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-frp/" class="md-nav__link">
         frp 内网穿透
       </a>
     </li>
@@ -612,7 +619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-3-network-docs/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-3-network-docs/" class="md-nav__link">
         kubernetes 网络组件
       </a>
     </li>
@@ -626,7 +633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../0.Internet/2024-02-20-4-network-docs/" class="md-nav__link">
+      <a href="../../../0.Internet/2024-02-20-4-network-docs/" class="md-nav__link">
         科学上网
       </a>
     </li>
@@ -640,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/asus/asus-docs.md" class="md-nav__link">
+      <a href="../../../1.Linux/asus/asus-docs.md" class="md-nav__link">
         华硕服务器
       </a>
     </li>
@@ -748,7 +755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-nav__link">
         Linux 服务器 CPU性能测试
       </a>
     </li>
@@ -762,7 +769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/2-2025-04-04-Hardware-memary-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/2-2025-04-04-Hardware-memary-report-doc/" class="md-nav__link">
         Linux 服务器 内存性能验收
       </a>
     </li>
@@ -776,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/3-2025-04-04-Hareware-disk-benchmark-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/3-2025-04-04-Hareware-disk-benchmark-report-doc/" class="md-nav__link">
         Linux 服务器 硬盘性能验收
       </a>
     </li>
@@ -790,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/4-2025-04-04-Hardware-GPU-benchmark-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/4-2025-04-04-Hardware-GPU-benchmark-report-doc/" class="md-nav__link">
         Linux 服务器 GPU性能验收
       </a>
     </li>
@@ -804,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/5-2025-04-04-Hareware-H100-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/5-2025-04-04-Hareware-H100-report-doc/" class="md-nav__link">
         Linux 服务器 H100服务器验收
       </a>
     </li>
@@ -818,7 +825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/6-2025-04-04-Hardware-FAQ-disk-report-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/6-2025-04-04-Hardware-FAQ-disk-report-doc/" class="md-nav__link">
         Linux 服务器 FAQ:为什么系统显示的磁盘大小会比实际小？
       </a>
     </li>
@@ -832,7 +839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/7-2025-04-06-Hardware-FAQ-no-network-debug-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/7-2025-04-06-Hardware-FAQ-no-network-debug-doc/" class="md-nav__link">
         Linux 服务器 无网络环境调试
       </a>
     </li>
@@ -905,7 +912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-kjc-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-kjc-doc/" class="md-nav__link">
         Linux 云计算手册大纲
       </a>
     </li>
@@ -919,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/hardware/2024-02-20-cpu-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/hardware/2024-02-20-cpu-doc/" class="md-nav__link">
         Linux 硬件 CPU
       </a>
     </li>
@@ -933,7 +940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-bmc-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-bmc-doc/" class="md-nav__link">
         Linux 带外管理
       </a>
     </li>
@@ -947,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-install-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-install-doc/" class="md-nav__link">
         Linux 系统安装
       </a>
     </li>
@@ -961,7 +968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/2025-03-27-linux-SM-doc-01/" class="md-nav__link">
+      <a href="../../../1.Linux/2025-03-27-linux-SM-doc-01/" class="md-nav__link">
         Linux 系统管理
       </a>
     </li>
@@ -975,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/2025-03-27-linux-SM-doc-02/" class="md-nav__link">
+      <a href="../../../1.Linux/2025-03-27-linux-SM-doc-02/" class="md-nav__link">
         Linux 系统管理
       </a>
     </li>
@@ -989,7 +996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-mirror-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-mirror-doc/" class="md-nav__link">
         Linux 国内apt源
       </a>
     </li>
@@ -1003,7 +1010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-nvme-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-nvme-doc/" class="md-nav__link">
         Linux nvme磁盘管理
       </a>
     </li>
@@ -1017,7 +1024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-parted-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-parted-doc/" class="md-nav__link">
         Linux parted磁盘管理
       </a>
     </li>
@@ -1031,7 +1038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-reboot-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-reboot-doc/" class="md-nav__link">
         Linux 系统强制重启
       </a>
     </li>
@@ -1045,7 +1052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-disk-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-disk-doc/" class="md-nav__link">
         Linux 磁盘管理
       </a>
     </li>
@@ -1100,7 +1107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/ubuntu/2024-02-20-ubuntu-network-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/ubuntu/2024-02-20-ubuntu-network-doc/" class="md-nav__link">
         Linux 网络服务
       </a>
     </li>
@@ -1114,7 +1121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/2024-9-25-ssh-proxy-docs/" class="md-nav__link">
+      <a href="../../../1.Linux/2024-9-25-ssh-proxy-docs/" class="md-nav__link">
         Linux SSH 转发代理实现
       </a>
     </li>
@@ -1257,7 +1264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/1-2025-04-04-linux-basic-introduction-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/1-2025-04-04-linux-basic-introduction-doc.md" class="md-nav__link">
         Linux基础入门
       </a>
     </li>
@@ -1271,7 +1278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/2-2025-04-04-shell-script-programming-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/2-2025-04-04-shell-script-programming-doc.md" class="md-nav__link">
         Shell脚本编程
       </a>
     </li>
@@ -1285,7 +1292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/3-2025-04-04-text-processing-tools-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/3-2025-04-04-text-processing-tools-doc.md" class="md-nav__link">
         文本处理工具
       </a>
     </li>
@@ -1299,7 +1306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/4-2025-04-04-regular-expressions-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/4-2025-04-04-regular-expressions-doc.md" class="md-nav__link">
         正则表达式
       </a>
     </li>
@@ -1313,7 +1320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/5-2025-04-04-filesystem-management-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/5-2025-04-04-filesystem-management-doc.md" class="md-nav__link">
         文件系统管理
       </a>
     </li>
@@ -1327,7 +1334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/6-2025-04-04-package-management-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/6-2025-04-04-package-management-doc.md" class="md-nav__link">
         软件包管理
       </a>
     </li>
@@ -1341,7 +1348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/7-2025-04-04-ACL-user-group-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/7-2025-04-04-ACL-user-group-doc/" class="md-nav__link">
         用户和组权限管理
       </a>
     </li>
@@ -1355,7 +1362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/8-2025-04-04-process-management-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/8-2025-04-04-process-management-doc.md" class="md-nav__link">
         进程管理
       </a>
     </li>
@@ -1369,7 +1376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/9-2025-04-04-memory-management-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/9-2025-04-04-memory-management-doc.md" class="md-nav__link">
         内存管理
       </a>
     </li>
@@ -1383,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/10-2025-04-04-scheduled-tasks-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/10-2025-04-04-scheduled-tasks-doc.md" class="md-nav__link">
         计划任务
       </a>
     </li>
@@ -1397,7 +1404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/11-2025-04-04-network-basics-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/11-2025-04-04-network-basics-doc.md" class="md-nav__link">
         网络基础
       </a>
     </li>
@@ -1411,7 +1418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/12-2025-04-04-network-configuration-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/12-2025-04-04-network-configuration-doc.md" class="md-nav__link">
         网络配置
       </a>
     </li>
@@ -1425,7 +1432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/13-2025-04-04-dns-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/13-2025-04-04-dns-service-doc.md" class="md-nav__link">
         DNS服务
       </a>
     </li>
@@ -1439,7 +1446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/14-2025-04-04-ftp-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/14-2025-04-04-ftp-service-doc.md" class="md-nav__link">
         FTP服务
       </a>
     </li>
@@ -1453,7 +1460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/15-2025-04-04-nfs-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/15-2025-04-04-nfs-service-doc.md" class="md-nav__link">
         NFS服务
       </a>
     </li>
@@ -1467,7 +1474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/16-2025-04-04-samba-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/16-2025-04-04-samba-service-doc.md" class="md-nav__link">
         Samba服务
       </a>
     </li>
@@ -1481,7 +1488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/17-2025-04-04-dhcp-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/17-2025-04-04-dhcp-service-doc.md" class="md-nav__link">
         DHCP服务
       </a>
     </li>
@@ -1495,7 +1502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/18-2025-04-04-apache-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/18-2025-04-04-apache-service-doc.md" class="md-nav__link">
         Apache服务
       </a>
     </li>
@@ -1509,7 +1516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/19-2025-04-04-nginx-service-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/19-2025-04-04-nginx-service-doc.md" class="md-nav__link">
         Nginx服务
       </a>
     </li>
@@ -1523,7 +1530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/20-2025-04-04-mysql-basics-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/20-2025-04-04-mysql-basics-doc.md" class="md-nav__link">
         MySQL基础
       </a>
     </li>
@@ -1537,7 +1544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/21-2025-04-04-mysql-management-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/21-2025-04-04-mysql-management-doc.md" class="md-nav__link">
         MySQL管理
       </a>
     </li>
@@ -1551,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/22-2025-04-04-mysql-optimization-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/22-2025-04-04-mysql-optimization-doc.md" class="md-nav__link">
         MySQL优化
       </a>
     </li>
@@ -1565,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/23-2025-04-04-mysql-backup-recovery-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/23-2025-04-04-mysql-backup-recovery-doc.md" class="md-nav__link">
         MySQL备份恢复
       </a>
     </li>
@@ -1579,7 +1586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/24-2025-04-04-mysql-master-slave-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/24-2025-04-04-mysql-master-slave-doc.md" class="md-nav__link">
         MySQL主从复制
       </a>
     </li>
@@ -1593,7 +1600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/25-2025-04-04-mysql-high-availability-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/25-2025-04-04-mysql-high-availability-doc.md" class="md-nav__link">
         MySQL高可用
       </a>
     </li>
@@ -1607,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/26-2025-04-04-lvs-load-balancing-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/26-2025-04-04-lvs-load-balancing-doc.md" class="md-nav__link">
         LVS负载均衡
       </a>
     </li>
@@ -1621,7 +1628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/27-2025-04-04-keepalived-ha-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/27-2025-04-04-keepalived-ha-doc.md" class="md-nav__link">
         Keepalived高可用
       </a>
     </li>
@@ -1635,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/28-2025-04-04-haproxy-load-balancing-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/28-2025-04-04-haproxy-load-balancing-doc.md" class="md-nav__link">
         HAProxy负载均衡
       </a>
     </li>
@@ -1649,7 +1656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/29-2025-04-04-shell-advanced-programming-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/29-2025-04-04-shell-advanced-programming-doc.md" class="md-nav__link">
         Shell高级编程
       </a>
     </li>
@@ -1663,7 +1670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/30-2025-04-04-python-basics-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/30-2025-04-04-python-basics-doc.md" class="md-nav__link">
         Python基础
       </a>
     </li>
@@ -1677,7 +1684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/31-2025-04-04-python-advanced-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/31-2025-04-04-python-advanced-doc.md" class="md-nav__link">
         Python进阶
       </a>
     </li>
@@ -1691,7 +1698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/32-2025-04-04-python-network-programming-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/32-2025-04-04-python-network-programming-doc.md" class="md-nav__link">
         Python网络编程
       </a>
     </li>
@@ -1705,7 +1712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/33-2025-04-04-python-web-development-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/33-2025-04-04-python-web-development-doc.md" class="md-nav__link">
         Python Web开发
       </a>
     </li>
@@ -1719,7 +1726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/34-2025-04-04-django-framework-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/34-2025-04-04-django-framework-doc.md" class="md-nav__link">
         Django框架
       </a>
     </li>
@@ -1733,7 +1740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/35-2025-04-04-devops-platform-development-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/35-2025-04-04-devops-platform-development-doc.md" class="md-nav__link">
         运维平台开发
       </a>
     </li>
@@ -1747,7 +1754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/36-2025-04-04-jenkins-ci-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/36-2025-04-04-jenkins-ci-doc.md" class="md-nav__link">
         Jenkins持续集成
       </a>
     </li>
@@ -1761,7 +1768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/37-2025-04-04-git-version-control-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/37-2025-04-04-git-version-control-doc.md" class="md-nav__link">
         Git版本控制
       </a>
     </li>
@@ -1775,7 +1782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/38-2025-04-04-docker-container-tech-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/38-2025-04-04-docker-container-tech-doc.md" class="md-nav__link">
         Docker容器技术
       </a>
     </li>
@@ -1789,7 +1796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/39-2025-04-04-kubernetes-basics-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/39-2025-04-04-kubernetes-basics-doc.md" class="md-nav__link">
         Kubernetes基础
       </a>
     </li>
@@ -1803,7 +1810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/40-2025-04-04-elk-log-analysis-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/40-2025-04-04-elk-log-analysis-doc.md" class="md-nav__link">
         ELK日志分析
       </a>
     </li>
@@ -1817,7 +1824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/41-2025-04-04-prometheus-monitoring-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/41-2025-04-04-prometheus-monitoring-doc.md" class="md-nav__link">
         Prometheus监控
       </a>
     </li>
@@ -1831,7 +1838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/42-2025-04-04-redis-caching-tech-doc.md" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/42-2025-04-04-redis-caching-tech-doc.md" class="md-nav__link">
         Redis缓存技术
       </a>
     </li>
@@ -1845,7 +1852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/43-2025-04-04-redis-master-slave-recovery-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/43-2025-04-04-redis-master-slave-recovery-doc/" class="md-nav__link">
         Redis主从复制故障恢复
       </a>
     </li>
@@ -1859,7 +1866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/44-2025-04-04-redis-data-migration-cluster-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/44-2025-04-04-redis-data-migration-cluster-doc/" class="md-nav__link">
         Redis数据迁移与集群
       </a>
     </li>
@@ -1873,7 +1880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/45-2025-04-04-zabbix-enterprise-monitor1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/45-2025-04-04-zabbix-enterprise-monitor1-doc/" class="md-nav__link">
         Zabbix分布式监控(一)
       </a>
     </li>
@@ -1887,7 +1894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE/46-2025-04-04-zabbix-enterprise-monitor2-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE/46-2025-04-04-zabbix-enterprise-monitor2-doc/" class="md-nav__link">
         Zabbix分布式监控(二)
       </a>
     </li>
@@ -1972,7 +1979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/01-2025-04-04-nginx-basic-introduction-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/01-2025-04-04-nginx-basic-introduction-doc/" class="md-nav__link">
         Nginx基础
       </a>
     </li>
@@ -1986,7 +1993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/02-2025-04-04-haproxy-basic-introduction-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/02-2025-04-04-haproxy-basic-introduction-doc/" class="md-nav__link">
         HAProxy基础
       </a>
     </li>
@@ -2000,7 +2007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/03-2025-04-04-keepalived-basic-introduction-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/03-2025-04-04-keepalived-basic-introduction-doc/" class="md-nav__link">
         Keepalived基础
       </a>
     </li>
@@ -2014,7 +2021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/04-2025-04-04-kvm-virtualization-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/04-2025-04-04-kvm-virtualization-doc/" class="md-nav__link">
         KVM虚拟化
       </a>
     </li>
@@ -2028,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/05-2025-04-04-vmware-vsphere-introduction-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/05-2025-04-04-vmware-vsphere-introduction-doc/" class="md-nav__link">
         VMware vSphere
       </a>
     </li>
@@ -2042,7 +2049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/06-2025-04-04-docker-container-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/06-2025-04-04-docker-container-doc/" class="md-nav__link">
         Docker容器
       </a>
     </li>
@@ -2056,7 +2063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/07-2025-04-04-jumpserver-introduction-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/07-2025-04-04-jumpserver-introduction-doc/" class="md-nav__link">
         JumpServer跳板机
       </a>
     </li>
@@ -2070,7 +2077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/08-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/08-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
         Kubernetes基础
       </a>
     </li>
@@ -2084,7 +2091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/09-2025-04-04-redis-distributed-storage-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/09-2025-04-04-redis-distributed-storage-doc/" class="md-nav__link">
         Redis分布式存储
       </a>
     </li>
@@ -2098,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/10-2025-04-04-zabbix-distributed-monitor-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/10-2025-04-04-zabbix-distributed-monitor-doc/" class="md-nav__link">
         Zabbix分布式监控
       </a>
     </li>
@@ -2112,7 +2119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/11-2025-04-04-jenkins-gitlab-cicd-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/11-2025-04-04-jenkins-gitlab-cicd-doc/" class="md-nav__link">
         Jenkins与GitLab CI/CD
       </a>
     </li>
@@ -2126,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/12-2025-04-04-message-queue-microservice-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/12-2025-04-04-message-queue-microservice-doc/" class="md-nav__link">
         消息队列与微服务
       </a>
     </li>
@@ -2140,7 +2147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/13-2025-04-04-elk-log-collection-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/13-2025-04-04-elk-log-collection-doc/" class="md-nav__link">
         ELK日志收集
       </a>
     </li>
@@ -2154,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/14-2025-04-04-ceph-distributed-storage-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/14-2025-04-04-ceph-distributed-storage-doc/" class="md-nav__link">
         Ceph分布式存储
       </a>
     </li>
@@ -2168,7 +2175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/15-2025-04-04-interview-notes-questions-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/15-2025-04-04-interview-notes-questions-doc/" class="md-nav__link">
         面试注意事项
       </a>
     </li>
@@ -2182,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/16-2025-04-04-kubernetes-production-cases-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/16-2025-04-04-kubernetes-production-cases-doc/" class="md-nav__link">
         Kubernetes生产案例
       </a>
     </li>
@@ -2196,7 +2203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-SRE-CTO/17-2025-04-04-aliyun-cloud-platform-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-SRE-CTO/17-2025-04-04-aliyun-cloud-platform-doc/" class="md-nav__link">
         阿里云平台
       </a>
     </li>
@@ -2313,7 +2320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/01-2025-04-04-computer-basics-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/01-2025-04-04-computer-basics-doc/" class="md-nav__link">
         计算机基础
       </a>
     </li>
@@ -2327,7 +2334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/02-2025-04-04-basic-regular-expression-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/02-2025-04-04-basic-regular-expression-doc/" class="md-nav__link">
         基本正则表达式
       </a>
     </li>
@@ -2341,7 +2348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/03-2025-04-04-docker-practice1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/03-2025-04-04-docker-practice1-doc/" class="md-nav__link">
         Docker实践(一)
       </a>
     </li>
@@ -2355,7 +2362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/04-2025-04-04-docker-practice2-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/04-2025-04-04-docker-practice2-doc/" class="md-nav__link">
         Docker实践(二)
       </a>
     </li>
@@ -2369,7 +2376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/05-2025-04-04-docker-practice3-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/05-2025-04-04-docker-practice3-doc/" class="md-nav__link">
         Docker实践(三)
       </a>
     </li>
@@ -2383,7 +2390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/06-2025-04-04-docker-compose-examples-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/06-2025-04-04-docker-compose-examples-doc/" class="md-nav__link">
         Docker-Compose示例
       </a>
     </li>
@@ -2397,7 +2404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/07-2025-04-04-docker-practice4-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/07-2025-04-04-docker-practice4-doc/" class="md-nav__link">
         Docker实践(四)
       </a>
     </li>
@@ -2411,7 +2418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/08-2025-04-04-docker-practice5-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/08-2025-04-04-docker-practice5-doc/" class="md-nav__link">
         Docker实践(五)
       </a>
     </li>
@@ -2425,7 +2432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/09-2025-04-04-docker-basic-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/09-2025-04-04-docker-basic-doc/" class="md-nav__link">
         Docker基础
       </a>
     </li>
@@ -2439,7 +2446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/10-2025-04-04-docker-k8s-integration-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/10-2025-04-04-docker-k8s-integration-doc/" class="md-nav__link">
         Docker与K8s集成
       </a>
     </li>
@@ -2453,7 +2460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/11-2025-04-04-kubernetes-practice1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/11-2025-04-04-kubernetes-practice1-doc/" class="md-nav__link">
         Kubernetes实践(一)
       </a>
     </li>
@@ -2467,7 +2474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/12-2025-04-04-kubernetes-practice2-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/12-2025-04-04-kubernetes-practice2-doc/" class="md-nav__link">
         Kubernetes实践(二)
       </a>
     </li>
@@ -2481,7 +2488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/13-2025-04-04-kubernetes-practice3-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/13-2025-04-04-kubernetes-practice3-doc/" class="md-nav__link">
         Kubernetes实践(三)
       </a>
     </li>
@@ -2495,7 +2502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/14-2025-04-04-network-communication-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/14-2025-04-04-network-communication-doc/" class="md-nav__link">
         网络通信详解
       </a>
     </li>
@@ -2509,7 +2516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/15-2025-04-04-rbac-access-control-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/15-2025-04-04-rbac-access-control-doc/" class="md-nav__link">
         RBAC权限控制
       </a>
     </li>
@@ -2523,7 +2530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/16-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/16-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
         Kubernetes基础
       </a>
     </li>
@@ -2537,7 +2544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/17-2025-04-04-prometheus-deployment-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/17-2025-04-04-prometheus-deployment-doc/" class="md-nav__link">
         Prometheus部署
       </a>
     </li>
@@ -2551,7 +2558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/18-2025-04-04-monitoring-metrics-storage-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/18-2025-04-04-monitoring-metrics-storage-doc/" class="md-nav__link">
         监控指标存储
       </a>
     </li>
@@ -2565,7 +2572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/19-2025-04-04-chain-tracking-skywalking-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/19-2025-04-04-chain-tracking-skywalking-doc/" class="md-nav__link">
         链路追踪Skywalking
       </a>
     </li>
@@ -2579,7 +2586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/20-2025-04-04-ceph-deployment-maintenance-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/20-2025-04-04-ceph-deployment-maintenance-doc/" class="md-nav__link">
         Ceph部署维护
       </a>
     </li>
@@ -2593,7 +2600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/21-2025-04-04-ceph-basic-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/21-2025-04-04-ceph-basic-doc/" class="md-nav__link">
         Ceph基础
       </a>
     </li>
@@ -2607,7 +2614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/22-2025-04-04-microservice-envoy1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/22-2025-04-04-microservice-envoy1-doc/" class="md-nav__link">
         微服务与Envoy实战(一)
       </a>
     </li>
@@ -2621,7 +2628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/23-2025-04-04-envoy-practice2-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/23-2025-04-04-envoy-practice2-doc/" class="md-nav__link">
         Envoy实战(二)
       </a>
     </li>
@@ -2635,7 +2642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/24-2025-04-04-microservice-envoy3-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/24-2025-04-04-microservice-envoy3-doc/" class="md-nav__link">
         微服务与Envoy实战(三)
       </a>
     </li>
@@ -2649,7 +2656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/25-2025-04-04-service-mesh-istio-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/25-2025-04-04-service-mesh-istio-doc/" class="md-nav__link">
         服务网格Istio
       </a>
     </li>
@@ -2663,7 +2670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/26-2025-04-04-istio-traffic-management-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/26-2025-04-04-istio-traffic-management-doc/" class="md-nav__link">
         Istio流量管理
       </a>
     </li>
@@ -2677,7 +2684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/27-2025-04-04-istio-security-auth-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/27-2025-04-04-istio-security-auth-doc/" class="md-nav__link">
         Istio遥测与安全认证
       </a>
     </li>
@@ -2691,7 +2698,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/28-2025-04-04-istio-authorization-deployment-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/28-2025-04-04-istio-authorization-deployment-doc/" class="md-nav__link">
         Istio授权机制与部署
       </a>
     </li>
@@ -2705,7 +2712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/29-2025-04-04-serverless-knative1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/29-2025-04-04-serverless-knative1-doc/" class="md-nav__link">
         Serverless与Knative
       </a>
     </li>
@@ -2719,7 +2726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/31-2025-04-04-gitops-tekton-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/31-2025-04-04-gitops-tekton-doc/" class="md-nav__link">
         GitOps之Tekton
       </a>
     </li>
@@ -2733,7 +2740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/32-2025-04-04-gitops-argocd1-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/32-2025-04-04-gitops-argocd1-doc/" class="md-nav__link">
         GitOps之ArgoCD(一)
       </a>
     </li>
@@ -2747,7 +2754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/33-2025-04-04-gitops-argocd2-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/33-2025-04-04-gitops-argocd2-doc/" class="md-nav__link">
         GitOps之ArgoCD(二)
       </a>
     </li>
@@ -2761,7 +2768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/magedu-cloud-native/34-2025-04-04-kubernetes-high-availability-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/magedu-cloud-native/34-2025-04-04-kubernetes-high-availability-doc/" class="md-nav__link">
         Kubernetes高可用实现
       </a>
     </li>
@@ -2814,7 +2821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../1.Linux/promox/1-2025-03-29-promox-doc/" class="md-nav__link">
+      <a href="../../../1.Linux/promox/1-2025-03-29-promox-doc/" class="md-nav__link">
         Proxmox虚拟化
       </a>
     </li>
@@ -2975,7 +2982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/cncf-docs/" class="md-nav__link">
+      <a href="../../../basic/cncf-docs/" class="md-nav__link">
         云原生简介及CNCF
       </a>
     </li>
@@ -2989,7 +2996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/2025-03-27-containerd-cli-docs/" class="md-nav__link">
+      <a href="../../../2.docker/2025-03-27-containerd-cli-docs/" class="md-nav__link">
         Containerd 基本管理
       </a>
     </li>
@@ -3003,7 +3010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/containerd/2024-04-08-containerd-remove-none-tag-image-doc/" class="md-nav__link">
+      <a href="../../../2.docker/containerd/2024-04-08-containerd-remove-none-tag-image-doc/" class="md-nav__link">
         Containerd 镜像管理
       </a>
     </li>
@@ -3017,7 +3024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/2024-02-20-docker-docs/" class="md-nav__link">
+      <a href="../../../2.docker/2024-02-20-docker-docs/" class="md-nav__link">
         Docker 基本管理
       </a>
     </li>
@@ -3031,7 +3038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/lxcfs.md" class="md-nav__link">
+      <a href="../../../2.docker/lxcfs.md" class="md-nav__link">
         lxcfs 介绍
       </a>
     </li>
@@ -3045,7 +3052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/2024-02-20-docker-images-docs/" class="md-nav__link">
+      <a href="../../../2.docker/2024-02-20-docker-images-docs/" class="md-nav__link">
         docker 镜像构建
       </a>
     </li>
@@ -3059,7 +3066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/2024-02-20-docker-proxy-docs/" class="md-nav__link">
+      <a href="../../../2.docker/2024-02-20-docker-proxy-docs/" class="md-nav__link">
         docker proxy代理
       </a>
     </li>
@@ -3073,7 +3080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2.docker/2024-02-20-docker-image-clash-docs/" class="md-nav__link">
+      <a href="../../../2.docker/2024-02-20-docker-image-clash-docs/" class="md-nav__link">
         docker Clash代理
       </a>
     </li>
@@ -3087,7 +3094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../base/k8s-overview/" class="md-nav__link">
+      <a href="../../../2.k8s/base/k8s-overview/" class="md-nav__link">
         kubernetes 简介
       </a>
     </li>
@@ -3101,7 +3108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-3-k8s-systeminit-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-3-k8s-systeminit-docs/" class="md-nav__link">
         kubernetes 集群部署
       </a>
     </li>
@@ -3115,7 +3122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-9-19-k8s-update/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-9-19-k8s-update/" class="md-nav__link">
         kubernetes 集群升级
       </a>
     </li>
@@ -3129,7 +3136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-pod-base-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-pod-base-docs/" class="md-nav__link">
         kubernetes pod 基础原理
       </a>
     </li>
@@ -3143,7 +3150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-pod-hook-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-pod-hook-docs/" class="md-nav__link">
         kubernetes pod 生命周期
       </a>
     </li>
@@ -3157,7 +3164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/6-kubernetes-etcd-docs/" class="md-nav__link">
+      <a href="../../../basic/6-kubernetes-etcd-docs/" class="md-nav__link">
         kubernetes etcd 简介与实践
       </a>
     </li>
@@ -3171,7 +3178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/7-kubernetes-coredns-docs/" class="md-nav__link">
+      <a href="../../../basic/7-kubernetes-coredns-docs/" class="md-nav__link">
         kubernetes coredns 简介与实践
       </a>
     </li>
@@ -3185,7 +3192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-k8s-calico-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-k8s-calico-docs/" class="md-nav__link">
         kubernetes calico 网络
       </a>
     </li>
@@ -3199,7 +3206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../yaml/yaml/" class="md-nav__link">
+      <a href="../../../2.k8s/yaml/yaml/" class="md-nav__link">
         kubernetes 资源清单
       </a>
     </li>
@@ -3213,7 +3220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../base/k8s-limit-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/base/k8s-limit-docs/" class="md-nav__link">
         kubernetes 资源限制
       </a>
     </li>
@@ -3227,7 +3234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-k8s-configmap-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-k8s-configmap-docs/" class="md-nav__link">
         kubernetes 配置管理
       </a>
     </li>
@@ -3241,7 +3248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/5-kubernetes-UI-docs/" class="md-nav__link">
+      <a href="../../../basic/5-kubernetes-UI-docs/" class="md-nav__link">
         Kubernetes UI
       </a>
     </li>
@@ -3255,7 +3262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-deploy-sts-ds-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-deploy-sts-ds-docs/" class="md-nav__link">
         kubernetes 控制器
       </a>
     </li>
@@ -3269,7 +3276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/ingress-%E6%B5%81%E9%87%8F/" class="md-nav__link">
+      <a href="../../../2.k8s/network/ingress-%E6%B5%81%E9%87%8F/" class="md-nav__link">
         Ingress 流量
       </a>
     </li>
@@ -3283,7 +3290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" class="md-nav__link">
+      <a href="../../../2.k8s/network/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" class="md-nav__link">
         服务发现
       </a>
     </li>
@@ -3297,7 +3304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/gateway-api/" class="md-nav__link">
+      <a href="../../../2.k8s/network/gateway-api/" class="md-nav__link">
         Gateway API
       </a>
     </li>
@@ -3311,7 +3318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/dns-%E4%BC%98%E5%8C%96/" class="md-nav__link">
+      <a href="../../../2.k8s/network/dns-%E4%BC%98%E5%8C%96/" class="md-nav__link">
         DNS 优化
       </a>
     </li>
@@ -3325,7 +3332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/ingress-nginx/" class="md-nav__link">
+      <a href="../../../2.k8s/network/ingress-nginx/" class="md-nav__link">
         ingress-nginx
       </a>
     </li>
@@ -3339,7 +3346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/service-profiles/" class="md-nav__link">
+      <a href="../../../2.k8s/network/service-profiles/" class="md-nav__link">
         Service Profiles
       </a>
     </li>
@@ -3353,7 +3360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../network/4-network-docs.md" class="md-nav__link">
+      <a href="../../../2.k8s/network/4-network-docs.md" class="md-nav__link">
         科学上网
       </a>
     </li>
@@ -3367,7 +3374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-pv-rep/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-pv-rep/" class="md-nav__link">
         kubernetes pv/pvc简介
       </a>
     </li>
@@ -3381,7 +3388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-k8s-mon-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-k8s-mon-docs/" class="md-nav__link">
         kubernetes 监控服务
       </a>
     </li>
@@ -3395,7 +3402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-k8s-logs-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-k8s-logs-docs/" class="md-nav__link">
         kubernetes 日志管理
       </a>
     </li>
@@ -3409,7 +3416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-k8s-istio-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-k8s-istio-docs/" class="md-nav__link">
         kubernetes 服务网格
       </a>
     </li>
@@ -3423,7 +3430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ui/rancher-update-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/ui/rancher-update-docs/" class="md-nav__link">
         kubernetes Rancher 升级
       </a>
     </li>
@@ -3437,7 +3444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/7-kubernetes-update-docs/" class="md-nav__link">
+      <a href="../../../basic/7-kubernetes-update-docs/" class="md-nav__link">
         kubernetes 节点维护
       </a>
     </li>
@@ -3451,7 +3458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../other/k8s-ca-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/other/k8s-ca-docs/" class="md-nav__link">
         kubernetes 处理k8s证书过期
       </a>
     </li>
@@ -3465,7 +3472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%9E%B6%E6%9E%84/" class="md-nav__link">
         kubernete 日志架构
       </a>
     </li>
@@ -3479,7 +3486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E6%90%AD%E5%BB%BA-efk-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E6%90%AD%E5%BB%BA-efk-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
         kubernetes EFK日志系统
       </a>
     </li>
@@ -3493,7 +3500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/3.k8s/7.logging/fluentd.md" class="md-nav__link">
+      <a href="../../../docs/3.k8s/7.logging/fluentd.md" class="md-nav__link">
         kubernete 日志fluentd
       </a>
     </li>
@@ -3507,7 +3514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/loki/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/loki/" class="md-nav__link">
         kubernete Loki
       </a>
     </li>
@@ -3521,7 +3528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
         kubernetes 日志读写分离模式
       </a>
     </li>
@@ -3535,7 +3542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
         kubernetes 日志微服务模式
       </a>
     </li>
@@ -3549,7 +3556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
         kubernetes 日志配置文件
       </a>
     </li>
@@ -3563,7 +3570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/%E6%97%A5%E5%BF%97%E6%8A%A5%E8%AD%A6/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/%E6%97%A5%E5%BF%97%E6%8A%A5%E8%AD%A6/" class="md-nav__link">
         kubernetes 日志报警
       </a>
     </li>
@@ -3577,7 +3584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../7.logging/logql/" class="md-nav__link">
+      <a href="../../../2.k8s/7.logging/logql/" class="md-nav__link">
         kubernetes 日志 Logql
       </a>
     </li>
@@ -3591,7 +3598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ansible-install-k8s-docs.md" class="md-nav__link">
+      <a href="../../../2.k8s/ansible-install-k8s-docs.md" class="md-nav__link">
         kubernetes 自动化安装
       </a>
     </li>
@@ -3605,7 +3612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-02-20-4-ansible-install-k8s/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-02-20-4-ansible-install-k8s/" class="md-nav__link">
         kubernetes 项目一
       </a>
     </li>
@@ -3619,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../basic/9-install-keepalived-cluster/" class="md-nav__link">
+      <a href="../../../basic/9-install-keepalived-cluster/" class="md-nav__link">
         kubernetes 项目二
       </a>
     </li>
@@ -3665,7 +3672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cert-manager/1-2025-03-29-cert-manager-install-doc/" class="md-nav__link">
+      <a href="../../../2.k8s/cert-manager/1-2025-03-29-cert-manager-install-doc/" class="md-nav__link">
         kubernetes Cert-manager 安装
       </a>
     </li>
@@ -3718,7 +3725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../calico/5-2025-04-07-calico-FAQ-doc/" class="md-nav__link">
+      <a href="../../../2.k8s/calico/5-2025-04-07-calico-FAQ-doc/" class="md-nav__link">
         kubernetes calico 网络管理containerd 运行时导致的 calico  driver 无法启动FAQ
       </a>
     </li>
@@ -3773,7 +3780,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cks/cka/" class="md-nav__link">
+      <a href="../../../2.k8s/cks/cka/" class="md-nav__link">
         kubernetes CKA考题
       </a>
     </li>
@@ -3787,7 +3794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cks/cks/" class="md-nav__link">
+      <a href="../../../2.k8s/cks/cks/" class="md-nav__link">
         kubernetes CKS考题
       </a>
     </li>
@@ -3846,7 +3853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Helm/0-2025-3-21-helm-install-doc.md" class="md-nav__link">
+      <a href="../../../2.k8s/Helm/0-2025-3-21-helm-install-doc.md" class="md-nav__link">
         kubernetes Helm 实践
       </a>
     </li>
@@ -3860,7 +3867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Helm/1-2025-3-21-helm-cli-doc.md" class="md-nav__link">
+      <a href="../../../2.k8s/Helm/1-2025-3-21-helm-cli-doc.md" class="md-nav__link">
         kubernetes Helm CLI
       </a>
     </li>
@@ -3874,7 +3881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Helm/2-2025-3-21-helm-chart-doc.md" class="md-nav__link">
+      <a href="../../../2.k8s/Helm/2-2025-3-21-helm-chart-doc.md" class="md-nav__link">
         kubernetes Helm chart包
       </a>
     </li>
@@ -3888,7 +3895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2024-9-24-helmfile-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/2024-9-24-helmfile-docs/" class="md-nav__link">
         kubernetes Helmfile 文件
       </a>
     </li>
@@ -3943,7 +3950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../k3s/1-2025-03-29-k3s-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/k3s/1-2025-03-29-k3s-docs/" class="md-nav__link">
         k3s 大纲介绍
       </a>
     </li>
@@ -3957,7 +3964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../k3s/2-2025-03-29-k3s-install-docs/" class="md-nav__link">
+      <a href="../../../2.k8s/k3s/2-2025-03-29-k3s-install-docs/" class="md-nav__link">
         k3s 边缘计算
       </a>
     </li>
@@ -4058,7 +4065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-nav__link">
+      <a href="../../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-nav__link">
         开发-基础语法
       </a>
     </li>
@@ -4072,7 +4079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/python/2024-02-20-2-python-interaction-doc/" class="md-nav__link">
+      <a href="../../../3.develop/python/2024-02-20-2-python-interaction-doc/" class="md-nav__link">
         开发-用户交互
       </a>
     </li>
@@ -4086,7 +4093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/python/2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
+      <a href="../../../3.develop/python/2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
         pip-离线安装软件包
       </a>
     </li>
@@ -4100,7 +4107,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/python/2024-02-21-4-python-module-doc/" class="md-nav__link">
+      <a href="../../../3.develop/python/2024-02-21-4-python-module-doc/" class="md-nav__link">
         模块
       </a>
     </li>
@@ -4114,7 +4121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/python/2025-03-27-5-python-poetry-doc/" class="md-nav__link">
+      <a href="../../../3.develop/python/2025-03-27-5-python-poetry-doc/" class="md-nav__link">
         Poetry 环境配置
       </a>
     </li>
@@ -4169,7 +4176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/go/2024-02-20-1-go-base-doc/" class="md-nav__link">
+      <a href="../../../3.develop/go/2024-02-20-1-go-base-doc/" class="md-nav__link">
         开发-环境安装
       </a>
     </li>
@@ -4183,7 +4190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../3.develop/go/2024-02-20-2-go-operator-doc/" class="md-nav__link">
+      <a href="../../../3.develop/go/2024-02-20-2-go-operator-doc/" class="md-nav__link">
         开发-操作符和表达式
       </a>
     </li>
@@ -4210,12 +4217,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
@@ -4242,14 +4251,16 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" data-md-state="indeterminate" type="checkbox" id="__nav_6_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" checked>
       
       
       
@@ -4284,7 +4295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/mysql/2024-02-20-1-mysql-base-doc/" class="md-nav__link">
+      <a href="../2024-02-20-1-mysql-base-doc/" class="md-nav__link">
         基础配置
       </a>
     </li>
@@ -4298,7 +4309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/mysql/2024-02-20-2-mysql-operator-doc/" class="md-nav__link">
+      <a href="../2024-02-20-2-mysql-operator-doc/" class="md-nav__link">
         Operator 部署
       </a>
     </li>
@@ -4312,7 +4323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/mysql/2024-02-20-3-mysql-backup-doc/" class="md-nav__link">
+      <a href="../2024-02-20-3-mysql-backup-doc/" class="md-nav__link">
         备份恢复
       </a>
     </li>
@@ -4324,11 +4335,175 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../4.database/mysql/4-2025-04-09-mysql-port-forward-doc/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          客户端通过port-forward连接mysql-server
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         客户端通过port-forward连接mysql-server
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-port-forward" class="md-nav__link">
+    1. 什么是 Port-Forward
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 前置条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-port-forward" class="md-nav__link">
+    3. 建立 Port-Forward 连接
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 建立 Port-Forward 连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 基本命令格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 实际示例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 保持连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-mysql" class="md-nav__link">
+    4. 连接 MySQL 服务器
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 连接 MySQL 服务器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mysql" class="md-nav__link">
+    4.1 使用 MySQL 客户端连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 使用图形化工具连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 常见问题解决
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 常见问题解决">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 连接被拒绝
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 端口已被占用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 连接超时
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 安全注意事项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 最佳实践
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8. 参考文档
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4340,7 +4515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/mysql/2024-02-20-4-mysql-backup-error-doc/" class="md-nav__link">
+      <a href="../2024-02-20-4-mysql-backup-error-doc/" class="md-nav__link">
         问题处理
       </a>
     </li>
@@ -4399,7 +4574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/redis/2024-02-20-1-redis-outline-doc/" class="md-nav__link">
+      <a href="../../redis/2024-02-20-1-redis-outline-doc/" class="md-nav__link">
         大纲
       </a>
     </li>
@@ -4413,7 +4588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/redis/2024-02-20-2-redis-persistence-doc/" class="md-nav__link">
+      <a href="../../redis/2024-02-20-2-redis-persistence-doc/" class="md-nav__link">
         持久化
       </a>
     </li>
@@ -4427,7 +4602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/redis/2024-02-20-3-redis-cluster-doc/" class="md-nav__link">
+      <a href="../../redis/2024-02-20-3-redis-cluster-doc/" class="md-nav__link">
         集群
       </a>
     </li>
@@ -4441,7 +4616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../4.database/redis/2024-02-20-4-redis-base-doc/" class="md-nav__link">
+      <a href="../../redis/2024-02-20-4-redis-base-doc/" class="md-nav__link">
         基础
       </a>
     </li>
@@ -4534,7 +4709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-nav__link">
         存储分类
       </a>
     </li>
@@ -4548,7 +4723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-ceph-base/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-ceph-base/" class="md-nav__link">
         ceph 基础
       </a>
     </li>
@@ -4562,7 +4737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-03-05-rook-ceph/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-03-05-rook-ceph/" class="md-nav__link">
         ceph 分布式存储
       </a>
     </li>
@@ -4576,7 +4751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-rbd-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-rbd-docs/" class="md-nav__link">
         ceph RBD使用
       </a>
     </li>
@@ -4590,7 +4765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-cephfs-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-cephfs-docs/" class="md-nav__link">
         ceph 文件系统使用
       </a>
     </li>
@@ -4604,7 +4779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-ceph-cli-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-ceph-cli-docs/" class="md-nav__link">
         ceph 命令用法
       </a>
     </li>
@@ -4618,7 +4793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-osd/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-osd/" class="md-nav__link">
         ceph 性能测试
       </a>
     </li>
@@ -4632,7 +4807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-ceph-bucket/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-ceph-bucket/" class="md-nav__link">
         ceph 对象存储
       </a>
     </li>
@@ -4646,7 +4821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-s3-client-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-s3-client-docs/" class="md-nav__link">
         ceph s3cmd管理
       </a>
     </li>
@@ -4660,7 +4835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-5-dev-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-5-dev-docs/" class="md-nav__link">
         ceph 存储修复
       </a>
     </li>
@@ -4674,7 +4849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-expand-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-expand-docs/" class="md-nav__link">
         ceph 存储扩容
       </a>
     </li>
@@ -4688,7 +4863,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-ceph-tools/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-ceph-tools/" class="md-nav__link">
         ceph 外部环境连接集群
       </a>
     </li>
@@ -4702,7 +4877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-clean-ceph-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-clean-ceph-docs/" class="md-nav__link">
         ceph 集群清理
       </a>
     </li>
@@ -4716,7 +4891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-ceph-error/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-ceph-error/" class="md-nav__link">
         ceph 错误指南
       </a>
     </li>
@@ -4730,7 +4905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-6-ceph-crush-docs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-6-ceph-crush-docs/" class="md-nav__link">
         ceph 高级参数
       </a>
     </li>
@@ -4744,7 +4919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-03-05-Juicefs/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-03-05-Juicefs/" class="md-nav__link">
         Juicefs存储方案
       </a>
     </li>
@@ -4758,7 +4933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/2024-02-20-juicefs-update/" class="md-nav__link">
+      <a href="../../../5.Storage/2024-02-20-juicefs-update/" class="md-nav__link">
         Juicefs版本升级
       </a>
     </li>
@@ -4804,7 +4979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../5.Storage/rook-ceph/1-2024-04-08-rook-ceph-crd-doc/" class="md-nav__link">
+      <a href="../../../5.Storage/rook-ceph/1-2024-04-08-rook-ceph-crd-doc/" class="md-nav__link">
         rook-ceph CRD 详细说明
       </a>
     </li>
@@ -4877,7 +5052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/2024-9-26-Git-docs/" class="md-nav__link">
+      <a href="../../../6.Devops/2024-9-26-Git-docs/" class="md-nav__link">
         Git Commit 问题
       </a>
     </li>
@@ -4891,7 +5066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/2025-3-21-Gitignore-doc/" class="md-nav__link">
+      <a href="../../../6.Devops/2025-3-21-Gitignore-doc/" class="md-nav__link">
         Gitignore 特定文件忽略
       </a>
     </li>
@@ -4905,7 +5080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/2024-10-10-Github-rsync-Gitee/" class="md-nav__link">
+      <a href="../../../6.Devops/2024-10-10-Github-rsync-Gitee/" class="md-nav__link">
         Github Rysnc 同步 Gitee
       </a>
     </li>
@@ -4919,7 +5094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/2025-3-31-Git-rebase-error-docs.md" class="md-nav__link">
+      <a href="../../../6.Devops/2025-3-31-Git-rebase-error-docs.md" class="md-nav__link">
         Git rebase报错指南
       </a>
     </li>
@@ -4933,7 +5108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/github/" class="md-nav__link">
+      <a href="../../../6.Devops/github/" class="md-nav__link">
         Github
       </a>
     </li>
@@ -4947,7 +5122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/4-github-gitee-doc/" class="md-nav__link">
+      <a href="../../../6.Devops/4-github-gitee-doc/" class="md-nav__link">
         Github仓库同步至Gitee
       </a>
     </li>
@@ -4961,7 +5136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../6.Devops/3-github-docs/" class="md-nav__link">
+      <a href="../../../6.Devops/3-github-docs/" class="md-nav__link">
         Google 浏览器扩展
       </a>
     </li>
@@ -4975,7 +5150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Devops/2025-3-27-conda-libmamba-solver-error-solution.md" class="md-nav__link">
+      <a href="../../../Devops/2025-3-27-conda-libmamba-solver-error-solution.md" class="md-nav__link">
         Conda conda-libmamba-solver Bug 修复
       </a>
     </li>
@@ -5029,7 +5204,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-nav__link">
+      <a href="../../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-nav__link">
         Http 协议
       </a>
     </li>
@@ -5043,7 +5218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../7.Web/nginx/2025-3-27-certbot_ssl_doc/" class="md-nav__link">
+      <a href="../../../7.Web/nginx/2025-3-27-certbot_ssl_doc/" class="md-nav__link">
         Nginx 配置Cerbot
       </a>
     </li>
@@ -5101,7 +5276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.Ansible/2024-02-20-ansible-case1/" class="md-nav__link">
+      <a href="../../../8.Ansible/2024-02-20-ansible-case1/" class="md-nav__link">
         Ansible 应用基础
       </a>
     </li>
@@ -5115,7 +5290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.Ansible/2024-02-20-ansible-docs2/" class="md-nav__link">
+      <a href="../../../8.Ansible/2024-02-20-ansible-docs2/" class="md-nav__link">
         Ansible 高级用法
       </a>
     </li>
@@ -5129,7 +5304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.Ansible/2024-02-20-ansible-install-docs/" class="md-nav__link">
+      <a href="../../../8.Ansible/2024-02-20-ansible-install-docs/" class="md-nav__link">
         Ansible 安装
       </a>
     </li>
@@ -5143,7 +5318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../8.Ansible/2024-02-20-ansible-playbook/" class="md-nav__link">
+      <a href="../../../8.Ansible/2024-02-20-ansible-playbook/" class="md-nav__link">
         Ansible playbook
       </a>
     </li>
@@ -5243,7 +5418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-nav__link">
+      <a href="../../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-nav__link">
         kubeconfig 实践应用
       </a>
     </li>
@@ -5257,7 +5432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/2-2025-03-29-mac-k9s-doc/" class="md-nav__link">
+      <a href="../../../9.other/Macos/2-2025-03-29-mac-k9s-doc/" class="md-nav__link">
         k9s 实践应用
       </a>
     </li>
@@ -5271,7 +5446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/3-2025-03-29-mac-usb-system-doc/" class="md-nav__link">
+      <a href="../../../9.other/Macos/3-2025-03-29-mac-usb-system-doc/" class="md-nav__link">
         Mac 制作ubuntu系统盘
       </a>
     </li>
@@ -5285,7 +5460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/4-2025-03-29-mac-vscode-doc/" class="md-nav__link">
+      <a href="../../../9.other/Macos/4-2025-03-29-mac-vscode-doc/" class="md-nav__link">
         Mac vscode使用技巧
       </a>
     </li>
@@ -5299,7 +5474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/5-2025-03-27-mac-vscode-ssh-plugin-doc/" class="md-nav__link">
+      <a href="../../../9.other/Macos/5-2025-03-27-mac-vscode-ssh-plugin-doc/" class="md-nav__link">
         Mac vscode ssh插件使用技巧
       </a>
     </li>
@@ -5313,7 +5488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Macos/6-2024-02-20-mac-mkdocs-docs/" class="md-nav__link">
+      <a href="../../../9.other/Macos/6-2024-02-20-mac-mkdocs-docs/" class="md-nav__link">
         如何利用Mac 写博客文章
       </a>
     </li>
@@ -5366,7 +5541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/Opsdaily/1-2025-03-27-ops-screen-docs/" class="md-nav__link">
+      <a href="../../../9.other/Opsdaily/1-2025-03-27-ops-screen-docs/" class="md-nav__link">
         (第一期：)screen 使用技巧
       </a>
     </li>
@@ -5423,7 +5598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/2024-03-07-office-docs/" class="md-nav__link">
+      <a href="../../../9.other/2024-03-07-office-docs/" class="md-nav__link">
         正版Office全家桶永久免费使用
       </a>
     </li>
@@ -5437,7 +5612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/2024-02-20-google-docs/" class="md-nav__link">
+      <a href="../../../9.other/2024-02-20-google-docs/" class="md-nav__link">
         高效利用谷歌来搜索
       </a>
     </li>
@@ -5451,7 +5626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/2024-02-20-discord-docs/" class="md-nav__link">
+      <a href="../../../9.other/2024-02-20-discord-docs/" class="md-nav__link">
         Discord 新手教程
       </a>
     </li>
@@ -5504,7 +5679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../9.other/2025-03-27-usb-wifi-doc/" class="md-nav__link">
+      <a href="../../../9.other/2025-03-27-usb-wifi-doc/" class="md-nav__link">
         Ubuntu-USB 无线无线网卡使用说明书
       </a>
     </li>
@@ -5609,7 +5784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-nav__link">
         Cursor 使用技巧
       </a>
     </li>
@@ -5623,7 +5798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/cursor/2024-02-27-cursor-model-performance/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-model-performance/" class="md-nav__link">
         Cursor 模型性能排行
       </a>
     </li>
@@ -5684,7 +5859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL/" class="md-nav__link">
         vLLM 部署 Qwen2.5-VL
       </a>
     </li>
@@ -5698,7 +5873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL-72B/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL-72B/" class="md-nav__link">
         vLLM 部署 Qwen2.5-VL-72B
       </a>
     </li>
@@ -5712,7 +5887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/vllm/2024-03-13-vllm-docs-2/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/vllm/2024-03-13-vllm-docs-2/" class="md-nav__link">
         vLLM 模型启动参数
       </a>
     </li>
@@ -5726,7 +5901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/vllm/2024-02-28-vllm-chatglm3-6b-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/vllm/2024-02-28-vllm-chatglm3-6b-doc/" class="md-nav__link">
         vLLM 部署 ChatGLM3-6B
       </a>
     </li>
@@ -5740,7 +5915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/vllm/2024-02-28-vllm-docs/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/vllm/2024-02-28-vllm-docs/" class="md-nav__link">
         vLLM 基础文档
       </a>
     </li>
@@ -5801,7 +5976,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/nvidia/Nvidia-gpu-compare/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-gpu-compare/" class="md-nav__link">
         NVIDIA显卡对比
       </a>
     </li>
@@ -5815,7 +5990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/nvidia/fake-gpu-operator-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/nvidia/fake-gpu-operator-doc/" class="md-nav__link">
         fake-gpu-operator
       </a>
     </li>
@@ -5829,7 +6004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/nvidia/Nvidia-k8s-rdma/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-k8s-rdma/" class="md-nav__link">
         RDMA在Kubernetes中的应用
       </a>
     </li>
@@ -5843,7 +6018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/nvidia/Nvidia-drive/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-drive/" class="md-nav__link">
         NVIDIA驱动安装
       </a>
     </li>
@@ -5857,7 +6032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/nvidia/LiteLLM-Proxy-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/nvidia/LiteLLM-Proxy-doc/" class="md-nav__link">
         LiteLLM-Proxy
       </a>
     </li>
@@ -5914,7 +6089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-docs/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-docs/" class="md-nav__link">
         注册chatgpt
       </a>
     </li>
@@ -5928,7 +6103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-pulgin-docs/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-pulgin-docs/" class="md-nav__link">
         ChatGPT插件使用
       </a>
     </li>
@@ -5942,7 +6117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/chatgpt/2024-02-20-gpts-docs/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-gpts-docs/" class="md-nav__link">
         如何使用Chatgpt来制作专属gpt
       </a>
     </li>
@@ -6009,7 +6184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/2-2024-03-27-wan-openbayes-deploy.md" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/2-2024-03-27-wan-openbayes-deploy.md" class="md-nav__link">
         OpenBayes部署
       </a>
     </li>
@@ -6023,7 +6198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/1-2025-03-29-tju-gpu-error-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/1-2025-03-29-tju-gpu-error-FAQ-doc/" class="md-nav__link">
         Openbayes 天津大学GPU异常FAQ
       </a>
     </li>
@@ -6037,7 +6212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/2-2025-03-29-tju-gpu-ps-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/2-2025-03-29-tju-gpu-ps-FAQ-doc/" class="md-nav__link">
         Openbayes GPU异常图文FAQ
       </a>
     </li>
@@ -6051,7 +6226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/3-2025-03-29-dev-cluster-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/3-2025-03-29-dev-cluster-FAQ-doc/" class="md-nav__link">
         Openbayes Dev环境集群FAQ
       </a>
     </li>
@@ -6065,7 +6240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/4-2025-03-29-delete-prometheus-db-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/4-2025-03-29-delete-prometheus-db-FAQ-doc/" class="md-nav__link">
         Openbayes 误删除监控数据FAQ
       </a>
     </li>
@@ -6079,7 +6254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/5-2025-03-29-kubernetes-pvc-ubound-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/5-2025-03-29-kubernetes-pvc-ubound-FAQ-doc/" class="md-nav__link">
         Openbayes Kubernetes pvc ubound FAQ
       </a>
     </li>
@@ -6093,7 +6268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/6-2025-03-29-dns-file-permission-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/6-2025-03-29-dns-file-permission-FAQ-doc/" class="md-nav__link">
         Openbayes dns 文件权限调整FAQ
       </a>
     </li>
@@ -6107,7 +6282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/openbayes/7-2025-03-29-osd-disk-expansion-FAQ-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/openbayes/7-2025-03-29-osd-disk-expansion-FAQ-doc/" class="md-nav__link">
         Openbayes osd 磁盘扩容FAQ
       </a>
     </li>
@@ -6162,7 +6337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/Langfuse/2024-03-17-langfuse-deployment-guide/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/Langfuse/2024-03-17-langfuse-deployment-guide/" class="md-nav__link">
         Langfuse部署指南
       </a>
     </li>
@@ -6176,7 +6351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/Langfuse/2024-03-14-opentelemetry-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/Langfuse/2024-03-14-opentelemetry-doc/" class="md-nav__link">
         OpenTelemetry文档
       </a>
     </li>
@@ -6229,7 +6404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../10.Ai-tools/2024-03-06-mj-doc/" class="md-nav__link">
+      <a href="../../../10.Ai-tools/2024-03-06-mj-doc/" class="md-nav__link">
         Midjourney文档
       </a>
     </li>
@@ -6298,7 +6473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2024-9-24-myblog-life-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2024-9-24-myblog-life-docs/" class="md-nav__link">
         我的博客
       </a>
     </li>
@@ -6312,7 +6487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2021-life-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2021-life-docs/" class="md-nav__link">
         我的2021
       </a>
     </li>
@@ -6326,7 +6501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2022-life-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2022-life-docs/" class="md-nav__link">
         我的2022
       </a>
     </li>
@@ -6340,7 +6515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2023-life-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2023-life-docs/" class="md-nav__link">
         我的2023
       </a>
     </li>
@@ -6354,7 +6529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2024-life-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2024-life-docs/" class="md-nav__link">
         我的2024
       </a>
     </li>
@@ -6368,7 +6543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../20.mylife/2025-learning-docs/" class="md-nav__link">
+      <a href="../../../20.mylife/2025-learning-docs/" class="md-nav__link">
         我的学习
       </a>
     </li>
@@ -6389,19 +6564,296 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-port-forward" class="md-nav__link">
+    1. 什么是 Port-Forward
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 前置条件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-port-forward" class="md-nav__link">
+    3. 建立 Port-Forward 连接
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 建立 Port-Forward 连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 基本命令格式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 实际示例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 保持连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-mysql" class="md-nav__link">
+    4. 连接 MySQL 服务器
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 连接 MySQL 服务器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mysql" class="md-nav__link">
+    4.1 使用 MySQL 客户端连接
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 使用图形化工具连接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 常见问题解决
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 常见问题解决">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 连接被拒绝
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 端口已被占用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 连接超时
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 安全注意事项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 最佳实践
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8. 参考文档
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/2.k8s/2024-03-10-kubeadm-doc.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/4.database/mysql/4-2025-04-09-mysql-port-forward-doc.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-  <h1>2024 03 10 kubeadm doc</h1>
+<h1 id="port-forward-mysql">通过 Port-Forward 连接 MySQL 服务器指南<a class="headerlink" href="#port-forward-mysql" title="Permanent link">&para;</a></h1>
+<h2 id="1-port-forward"><strong>1. 什么是 Port-Forward</strong><a class="headerlink" href="#1-port-forward" title="Permanent link">&para;</a></h2>
+<p>Port-Forward（端口转发）是一种网络技术，允许将本地计算机的端口转发到远程服务器上的特定端口。在 Kubernetes 环境中，这通常用于访问集群内的服务，如 MySQL 数据库。</p>
+<h2 id="2"><strong>2. 前置条件</strong><a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>已安装 kubectl 命令行工具</li>
+<li>具有访问 Kubernetes 集群的权限</li>
+<li>知道 MySQL 服务在集群中的名称和命名空间</li>
+<li>本地已安装 MySQL 客户端工具</li>
+</ul>
+<h2 id="3-port-forward"><strong>3. 建立 Port-Forward 连接</strong><a class="headerlink" href="#3-port-forward" title="Permanent link">&para;</a></h2>
+<h3 id="31"><strong>3.1 基本命令格式</strong><a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>&lt;service-name&gt;<span class="w"> </span>&lt;local-port&gt;:&lt;remote-port&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+</code></pre></div>
+<h3 id="32"><strong>3.2 实际示例</strong><a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将本地 3306 端口转发到 MySQL 服务的 3306 端口</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/mysql<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
+</code></pre></div>
+<h3 id="33"><strong>3.3 保持连接</strong><a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在后台运行 port-forward</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/mysql<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>-n<span class="w"> </span>mysql-namespace<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h2 id="4-mysql"><strong>4. 连接 MySQL 服务器</strong><a class="headerlink" href="#4-mysql" title="Permanent link">&para;</a></h2>
+<h3 id="41-mysql"><strong>4.1 使用 MySQL 客户端连接</strong><a class="headerlink" href="#41-mysql" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用本地 MySQL 客户端连接</span>
+mysql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span><span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p
+</code></pre></div>
+<h3 id="42"><strong>4.2 使用图形化工具连接</strong><a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p><img alt="20250409174055" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20250409174055.png" /></p>
+<h2 id="5"><strong>5. 常见问题解决</strong><a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51"><strong>5.1 连接被拒绝</strong><a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查 MySQL 服务状态</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
 
+<span class="c1"># 查看服务日志</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;mysql-pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
+</code></pre></div>
+<h3 id="52"><strong>5.2 端口已被占用</strong><a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查本地端口占用</span>
+lsof<span class="w"> </span>-i<span class="w"> </span>:3306
 
+<span class="c1"># 使用其他本地端口</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/mysql<span class="w"> </span><span class="m">3307</span>:3306<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
+</code></pre></div>
+<h3 id="53"><strong>5.3 连接超时</strong><a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查网络连接</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>mysql<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
+
+<span class="c1"># 验证服务是否可访问</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;mysql-pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>mysql-namespace<span class="w"> </span>--<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+<h2 id="6"><strong>6. 安全注意事项</strong><a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>使用强密码</strong></li>
+<li>确保使用复杂的密码</li>
+<li>
+<p>定期更换密码</p>
+</li>
+<li>
+<p><strong>限制访问</strong></p>
+</li>
+<li>只允许必要的 IP 地址访问</li>
+<li>
+<p>使用网络策略限制访问范围</p>
+</li>
+<li>
+<p><strong>加密连接</strong></p>
+</li>
+<li>使用 SSL/TLS 加密连接</li>
+<li>
+<p>验证证书有效性</p>
+</li>
+<li>
+<p><strong>监控连接</strong></p>
+</li>
+<li>记录连接日志</li>
+<li>设置连接超时</li>
+</ol>
+<h2 id="7"><strong>7. 最佳实践</strong><a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>使用配置文件</strong>
+   <div class="highlight"><pre><span></span><code><span class="c1"># 创建 port-forward 配置文件</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>mysql-port-forward.yaml<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">apiVersion: v1</span>
+<span class="s">kind: Service</span>
+<span class="s">metadata:</span>
+<span class="s">  name: mysql-port-forward</span>
+<span class="s">  namespace: mysql-namespace</span>
+<span class="s">spec:</span>
+<span class="s">  ports:</span>
+<span class="s">  - port: 3306</span>
+<span class="s">    targetPort: 3306</span>
+<span class="s">  selector:</span>
+<span class="s">    app: mysql</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>自动化脚本</strong>
+   <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># 自动建立 port-forward 连接</span>
+kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/mysql<span class="w"> </span><span class="m">3306</span>:3306<span class="w"> </span>-n<span class="w"> </span>mysql-namespace<span class="w"> </span><span class="p">&amp;</span>
+sleep<span class="w"> </span><span class="m">2</span>
+mysql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-P<span class="w"> </span><span class="m">3306</span><span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>错误处理</strong>
+   <div class="highlight"><pre><span></span><code><span class="c1"># 检查 port-forward 状态</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>mysql-namespace<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>port-forward
+
+<span class="c1"># 重启失败的 port-forward</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>&lt;port-forward-pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>mysql-namespace
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="8"><strong>8. 参考文档</strong><a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/">Kubernetes Port-Forward 官方文档</a></li>
+<li><a href="https://dev.mysql.com/doc/">MySQL 官方文档</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">Kubernetes 网络策略</a></li>
+<li><a href="https://www.beekeeperstudio.io/">beekeeperstudio图形化工具</a></li>
+</ul>
 
               
             </article>
@@ -6416,6 +6868,41 @@
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../2024-02-20-3-mysql-backup-doc/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 备份恢复" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              备份恢复
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../2024-02-20-4-mysql-backup-error-doc/" class="md-footer__link md-footer__link--next" aria-label="下一页: 问题处理" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              问题处理
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -6481,14 +6968,14 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.instant.prefetch", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.01824240.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.instant.prefetch", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.01824240.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e8a254df.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e8a254df.min.js"></script>
       
-        <script src="../../js/extra.js"></script>
+        <script src="../../../js/extra.js"></script>
       
-        <script src="../../js/baidu-tongji.js"></script>
+        <script src="../../../js/baidu-tongji.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
       

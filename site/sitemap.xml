@@ -1096,26 +1096,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/2.k8s/mysql-operator/0-mysql-docs/</loc>
-         <lastmod>2025-04-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/2.k8s/mysql-operator/1-install-mysql-operator/</loc>
-         <lastmod>2025-04-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/2.k8s/mysql-operator/2-mysql-backup-docs/</loc>
-         <lastmod>2025-04-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://barry-boy.github.io/2.k8s/mysql-operator/3-mysql-backup-error-docs/</loc>
-         <lastmod>2025-04-09</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/2.k8s/network/apisix/</loc>
          <lastmod>2025-04-09</lastmod>
          <changefreq>daily</changefreq>
@@ -1282,6 +1262,11 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/4.database/mysql/2024-02-20-4-mysql-backup-error-doc/</loc>
+         <lastmod>2025-04-09</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/4.database/mysql/4-2025-04-09-mysql-port-forward-doc/</loc>
          <lastmod>2025-04-09</lastmod>
          <changefreq>daily</changefreq>
     </url>
