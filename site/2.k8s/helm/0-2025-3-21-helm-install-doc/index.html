@@ -12,14 +12,14 @@
         <meta name="author" content="Li">
       
       
-        <link rel="canonical" href="https://barry-boy.github.io/2.k8s/helm/0-2025-3-21-helm-install-doc/">
+        <link rel="canonical" href="https://barry-boy.github.io/2.k8s/Helm/0-2025-3-21-helm-install-doc/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.0.0">
     
     
       
-        <title>Helm - Kubernetes 进阶训练营</title>
+        <title>kubernetes Helm 实践 - Kubernetes 进阶训练营</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Helm
+              kubernetes Helm 实践
             
           </span>
         </div>
@@ -246,13 +246,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../basic/cncf-docs/" class="md-tabs__link">
+      <a href="../../../basic/cncf-docs/" class="md-tabs__link md-tabs__link--active">
         2、kubernetes
       </a>
     </li>
@@ -2846,12 +2848,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -3811,17 +3815,21 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_51" data-md-state="indeterminate" type="checkbox" id="__nav_4_51" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_51" type="checkbox" id="__nav_4_51" checked>
       
       
       
+        
+          
         
           
         
@@ -3849,11 +3857,167 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../Helm/0-2025-3-21-helm-install-doc.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          kubernetes Helm 实践
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         kubernetes Helm 实践
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helm_1" class="md-nav__link">
+    Helm 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm_2" class="md-nav__link">
+    Helm 安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    管理配置
+  </a>
+  
+    <nav class="md-nav" aria-label="管理配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chart" class="md-nav__link">
+    **Chart国内仓库配置 **
+  </a>
+  
+    <nav class="md-nav" aria-label="**Chart国内仓库配置 **">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chart_1" class="md-nav__link">
+    添加chart存储库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    查看存储库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    删除存储库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chart_2" class="md-nav__link">
+    下载chart包
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm_3" class="md-nav__link">
+    Helm 部署应用:
+  </a>
+  
+    <nav class="md-nav" aria-label="Helm 部署应用:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#helm-traefix" class="md-nav__link">
+    Helm 部署traefix
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    查看渲染结果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#helm_4" class="md-nav__link">
+    Helm 升级回滚
+  </a>
+  
+    <nav class="md-nav" aria-label="Helm 升级回滚">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    升级
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    回滚
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3865,7 +4029,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Helm/1-2025-3-21-helm-cli-doc.md" class="md-nav__link">
+      <a href="../1-2025-3-21-helm-cli-doc/" class="md-nav__link">
         kubernetes Helm CLI
       </a>
     </li>
@@ -3879,7 +4043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Helm/2-2025-3-21-helm-chart-doc.md" class="md-nav__link">
+      <a href="../2-2025-3-21-helm-chart-doc/" class="md-nav__link">
         kubernetes Helm chart包
       </a>
     </li>
@@ -3893,7 +4057,21 @@
   
   
     <li class="md-nav__item">
-      <a href="../../2024-9-24-helmfile-docs/" class="md-nav__link">
+      <a href="../FAQ/0-2025-4-10-helm-repo-update-warning-FAQ-doc/" class="md-nav__link">
+        kubernetes Helm repo update 警告关闭FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5-2025-04-10-helmfile-docs/" class="md-nav__link">
         kubernetes Helmfile 文件
       </a>
     </li>
@@ -4269,6 +4447,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_6_1">
@@ -4333,6 +4513,20 @@
     <li class="md-nav__item">
       <a href="../../../4.database/mysql/4-2025-04-09-mysql-port-forward-doc/" class="md-nav__link">
         客户端通过port-forward连接mysql-server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/5-2025-04-10-mysql-Beekeeper-studio-doc/" class="md-nav__link">
+        Mysql 客户端 Beekeeper-studio
       </a>
     </li>
   
@@ -6547,7 +6741,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/2.k8s/helm/0-2025-3-21-helm-install-doc.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/2.k8s/Helm/0-2025-3-21-helm-install-doc.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
@@ -6700,6 +6894,41 @@ openbayes   https://dev.openbayes.com/charts
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../../cks/cks/" class="md-footer__link md-footer__link--prev" aria-label="上一页: kubernetes CKS考题" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              kubernetes CKS考题
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../1-2025-3-21-helm-cli-doc/" class="md-footer__link md-footer__link--next" aria-label="下一页: kubernetes Helm CLI" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              kubernetes Helm CLI
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
