@@ -1,5 +1,5 @@
 # 使用官方 Nginx 轻量级镜像作为基础
-FROM nginx:alpine
+FROM nginx:lastest
 
 # 移除默认的 Nginx 网站内容
 RUN rm -rf /usr/share/nginx/html/*

@@ -7,9 +7,9 @@ RANDOM_TAG=$(date +%Y%m%d%H%M%S)-$(openssl rand -hex 4)
 docker build -t nginx:${RANDOM_TAG} .
 
 # Tag the image for the target registry
-docker tag nginx:${RANDOM_TAG} uhub.service.ucloud.cn/bayes-common/nginx:${RANDOM_TAG}
+docker tag nginx:${RANDOM_TAG} uhub.service.ucloud.cn/blog/nginx:${RANDOM_TAG}
 
 # Push the image to the registry
-docker push uhub.service.ucloud.cn/bayes-common/nginx:${RANDOM_TAG}
+docker push uhub.service.ucloud.cn/blog/nginx:${RANDOM_TAG}
 
 echo "Image built and pushed with tag: ${RANDOM_TAG}"
