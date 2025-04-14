@@ -1,0 +1,7310 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Project documentation with Markdown.">
+      
+      
+        <meta name="author" content="Li">
+      
+      
+        <link rel="canonical" href="https://barry-boy.github.io/1.Linux/ekgc/1-2025-04-11-rsync-to-ceph-doc/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.0.0">
+    
+    
+      
+        <title>Linux rsync 实现ceph文件同步 - Kubernetes 进阶训练营</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ad626c1e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CUbuntu+Mono&display=fallback">
+        <style>:root{--md-text-font:"Ubuntu";--md-code-font:"Ubuntu Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+    
+    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ceph-rsync" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Kubernetes 进阶训练营" class="md-header__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
+      
+  <img src="../../../material/logo.jpg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kubernetes 进阶训练营
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux rsync 实现ceph文件同步
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换暗色主题"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="切换暗色主题" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="切换亮色主题"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="切换亮色主题" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/barry-boy/barry-boy.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../custom_home.html" class="md-tabs__link">
+      首页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-tabs__link">
+        0、网络基础
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-tabs__link md-tabs__link--active">
+        1、Linux
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../basic/cncf-docs/" class="md-tabs__link">
+        2、kubernetes
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-tabs__link">
+        3、运维开发
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../4.database/mysql/2024-02-20-1-mysql-base-doc/" class="md-tabs__link">
+        4、数据库
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-tabs__link">
+        5、存储服务
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../6.Devops/2024-9-26-Git-docs/" class="md-tabs__link">
+        6、Devops
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-tabs__link">
+        7、Web
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../8.Ansible/2024-02-20-ansible-case1/" class="md-tabs__link">
+        8、运维自动化
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-tabs__link">
+        9、其他
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-tabs__link">
+        10、Ai
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../20.mylife/2024-9-24-myblog-life-docs/" class="md-tabs__link">
+        关于我
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kubernetes 进阶训练营" class="md-nav__button md-logo" aria-label="Kubernetes 进阶训练营" data-md-component="logo">
+      
+  <img src="../../../material/logo.jpg" alt="logo">
+
+    </a>
+    Kubernetes 进阶训练营
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/barry-boy/barry-boy.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../custom_home.html" class="md-nav__link">
+        首页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          0、网络基础
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="0、网络基础" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          0、网络基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-Tcp-ip-docs/" class="md-nav__link">
+        网络 Tcp/IP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-5g-docs/" class="md-nav__link">
+        网络 思科设备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-IB-ET-docs/" class="md-nav__link">
+        网络 网卡模式调整
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-ZeroTier/" class="md-nav__link">
+        ZeroTier组网
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-frp/" class="md-nav__link">
+        frp 内网穿透
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-3-network-docs/" class="md-nav__link">
+        kubernetes 网络组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../0.Internet/2024-02-20-4-network-docs/" class="md-nav__link">
+        科学上网
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../asus/asus-docs.md" class="md-nav__link">
+        华硕服务器
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          1、Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="1、Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          1、Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" data-md-state="indeterminate" type="checkbox" id="__nav_3_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Linux 服务器验收
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux 服务器验收" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Linux 服务器验收
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/1-2025-04-03-Hardware-cpu-benchmark-report-doc/" class="md-nav__link">
+        Linux 服务器 CPU性能测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/2-2025-04-04-Hardware-memary-report-doc/" class="md-nav__link">
+        Linux 服务器 内存性能验收
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/3-2025-04-04-Hareware-disk-benchmark-report-doc/" class="md-nav__link">
+        Linux 服务器 硬盘性能验收
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/4-2025-04-04-Hardware-GPU-benchmark-report-doc/" class="md-nav__link">
+        Linux 服务器 GPU性能验收
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/5-2025-04-04-Hareware-H100-report-doc/" class="md-nav__link">
+        Linux 服务器 H100服务器验收
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/6-2025-04-04-Hardware-FAQ-disk-report-doc/" class="md-nav__link">
+        Linux 服务器 FAQ:为什么系统显示的磁盘大小会比实际小？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/7-2025-04-06-Hardware-FAQ-no-network-debug-doc/" class="md-nav__link">
+        Linux 服务器 无网络环境调试
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" data-md-state="indeterminate" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Linux系统管理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux系统管理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Linux系统管理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-kjc-doc/" class="md-nav__link">
+        Linux 云计算手册大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hardware/2024-02-20-cpu-doc/" class="md-nav__link">
+        Linux 硬件 CPU
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-bmc-doc/" class="md-nav__link">
+        Linux 带外管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-install-doc/" class="md-nav__link">
+        Linux 系统安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-03-27-linux-SM-doc-01/" class="md-nav__link">
+        Linux 系统管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2025-03-27-linux-SM-doc-02/" class="md-nav__link">
+        Linux 系统管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-mirror-doc/" class="md-nav__link">
+        Linux 国内apt源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-nvme-doc/" class="md-nav__link">
+        Linux nvme磁盘管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-parted-doc/" class="md-nav__link">
+        Linux parted磁盘管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-reboot-doc/" class="md-nav__link">
+        Linux 系统强制重启
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-disk-doc/" class="md-nav__link">
+        Linux 磁盘管理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Linux服务管理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux服务管理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Linux服务管理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ubuntu/2024-02-20-ubuntu-network-doc/" class="md-nav__link">
+        Linux 网络服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../2024-9-25-ssh-proxy-docs/" class="md-nav__link">
+        Linux SSH 转发代理实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Linux rsync 实现ceph文件同步
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Linux rsync 实现ceph文件同步
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 环境准备
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 环境准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 系统要求
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 网络配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 安装和配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装和配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 安装必要软件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ceph" class="md-nav__link">
+    2.2 Ceph 挂载配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-rsync" class="md-nav__link">
+    3. 并行 rsync 同步实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rsync" class="md-nav__link">
+    4. 如何加快 rsync 同步的速度?
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何加快 rsync 同步的速度?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    ✅ 推荐参数组合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    🚀 提速技巧讲解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    🧠 实战建议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    ✅ 推荐命令（小文件优化）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    📌 参数解释（针对小文件优化）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    🚀 额外建议(非常推荐可以加快速度)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsync" class="md-nav__link">
+    ✅ 改进版命令（并发 rsync 同步）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    ✅ 说明和优化点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    ⚠️ 注意事项
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 优化建议
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    Screen 虚拟窗口
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" data-md-state="indeterminate" type="checkbox" id="__nav_3_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          笔记-SRE运维
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="笔记-SRE运维" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          笔记-SRE运维
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/1-2025-04-04-linux-basic-introduction-doc.md" class="md-nav__link">
+        Linux基础入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/2-2025-04-04-shell-script-programming-doc.md" class="md-nav__link">
+        Shell脚本编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/3-2025-04-04-text-processing-tools-doc.md" class="md-nav__link">
+        文本处理工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/4-2025-04-04-regular-expressions-doc.md" class="md-nav__link">
+        正则表达式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/5-2025-04-04-filesystem-management-doc.md" class="md-nav__link">
+        文件系统管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/6-2025-04-04-package-management-doc.md" class="md-nav__link">
+        软件包管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/7-2025-04-04-ACL-user-group-doc/" class="md-nav__link">
+        用户和组权限管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/8-2025-04-04-process-management-doc.md" class="md-nav__link">
+        进程管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/9-2025-04-04-memory-management-doc.md" class="md-nav__link">
+        内存管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/10-2025-04-04-scheduled-tasks-doc.md" class="md-nav__link">
+        计划任务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/11-2025-04-04-network-basics-doc.md" class="md-nav__link">
+        网络基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/12-2025-04-04-network-configuration-doc.md" class="md-nav__link">
+        网络配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/13-2025-04-04-dns-service-doc.md" class="md-nav__link">
+        DNS服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/14-2025-04-04-ftp-service-doc.md" class="md-nav__link">
+        FTP服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/15-2025-04-04-nfs-service-doc.md" class="md-nav__link">
+        NFS服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/16-2025-04-04-samba-service-doc.md" class="md-nav__link">
+        Samba服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/17-2025-04-04-dhcp-service-doc.md" class="md-nav__link">
+        DHCP服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/18-2025-04-04-apache-service-doc.md" class="md-nav__link">
+        Apache服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/19-2025-04-04-nginx-service-doc.md" class="md-nav__link">
+        Nginx服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/20-2025-04-04-mysql-basics-doc.md" class="md-nav__link">
+        MySQL基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/21-2025-04-04-mysql-management-doc.md" class="md-nav__link">
+        MySQL管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/22-2025-04-04-mysql-optimization-doc.md" class="md-nav__link">
+        MySQL优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/23-2025-04-04-mysql-backup-recovery-doc.md" class="md-nav__link">
+        MySQL备份恢复
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/24-2025-04-04-mysql-master-slave-doc.md" class="md-nav__link">
+        MySQL主从复制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/25-2025-04-04-mysql-high-availability-doc.md" class="md-nav__link">
+        MySQL高可用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/26-2025-04-04-lvs-load-balancing-doc.md" class="md-nav__link">
+        LVS负载均衡
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/27-2025-04-04-keepalived-ha-doc.md" class="md-nav__link">
+        Keepalived高可用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/28-2025-04-04-haproxy-load-balancing-doc.md" class="md-nav__link">
+        HAProxy负载均衡
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/29-2025-04-04-shell-advanced-programming-doc.md" class="md-nav__link">
+        Shell高级编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/30-2025-04-04-python-basics-doc.md" class="md-nav__link">
+        Python基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/31-2025-04-04-python-advanced-doc.md" class="md-nav__link">
+        Python进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/32-2025-04-04-python-network-programming-doc.md" class="md-nav__link">
+        Python网络编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/33-2025-04-04-python-web-development-doc.md" class="md-nav__link">
+        Python Web开发
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/34-2025-04-04-django-framework-doc.md" class="md-nav__link">
+        Django框架
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/35-2025-04-04-devops-platform-development-doc.md" class="md-nav__link">
+        运维平台开发
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/36-2025-04-04-jenkins-ci-doc.md" class="md-nav__link">
+        Jenkins持续集成
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/37-2025-04-04-git-version-control-doc.md" class="md-nav__link">
+        Git版本控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/38-2025-04-04-docker-container-tech-doc.md" class="md-nav__link">
+        Docker容器技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/39-2025-04-04-kubernetes-basics-doc.md" class="md-nav__link">
+        Kubernetes基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/40-2025-04-04-elk-log-analysis-doc.md" class="md-nav__link">
+        ELK日志分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/41-2025-04-04-prometheus-monitoring-doc.md" class="md-nav__link">
+        Prometheus监控
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/42-2025-04-04-redis-caching-tech-doc.md" class="md-nav__link">
+        Redis缓存技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/43-2025-04-04-redis-master-slave-recovery-doc/" class="md-nav__link">
+        Redis主从复制故障恢复
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/44-2025-04-04-redis-data-migration-cluster-doc/" class="md-nav__link">
+        Redis数据迁移与集群
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/45-2025-04-04-zabbix-enterprise-monitor1-doc/" class="md-nav__link">
+        Zabbix分布式监控(一)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE/46-2025-04-04-zabbix-enterprise-monitor2-doc/" class="md-nav__link">
+        Zabbix分布式监控(二)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" data-md-state="indeterminate" type="checkbox" id="__nav_3_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          笔记-SRE-CTO
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="笔记-SRE-CTO" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          笔记-SRE-CTO
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/01-2025-04-04-nginx-basic-introduction-doc/" class="md-nav__link">
+        Nginx基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/02-2025-04-04-haproxy-basic-introduction-doc/" class="md-nav__link">
+        HAProxy基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/03-2025-04-04-keepalived-basic-introduction-doc/" class="md-nav__link">
+        Keepalived基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/04-2025-04-04-kvm-virtualization-doc/" class="md-nav__link">
+        KVM虚拟化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/05-2025-04-04-vmware-vsphere-introduction-doc/" class="md-nav__link">
+        VMware vSphere
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/06-2025-04-04-docker-container-doc/" class="md-nav__link">
+        Docker容器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/07-2025-04-04-jumpserver-introduction-doc/" class="md-nav__link">
+        JumpServer跳板机
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/08-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
+        Kubernetes基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/09-2025-04-04-redis-distributed-storage-doc/" class="md-nav__link">
+        Redis分布式存储
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/10-2025-04-04-zabbix-distributed-monitor-doc/" class="md-nav__link">
+        Zabbix分布式监控
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/11-2025-04-04-jenkins-gitlab-cicd-doc/" class="md-nav__link">
+        Jenkins与GitLab CI/CD
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/12-2025-04-04-message-queue-microservice-doc/" class="md-nav__link">
+        消息队列与微服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/13-2025-04-04-elk-log-collection-doc/" class="md-nav__link">
+        ELK日志收集
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/14-2025-04-04-ceph-distributed-storage-doc/" class="md-nav__link">
+        Ceph分布式存储
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/15-2025-04-04-interview-notes-questions-doc/" class="md-nav__link">
+        面试注意事项
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/16-2025-04-04-kubernetes-production-cases-doc/" class="md-nav__link">
+        Kubernetes生产案例
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-SRE-CTO/17-2025-04-04-aliyun-cloud-platform-doc/" class="md-nav__link">
+        阿里云平台
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" data-md-state="indeterminate" type="checkbox" id="__nav_3_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6">
+          笔记-云原生
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="笔记-云原生" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          笔记-云原生
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/01-2025-04-04-computer-basics-doc/" class="md-nav__link">
+        计算机基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/02-2025-04-04-basic-regular-expression-doc/" class="md-nav__link">
+        基本正则表达式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/03-2025-04-04-docker-practice1-doc/" class="md-nav__link">
+        Docker实践(一)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/04-2025-04-04-docker-practice2-doc/" class="md-nav__link">
+        Docker实践(二)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/05-2025-04-04-docker-practice3-doc/" class="md-nav__link">
+        Docker实践(三)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/06-2025-04-04-docker-compose-examples-doc/" class="md-nav__link">
+        Docker-Compose示例
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/07-2025-04-04-docker-practice4-doc/" class="md-nav__link">
+        Docker实践(四)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/08-2025-04-04-docker-practice5-doc/" class="md-nav__link">
+        Docker实践(五)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/09-2025-04-04-docker-basic-doc/" class="md-nav__link">
+        Docker基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/10-2025-04-04-docker-k8s-integration-doc/" class="md-nav__link">
+        Docker与K8s集成
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/11-2025-04-04-kubernetes-practice1-doc/" class="md-nav__link">
+        Kubernetes实践(一)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/12-2025-04-04-kubernetes-practice2-doc/" class="md-nav__link">
+        Kubernetes实践(二)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/13-2025-04-04-kubernetes-practice3-doc/" class="md-nav__link">
+        Kubernetes实践(三)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/14-2025-04-04-network-communication-doc/" class="md-nav__link">
+        网络通信详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/15-2025-04-04-rbac-access-control-doc/" class="md-nav__link">
+        RBAC权限控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/16-2025-04-04-kubernetes-basic-doc/" class="md-nav__link">
+        Kubernetes基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/17-2025-04-04-prometheus-deployment-doc/" class="md-nav__link">
+        Prometheus部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/18-2025-04-04-monitoring-metrics-storage-doc/" class="md-nav__link">
+        监控指标存储
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/19-2025-04-04-chain-tracking-skywalking-doc/" class="md-nav__link">
+        链路追踪Skywalking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/20-2025-04-04-ceph-deployment-maintenance-doc/" class="md-nav__link">
+        Ceph部署维护
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/21-2025-04-04-ceph-basic-doc/" class="md-nav__link">
+        Ceph基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/22-2025-04-04-microservice-envoy1-doc/" class="md-nav__link">
+        微服务与Envoy实战(一)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/23-2025-04-04-envoy-practice2-doc/" class="md-nav__link">
+        Envoy实战(二)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/24-2025-04-04-microservice-envoy3-doc/" class="md-nav__link">
+        微服务与Envoy实战(三)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/25-2025-04-04-service-mesh-istio-doc/" class="md-nav__link">
+        服务网格Istio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/26-2025-04-04-istio-traffic-management-doc/" class="md-nav__link">
+        Istio流量管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/27-2025-04-04-istio-security-auth-doc/" class="md-nav__link">
+        Istio遥测与安全认证
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/28-2025-04-04-istio-authorization-deployment-doc/" class="md-nav__link">
+        Istio授权机制与部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/29-2025-04-04-serverless-knative1-doc/" class="md-nav__link">
+        Serverless与Knative
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/31-2025-04-04-gitops-tekton-doc/" class="md-nav__link">
+        GitOps之Tekton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/32-2025-04-04-gitops-argocd1-doc/" class="md-nav__link">
+        GitOps之ArgoCD(一)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/33-2025-04-04-gitops-argocd2-doc/" class="md-nav__link">
+        GitOps之ArgoCD(二)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../magedu-cloud-native/34-2025-04-04-kubernetes-high-availability-doc/" class="md-nav__link">
+        Kubernetes高可用实现
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" data-md-state="indeterminate" type="checkbox" id="__nav_3_7" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_7">
+          虚拟化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="虚拟化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          虚拟化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../promox/1-2025-03-29-promox-doc/" class="md-nav__link">
+        Proxmox虚拟化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          2、kubernetes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2、kubernetes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          2、kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/cncf-docs/" class="md-nav__link">
+        云原生简介及CNCF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/2025-03-27-containerd-cli-docs/" class="md-nav__link">
+        Containerd 基本管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/containerd/2024-04-08-containerd-remove-none-tag-image-doc/" class="md-nav__link">
+        Containerd 镜像管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/2024-02-20-docker-docs/" class="md-nav__link">
+        Docker 基本管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/lxcfs.md" class="md-nav__link">
+        lxcfs 介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/2024-02-20-docker-images-docs/" class="md-nav__link">
+        docker 镜像构建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/2024-02-20-docker-proxy-docs/" class="md-nav__link">
+        docker proxy代理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.docker/2024-02-20-docker-image-clash-docs/" class="md-nav__link">
+        docker Clash代理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/base/k8s-overview/" class="md-nav__link">
+        kubernetes 简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-3-k8s-systeminit-docs/" class="md-nav__link">
+        kubernetes 集群部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-9-19-k8s-update/" class="md-nav__link">
+        kubernetes 集群升级
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-pod-base-docs/" class="md-nav__link">
+        kubernetes pod 基础原理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-pod-hook-docs/" class="md-nav__link">
+        kubernetes pod 生命周期
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/6-kubernetes-etcd-docs/" class="md-nav__link">
+        kubernetes etcd 简介与实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/7-kubernetes-coredns-docs/" class="md-nav__link">
+        kubernetes coredns 简介与实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-k8s-calico-docs/" class="md-nav__link">
+        kubernetes calico 网络
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/yaml/yaml/" class="md-nav__link">
+        kubernetes 资源清单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/base/k8s-limit-docs/" class="md-nav__link">
+        kubernetes 资源限制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-k8s-configmap-docs/" class="md-nav__link">
+        kubernetes 配置管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/5-kubernetes-UI-docs/" class="md-nav__link">
+        Kubernetes UI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-deploy-sts-ds-docs/" class="md-nav__link">
+        kubernetes 控制器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/ingress-%E6%B5%81%E9%87%8F/" class="md-nav__link">
+        Ingress 流量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0/" class="md-nav__link">
+        服务发现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/gateway-api/" class="md-nav__link">
+        Gateway API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/dns-%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        DNS 优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/ingress-nginx/" class="md-nav__link">
+        ingress-nginx
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/service-profiles/" class="md-nav__link">
+        Service Profiles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/network/4-network-docs.md" class="md-nav__link">
+        科学上网
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-pv-rep/" class="md-nav__link">
+        kubernetes pv/pvc简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-k8s-mon-docs/" class="md-nav__link">
+        kubernetes 监控服务
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-k8s-logs-docs/" class="md-nav__link">
+        kubernetes 日志管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-k8s-istio-docs/" class="md-nav__link">
+        kubernetes 服务网格
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/ui/rancher-update-docs/" class="md-nav__link">
+        kubernetes Rancher 升级
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/7-kubernetes-update-docs/" class="md-nav__link">
+        kubernetes 节点维护
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/other/k8s-ca-docs/" class="md-nav__link">
+        kubernetes 处理k8s证书过期
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        kubernete 日志架构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E6%90%AD%E5%BB%BA-efk-%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        kubernetes EFK日志系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docs/3.k8s/7.logging/fluentd.md" class="md-nav__link">
+        kubernete 日志fluentd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/loki/" class="md-nav__link">
+        kubernete Loki
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        kubernetes 日志读写分离模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        kubernetes 日志微服务模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        kubernetes 日志配置文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/%E6%97%A5%E5%BF%97%E6%8A%A5%E8%AD%A6/" class="md-nav__link">
+        kubernetes 日志报警
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/7.logging/logql/" class="md-nav__link">
+        kubernetes 日志 Logql
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/ansible-install-k8s-docs.md" class="md-nav__link">
+        kubernetes 自动化安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/2024-02-20-4-ansible-install-k8s/" class="md-nav__link">
+        kubernetes 项目一
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../basic/9-install-keepalived-cluster/" class="md-nav__link">
+        kubernetes 项目二
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_48" data-md-state="indeterminate" type="checkbox" id="__nav_4_48" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_48">
+          kubernetes 证书管理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="kubernetes 证书管理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_48">
+          <span class="md-nav__icon md-icon"></span>
+          kubernetes 证书管理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/cert-manager/1-2025-03-29-cert-manager-install-doc/" class="md-nav__link">
+        kubernetes Cert-manager 安装
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_49" data-md-state="indeterminate" type="checkbox" id="__nav_4_49" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_49">
+          kubernetes 网络管理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="kubernetes 网络管理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_49">
+          <span class="md-nav__icon md-icon"></span>
+          kubernetes 网络管理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/calico/5-2025-04-07-calico-FAQ-doc/" class="md-nav__link">
+        kubernetes calico 网络管理containerd 运行时导致的 calico  driver 无法启动FAQ
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_50" data-md-state="indeterminate" type="checkbox" id="__nav_4_50" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_50">
+          K8s 认证
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="K8s 认证" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_50">
+          <span class="md-nav__icon md-icon"></span>
+          K8s 认证
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/cks/cka/" class="md-nav__link">
+        kubernetes CKA考题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/cks/cks/" class="md-nav__link">
+        kubernetes CKS考题
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_51" data-md-state="indeterminate" type="checkbox" id="__nav_4_51" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_51">
+          Helm
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Helm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_51">
+          <span class="md-nav__icon md-icon"></span>
+          Helm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/helm/0-2025-3-21-helm-install-doc/" class="md-nav__link">
+        kubernetes Helm 实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/helm/1-2025-3-21-helm-cli-doc/" class="md-nav__link">
+        kubernetes Helm CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/helm/2-2025-3-21-helm-chart-doc/" class="md-nav__link">
+        kubernetes Helm chart包
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_52" data-md-state="indeterminate" type="checkbox" id="__nav_4_52" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_52">
+          Helm FAQ
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Helm FAQ" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_52">
+          <span class="md-nav__icon md-icon"></span>
+          Helm FAQ
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/helm/FAQ/0-2025-4-10-helm-repo-update-warning-FAQ-doc/" class="md-nav__link">
+        kubernetes Helm repo update 警告关闭FAQ
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_53" data-md-state="indeterminate" type="checkbox" id="__nav_4_53" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_53">
+          Helmfile
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Helmfile" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_53">
+          <span class="md-nav__icon md-icon"></span>
+          Helmfile
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/helm/5-2025-04-10-helmfile-docs/" class="md-nav__link">
+        kubernetes Helmfile 文件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_54" data-md-state="indeterminate" type="checkbox" id="__nav_4_54" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_54">
+          k3s
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="k3s" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_54">
+          <span class="md-nav__icon md-icon"></span>
+          k3s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/k3s/1-2025-03-29-k3s-docs/" class="md-nav__link">
+        k3s 大纲介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../2.k8s/k3s/2-2025-03-29-k3s-install-docs/" class="md-nav__link">
+        k3s 边缘计算
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" data-md-state="indeterminate" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          3、运维开发
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3、运维开发" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          3、运维开发
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_1" data-md-state="indeterminate" type="checkbox" id="__nav_5_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_1">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/2024-02-20-1-python-base-doc/" class="md-nav__link">
+        开发-基础语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/2024-02-20-2-python-interaction-doc/" class="md-nav__link">
+        开发-用户交互
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
+        pip-离线安装软件包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/2024-02-21-4-python-module-doc/" class="md-nav__link">
+        模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/2025-03-27-5-python-poetry-doc/" class="md-nav__link">
+        Poetry 环境配置
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_2" data-md-state="indeterminate" type="checkbox" id="__nav_5_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2">
+          GO
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="GO" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          GO
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/go/2024-02-20-1-go-base-doc/" class="md-nav__link">
+        开发-环境安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/go/2024-02-20-2-go-operator-doc/" class="md-nav__link">
+        开发-操作符和表达式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" data-md-state="indeterminate" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          4、数据库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="4、数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          4、数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" data-md-state="indeterminate" type="checkbox" id="__nav_6_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_1">
+          MySQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/2024-02-20-1-mysql-base-doc/" class="md-nav__link">
+        基础配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/2024-02-20-2-mysql-operator-doc/" class="md-nav__link">
+        Operator 部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/2024-02-20-3-mysql-backup-doc/" class="md-nav__link">
+        备份恢复
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/4-2025-04-09-mysql-port-forward-doc/" class="md-nav__link">
+        客户端通过port-forward连接mysql-server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/5-2025-04-10-mysql-Beekeeper-studio-doc/" class="md-nav__link">
+        Mysql 客户端 Beekeeper-studio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/mysql/2024-02-20-4-mysql-backup-error-FAQ-doc/" class="md-nav__link">
+        Mysql 数据恢复FAQ
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_2" data-md-state="indeterminate" type="checkbox" id="__nav_6_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_2">
+          Redis
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/redis/2024-02-20-1-redis-outline-doc/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/redis/2024-02-20-2-redis-persistence-doc/" class="md-nav__link">
+        持久化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/redis/2024-02-20-3-redis-cluster-doc/" class="md-nav__link">
+        集群
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../4.database/redis/2024-02-20-4-redis-base-doc/" class="md-nav__link">
+        基础
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          5、存储服务
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5、存储服务" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          5、存储服务
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-disk-ssd-docs/" class="md-nav__link">
+        存储分类
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-ceph-base/" class="md-nav__link">
+        ceph 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-03-05-rook-ceph/" class="md-nav__link">
+        ceph 分布式存储
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-rbd-docs/" class="md-nav__link">
+        ceph RBD使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-cephfs-docs/" class="md-nav__link">
+        ceph 文件系统使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-ceph-cli-docs/" class="md-nav__link">
+        ceph 命令用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-osd/" class="md-nav__link">
+        ceph 性能测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-ceph-bucket/" class="md-nav__link">
+        ceph 对象存储
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-s3-client-docs/" class="md-nav__link">
+        ceph s3cmd管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-5-dev-docs/" class="md-nav__link">
+        ceph 存储修复
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-expand-docs/" class="md-nav__link">
+        ceph 存储扩容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-ceph-tools/" class="md-nav__link">
+        ceph 外部环境连接集群
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-clean-ceph-docs/" class="md-nav__link">
+        ceph 集群清理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-ceph-error/" class="md-nav__link">
+        ceph 错误指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-6-ceph-crush-docs/" class="md-nav__link">
+        ceph 高级参数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-03-05-Juicefs/" class="md-nav__link">
+        Juicefs存储方案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/2024-02-20-juicefs-update/" class="md-nav__link">
+        Juicefs版本升级
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_18" data-md-state="indeterminate" type="checkbox" id="__nav_7_18" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_18">
+          rook-ceph
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="rook-ceph" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_18">
+          <span class="md-nav__icon md-icon"></span>
+          rook-ceph
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../5.Storage/rook-ceph/1-2024-04-08-rook-ceph-crd-doc/" class="md-nav__link">
+        rook-ceph CRD 详细说明
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          6、Devops
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="6、Devops" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          6、Devops
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/2024-9-26-Git-docs/" class="md-nav__link">
+        Git Commit 问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/2025-3-21-Gitignore-doc/" class="md-nav__link">
+        Gitignore 特定文件忽略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/2024-10-10-Github-rsync-Gitee/" class="md-nav__link">
+        Github Rysnc 同步 Gitee
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/2025-3-31-Git-rebase-error-docs.md" class="md-nav__link">
+        Git rebase报错指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/github/" class="md-nav__link">
+        Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/4-github-gitee-doc/" class="md-nav__link">
+        Github仓库同步至Gitee
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/3-github-docs/" class="md-nav__link">
+        Google 浏览器扩展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Devops/2025-3-27-conda-libmamba-solver-error-solution.md" class="md-nav__link">
+        Conda conda-libmamba-solver Bug 修复
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" data-md-state="indeterminate" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          7、Web
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="7、Web" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          7、Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../7.Web/http/1-2025-03-30-http-web-doc/" class="md-nav__link">
+        Http 协议
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../7.Web/nginx/2025-3-27-certbot_ssl_doc/" class="md-nav__link">
+        Nginx 配置Cerbot
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" data-md-state="indeterminate" type="checkbox" id="__nav_10" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          8、运维自动化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="8、运维自动化" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          8、运维自动化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../8.Ansible/2024-02-20-ansible-case1/" class="md-nav__link">
+        Ansible 应用基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../8.Ansible/2024-02-20-ansible-docs2/" class="md-nav__link">
+        Ansible 高级用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../8.Ansible/2024-02-20-ansible-install-docs/" class="md-nav__link">
+        Ansible 安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../8.Ansible/2024-02-20-ansible-playbook/" class="md-nav__link">
+        Ansible playbook
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" data-md-state="indeterminate" type="checkbox" id="__nav_11" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          9、其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="9、其他" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          9、其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11_1" data-md-state="indeterminate" type="checkbox" id="__nav_11_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11_1">
+          Macos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Macos" data-md-level="2">
+        <label class="md-nav__title" for="__nav_11_1">
+          <span class="md-nav__icon md-icon"></span>
+          Macos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/1-2025-03-29-mac-kubeconfig-doc/" class="md-nav__link">
+        kubeconfig 实践应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/2-2025-03-29-mac-k9s-doc/" class="md-nav__link">
+        k9s 实践应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/3-2025-03-29-mac-usb-system-doc/" class="md-nav__link">
+        Mac 制作ubuntu系统盘
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/4-2025-03-29-mac-vscode-doc/" class="md-nav__link">
+        Mac vscode使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/5-2025-03-27-mac-vscode-ssh-plugin-doc/" class="md-nav__link">
+        Mac vscode ssh插件使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/6-2024-02-20-mac-mkdocs-docs/" class="md-nav__link">
+        如何利用Mac 写博客文章
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11_2" data-md-state="indeterminate" type="checkbox" id="__nav_11_2" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11_2">
+          运维小知识
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="运维小知识" data-md-level="2">
+        <label class="md-nav__title" for="__nav_11_2">
+          <span class="md-nav__icon md-icon"></span>
+          运维小知识
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Opsdaily/1-2025-03-27-ops-screen-docs/" class="md-nav__link">
+        (第一期：)screen 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11_3" data-md-state="indeterminate" type="checkbox" id="__nav_11_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11_3">
+          办公
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="办公" data-md-level="2">
+        <label class="md-nav__title" for="__nav_11_3">
+          <span class="md-nav__icon md-icon"></span>
+          办公
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/2024-03-07-office-docs/" class="md-nav__link">
+        正版Office全家桶永久免费使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/2024-02-20-google-docs/" class="md-nav__link">
+        高效利用谷歌来搜索
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/2024-02-20-discord-docs/" class="md-nav__link">
+        Discord 新手教程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11_4" data-md-state="indeterminate" type="checkbox" id="__nav_11_4" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_11_4">
+          其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="其他" data-md-level="2">
+        <label class="md-nav__title" for="__nav_11_4">
+          <span class="md-nav__icon md-icon"></span>
+          其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/2025-03-27-usb-wifi-doc/" class="md-nav__link">
+        Ubuntu-USB 无线无线网卡使用说明书
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" data-md-state="indeterminate" type="checkbox" id="__nav_12" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          10、Ai
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="10、Ai" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          10、Ai
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_1" data-md-state="indeterminate" type="checkbox" id="__nav_12_1" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_1">
+          Cursor
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cursor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_1">
+          <span class="md-nav__icon md-icon"></span>
+          Cursor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-latest-features/" class="md-nav__link">
+        Cursor 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/cursor/2024-02-27-cursor-model-performance/" class="md-nav__link">
+        Cursor 模型性能排行
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_2" data-md-state="indeterminate" type="checkbox" id="__nav_12_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_2">
+          vLLM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="vLLM" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_2">
+          <span class="md-nav__icon md-icon"></span>
+          vLLM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL/" class="md-nav__link">
+        vLLM 部署 Qwen2.5-VL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/vllm/2024-03-03-vllm-Qwen2.5-VL-72B/" class="md-nav__link">
+        vLLM 部署 Qwen2.5-VL-72B
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/vllm/2024-03-13-vllm-docs-2/" class="md-nav__link">
+        vLLM 模型启动参数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/vllm/2024-02-28-vllm-chatglm3-6b-doc/" class="md-nav__link">
+        vLLM 部署 ChatGLM3-6B
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/vllm/2024-02-28-vllm-docs/" class="md-nav__link">
+        vLLM 基础文档
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_3" data-md-state="indeterminate" type="checkbox" id="__nav_12_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_3">
+          NVIDIA
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="NVIDIA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_3">
+          <span class="md-nav__icon md-icon"></span>
+          NVIDIA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-gpu-compare/" class="md-nav__link">
+        NVIDIA显卡对比
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/nvidia/fake-gpu-operator-doc/" class="md-nav__link">
+        fake-gpu-operator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-k8s-rdma/" class="md-nav__link">
+        RDMA在Kubernetes中的应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/nvidia/Nvidia-drive/" class="md-nav__link">
+        NVIDIA驱动安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/nvidia/LiteLLM-Proxy-doc/" class="md-nav__link">
+        LiteLLM-Proxy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_4" data-md-state="indeterminate" type="checkbox" id="__nav_12_4" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_4">
+          ChatGPT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ChatGPT" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_4">
+          <span class="md-nav__icon md-icon"></span>
+          ChatGPT
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-docs/" class="md-nav__link">
+        注册chatgpt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-chatgpt-pulgin-docs/" class="md-nav__link">
+        ChatGPT插件使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/chatgpt/2024-02-20-gpts-docs/" class="md-nav__link">
+        如何使用Chatgpt来制作专属gpt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_5" data-md-state="indeterminate" type="checkbox" id="__nav_12_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_5">
+          OpenBayes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OpenBayes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_5">
+          <span class="md-nav__icon md-icon"></span>
+          OpenBayes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/2-2024-03-27-wan-openbayes-deploy.md" class="md-nav__link">
+        OpenBayes部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/1-2025-03-29-tju-gpu-error-FAQ-doc/" class="md-nav__link">
+        Openbayes 天津大学GPU异常FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/2-2025-03-29-tju-gpu-ps-FAQ-doc/" class="md-nav__link">
+        Openbayes GPU异常图文FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/3-2025-03-29-dev-cluster-FAQ-doc/" class="md-nav__link">
+        Openbayes Dev环境集群FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/4-2025-03-29-delete-prometheus-db-FAQ-doc/" class="md-nav__link">
+        Openbayes 误删除监控数据FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/5-2025-03-29-kubernetes-pvc-ubound-FAQ-doc/" class="md-nav__link">
+        Openbayes Kubernetes pvc ubound FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/6-2025-03-29-dns-file-permission-FAQ-doc/" class="md-nav__link">
+        Openbayes dns 文件权限调整FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/openbayes/7-2025-03-29-osd-disk-expansion-FAQ-doc/" class="md-nav__link">
+        Openbayes osd 磁盘扩容FAQ
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_6" data-md-state="indeterminate" type="checkbox" id="__nav_12_6" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_6">
+          Langfuse
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Langfuse" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_6">
+          <span class="md-nav__icon md-icon"></span>
+          Langfuse
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/Langfuse/2024-03-17-langfuse-deployment-guide/" class="md-nav__link">
+        Langfuse部署指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/Langfuse/2024-03-14-opentelemetry-doc/" class="md-nav__link">
+        OpenTelemetry文档
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12_7" data-md-state="indeterminate" type="checkbox" id="__nav_12_7" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_12_7">
+          Midjourney
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Midjourney" data-md-level="2">
+        <label class="md-nav__title" for="__nav_12_7">
+          <span class="md-nav__icon md-icon"></span>
+          Midjourney
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10.Ai-tools/2024-03-06-mj-doc/" class="md-nav__link">
+        Midjourney文档
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_13" data-md-state="indeterminate" type="checkbox" id="__nav_13" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_13">
+          关于我
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="关于我" data-md-level="1">
+        <label class="md-nav__title" for="__nav_13">
+          <span class="md-nav__icon md-icon"></span>
+          关于我
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2024-9-24-myblog-life-docs/" class="md-nav__link">
+        我的博客
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2021-life-docs/" class="md-nav__link">
+        我的2021
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2022-life-docs/" class="md-nav__link">
+        我的2022
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2023-life-docs/" class="md-nav__link">
+        我的2023
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2024-life-docs/" class="md-nav__link">
+        我的2024
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../20.mylife/2025-learning-docs/" class="md-nav__link">
+        我的学习
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 环境准备
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 环境准备">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 系统要求
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 网络配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 安装和配置
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 安装和配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 安装必要软件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ceph" class="md-nav__link">
+    2.2 Ceph 挂载配置
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-rsync" class="md-nav__link">
+    3. 并行 rsync 同步实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-rsync" class="md-nav__link">
+    4. 如何加快 rsync 同步的速度?
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何加快 rsync 同步的速度?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    ✅ 推荐参数组合
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    🚀 提速技巧讲解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    🧠 实战建议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    ✅ 推荐命令（小文件优化）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    📌 参数解释（针对小文件优化）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    🚀 额外建议(非常推荐可以加快速度)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rsync" class="md-nav__link">
+    ✅ 改进版命令（并发 rsync 同步）：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    ✅ 说明和优化点：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    ⚠️ 注意事项
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 优化建议
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    Screen 虚拟窗口
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/1.Linux/ekgc/1-2025-04-11-rsync-to-ceph-doc.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="ceph-rsync">Ceph 集群间数据同步方案：基于 rsync 的并行同步实现<a class="headerlink" href="#ceph-rsync" title="Permanent link">&para;</a></h1>
+<h2 id="1"><strong>1. 环境准备</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 系统要求<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>两个独立的 Ceph 集群(可以是 rook-ceph)</li>
+<li>源集群和目标集群只需要一个配置宿主机网络模式</li>
+<li>操作系统：Linux（Ubuntu 22.04）</li>
+<li>需要 root 或具有 sudo 权限的用户</li>
+</ul>
+<h3 id="12">1.2 网络配置<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>确保两个 Ceph 集群之间网络互通</li>
+<li>建议使用千兆或更高带宽的网络连接(优先使用万兆)</li>
+<li>配置防火墙允许必要的端口（默认 873 用于 rsync）</li>
+</ul>
+<h2 id="2"><strong>2. 安装和配置</strong><a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 安装必要软件<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在两个集群的同步节点上安装 rsync</span>
+yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rsync<span class="w">  </span><span class="c1"># CentOS/RHEL</span>
+<span class="c1"># 或</span>
+apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rsync<span class="w">  </span><span class="c1"># Ubuntu/Debian</span>
+</code></pre></div>
+<h3 id="22-ceph">2.2 Ceph 挂载配置<a class="headerlink" href="#22-ceph" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>在源集群节点上挂载 Ceph 文件系统：
+<div class="highlight"><pre><span></span><code>mount<span class="w"> </span>-t<span class="w"> </span>ceph<span class="w"> </span>&lt;monitor-ip&gt;:6789:/<span class="w"> </span>/mnt/source<span class="w"> </span>-o<span class="w"> </span><span class="nv">name</span><span class="o">=</span>admin,secret<span class="o">=</span>&lt;key&gt;
+</code></pre></div></p>
+</li>
+<li>
+<p>在目标集群节点上挂载 Ceph 文件系统：
+<div class="highlight"><pre><span></span><code>mount<span class="w"> </span>-t<span class="w"> </span>ceph<span class="w"> </span>&lt;monitor-ip&gt;:6789:/<span class="w"> </span>/mnt/destination<span class="w"> </span>-o<span class="w"> </span><span class="nv">name</span><span class="o">=</span>admin,secret<span class="o">=</span>&lt;key&gt;
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="3-rsync"><strong>3. 并行 rsync 同步实现</strong><a class="headerlink" href="#3-rsync" title="Permanent link">&para;</a></h2>
+<p>rsync 显示同步进度给出命令</p>
+<p>使用 <code>rsync</code> 显示同步进度可以加上 <code>--progress</code> 选项。以下是一个示例命令：</p>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>源路径<span class="w"> </span>目标路径
+</code></pre></div>
+<p>解释：</p>
+<ul>
+<li>
+<p><code>-a</code>：归档模式，表示递归复制目录并保持符号链接、权限等。</p>
+</li>
+<li>
+<p><code>-v</code>：详细输出，显示同步过程。</p>
+</li>
+<li>
+<p><code>-h</code>：人类可读的格式，显示文件大小时会以合适的单位（如 KB、MB）展示。</p>
+</li>
+<li>
+<p><code>--progress</code>：显示文件传输的详细进度。</p>
+</li>
+</ul>
+<p>如果你有特定的源路径和目标路径，可以替换命令中的 "源路径" 和 "目标路径"。</p>
+<p>源目录:
+  - 是/ceph 下的所有文件 同步到当前目录下</p>
+<p>如果你想把 <code>/ceph</code> 目录下的<strong>所有文件和子目录（不包括 <code>/ceph</code> 这个目录本身）</strong>同步到当前目录下，并显示同步进度，可以使用以下命令：</p>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<p>注意这里的 <code>/ceph/</code> 最后有个斜杠 <code>/</code>，这表示<strong>如果你想把 <code>/ceph</code> 目录下的</strong>所有文件和子目录（不包括 <code>/ceph</code> 这个目录本身）**同步到当前目录下，并显示同步进度，可以使用以下命令：</p>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<p>注意这里的 <code>/ceph/</code> 最后有个斜杠 <code>/</code>，这表示同步的是 <code>/ceph</code> 目录里的内容** ；如果你写成 <code>/ceph</code>（不带斜杠），rsync 会把整个目录 <code>/ceph</code> 同步过来。</p>
+<p>所以，推荐使用：</p>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<p>如果你还希望支持断点续传（比如中途中断了能接着传），可以加上 <code>--partial</code> 或 <code>--partial-dir=.rsync-partial</code>，例如：</p>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>--partial<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<h2 id="4-rsync"><strong>4. 如何加快 rsync 同步的速度?</strong><a class="headerlink" href="#4-rsync" title="Permanent link">&para;</a></h2>
+<p>要加快 <code>rsync</code> 同步速度，可以从多个方面入手优化，以下是实用建议及命令参数推荐：</p>
+<hr />
+<h3 id="_1">✅ 推荐参数组合<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>--inplace<span class="w"> </span>--no-whole-file<span class="w"> </span>--compress-level<span class="o">=</span><span class="m">0</span><span class="w"> </span>--info<span class="o">=</span>progress2<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<hr />
+<h3 id="_2">🚀 提速技巧讲解<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>优化手段</th>
+<th>命令参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>避免重复构建临时文件</td>
+<td>--inplace</td>
+<td>直接在目标文件上修改，节省 I/O 和磁盘空间。适合大文件或局域网同步。</td>
+</tr>
+<tr>
+<td>避免重新复制整个文件</td>
+<td>--no-whole-file</td>
+<td>默认只在本地使用，强制进行"增量块同步"，对大文件更高效。</td>
+</tr>
+<tr>
+<td>压缩开销最小化</td>
+<td>--compress-level=0</td>
+<td>若在局域网或本机传输，禁用压缩避免 CPU 负担。</td>
+</tr>
+<tr>
+<td>避免系统额外开销</td>
+<td>-W（可选）</td>
+<td>复制整个文件（不进行增量），适合小文件非常多时，但禁用增量特性。</td>
+</tr>
+<tr>
+<td>提高并发能力（外部）</td>
+<td>用 parallel 或 xargs -P</td>
+<td>手动多线程多个子目录并行同步。</td>
+</tr>
+<tr>
+<td>使用 --whole-file</td>
+<td>局域网优化（可选）</td>
+<td>与 --no-whole-file 相反，在局域网中复制整个文件反而更快。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_3">🧠 实战建议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>大量小文件：</strong></p>
+</li>
+<li>
+<p>使用 <code>-W</code>，减少元数据校验。</p>
+</li>
+<li>
+<p>可加 <code>--omit-dir-times</code> 忽略目录时间同步加快。</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avhW<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<ol>
+<li>
+<p><strong>大文件：</strong></p>
+</li>
+<li>
+<p>使用 <code>--inplace --no-whole-file</code>，提升大文件效率。</p>
+</li>
+<li>
+<p>若网络传输较慢，可加 <code>-z</code> 启用压缩：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--inplace<span class="w"> </span>--no-whole-file<span class="w"> </span>-z<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<ol>
+<li><strong>带宽控制（限速）：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--bwlimit<span class="o">=</span><span class="m">10000</span><span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<blockquote>
+<p>限速 10MB/s，适用于公网或不影响其他用户的场景。</p>
+</blockquote>
+<ol>
+<li><strong>排除某些无关文件（减少数据量）：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avh<span class="w"> </span>--progress<span class="w"> </span>--exclude<span class="o">=</span><span class="s1">&#39;*.tmp&#39;</span><span class="w"> </span>--exclude<span class="o">=</span><span class="s1">&#39;cache/&#39;</span><span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<hr />
+<p>如果当前使用环境（比如：局域网/公网、文件类型、大文件为主 or 小文件为主）定制一个最佳命令吗？</p>
+<p>既然你的环境是以<strong>小文件为主</strong> ，那我们可以针对这种情况来优化 <code>rsync</code> 的同步效率。以下是适合你的命令和说明：</p>
+<hr />
+<h3 id="_4">✅ 推荐命令（小文件优化）：<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>rsync<span class="w"> </span>-avhW<span class="w"> </span>--omit-dir-times<span class="w"> </span>--no-compress<span class="w"> </span>--progress<span class="w"> </span>/ceph/<span class="w"> </span>./
+</code></pre></div>
+<hr />
+<h3 id="_5">📌 参数解释（针对小文件优化）：<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><code>-a</code>：归档模式，保留权限、时间等。</p>
+</li>
+<li>
+<p><code>-v</code>：详细输出。</p>
+</li>
+<li>
+<p><code>-h</code>：人类可读大小。</p>
+</li>
+<li>
+<p><code>-W</code>：直接复制整个文件，跳过增量算法，加快小文件传输。</p>
+</li>
+<li>
+<p><code>--omit-dir-times</code>：不保留目录时间戳，减少开销。</p>
+</li>
+<li>
+<p><code>--no-compress</code>：小文件压缩反而可能拖慢速度，局域网传输禁用压缩更快。</p>
+</li>
+<li>
+<p><code>--progress</code>：显示当前传输进度。</p>
+</li>
+</ul>
+<hr />
+<h3 id="_6">🚀 额外建议(非常推荐可以加快速度)<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>命令 1:</p>
+<p>如果你想进一步加快，可以<strong>并发执行多个子目录同步任务</strong> ，比如：</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>/ceph<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="o">{}</span><span class="w"> </span>-P4<span class="w"> </span>rsync<span class="w"> </span>-avhW<span class="w"> </span>--omit-dir-times<span class="w"> </span>/ceph/<span class="o">{}</span><span class="w"> </span>./<span class="o">{}</span>
+</code></pre></div>
+<p>这里 <code>-P4</code> 表示并发 4 个同步任务（你可以根据机器负载和硬盘情况调整）。</p>
+<hr />
+<p>命令 2:</p>
+<div class="highlight"><pre><span></span><code>ls /ceph | xargs -I{} -P4 rsync -avhW --no-compress --progress  /ceph/{} ./{}
+</code></pre></div>
+<p>命令 3:</p>
+<p>利用 <code>xargs -P4</code> 实现<strong>你的这条命令总体思路是正确的，利用 <code>xargs -P4</code> 实现并发同步 <code>/ceph</code> 下的子目录或文件</strong> ，适合小文件多的场景。但我们稍微优化一下可以更健壮一点：</p>
+<hr />
+<h3 id="rsync">✅ 改进版命令（并发 rsync 同步）：<a class="headerlink" href="#rsync" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-1<span class="w"> </span>/ceph<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-I<span class="o">{}</span><span class="w"> </span>-P4<span class="w"> </span>rsync<span class="w"> </span>-avhW<span class="w"> </span>--no-compress<span class="w"> </span>--omit-dir-times<span class="w"> </span>--progress<span class="w"> </span><span class="s2">&quot;/ceph/{}&quot;</span><span class="w"> </span><span class="s2">&quot;./{}&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="_7">✅ 说明和优化点：<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ls -1</td>
+<td>强制一行一个输出，避免异常空格干扰。</td>
+</tr>
+<tr>
+<td>-P4</td>
+<td>同时执行 4 个 rsync 实例（你可调整为 8、16 等看 CPU 和磁盘负载）。</td>
+</tr>
+<tr>
+<td>-W</td>
+<td>小文件不做增量计算，直接复制整个文件，加速小文件同步。</td>
+</tr>
+<tr>
+<td>--no-compress</td>
+<td>禁用压缩，适合本地或局域网环境的小文件同步。</td>
+</tr>
+<tr>
+<td>--omit-dir-times</td>
+<td>不同步目录时间，加快扫描和写入效率。</td>
+</tr>
+<tr>
+<td>--progress</td>
+<td>显示进度，便于观察每个文件传输情况。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_8">⚠️ 注意事项<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>目录/文件名中如果有 <strong>空格</strong>  或 <strong>特殊字符</strong> ，推荐使用 <code>find</code> + <code>-print0</code> 和 <code>xargs -0</code> 方式更安全：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span>/ceph<span class="w"> </span>-mindepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-print0<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-0<span class="w"> </span>-I<span class="o">{}</span><span class="w"> </span>-P4<span class="w"> </span>rsync<span class="w"> </span>-avhW<span class="w"> </span>--no-compress<span class="w"> </span>--omit-dir-times<span class="w"> </span>--progress<span class="w"> </span><span class="s2">&quot;{}&quot;</span><span class="w"> </span><span class="s2">&quot;./&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="5"><strong>5. 优化建议</strong><a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>网络优化</strong>：</li>
+<li>使用 <code>--bwlimit</code> 参数限制带宽使用</li>
+<li>
+<p>考虑使用 <code>--compress</code> 选项减少网络传输量</p>
+</li>
+<li>
+<p><strong>性能优化</strong>：</p>
+</li>
+<li>根据系统资源调整 <code>MAX_CONCURRENT</code> 值</li>
+<li>使用 <code>--partial</code> 选项支持断点续传</li>
+<li>
+<p>考虑使用 <code>--delete</code> 选项保持目录一致性</p>
+</li>
+<li>
+<p><strong>错误处理</strong>：</p>
+</li>
+<li>添加错误重试机制</li>
+<li>实现失败文件记录和重试功能</li>
+</ol>
+<h2 id="screen"><strong>Screen 虚拟窗口</strong><a class="headerlink" href="#screen" title="Permanent link">&para;</a></h2>
+<p>可以利用 screen 把同步命令放到后台,这样既可以观察同步状态,也不用担心 rsync 终端</p>
+<div class="highlight"><pre><span></span><code>screen -R  rsync-p4
+ls -1 /ceph | xargs -I{} -P4 rsync -avhW --no-compress --omit-dir-times --progress &quot;/ceph/{}&quot; &quot;./{}&quot;
+ctrl + ad
+screen -ls
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../../2024-9-25-ssh-proxy-docs/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Linux SSH 转发代理实现" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Linux SSH 转发代理实现
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../magedu-SRE/7-2025-04-04-ACL-user-group-doc/" class="md-footer__link md-footer__link--next" aria-label="下一页: 用户和组权限管理" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              用户和组权限管理
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 lixie
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/cnych" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://hub.docker.com/r/cnych/" target="_blank" rel="noopener" title="hub.docker.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/cnych" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://instagram.com/cnych" target="_blank" rel="noopener" title="instagram.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.sections", "navigation.instant.prefetch", "navigation.prune", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.01824240.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e8a254df.min.js"></script>
+      
+        <script src="../../../js/extra.js"></script>
+      
+        <script src="../../../js/baidu-tongji.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
