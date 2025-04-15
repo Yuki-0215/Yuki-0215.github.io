@@ -4159,6 +4159,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_5_1">
@@ -4356,6 +4358,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2025-04-15-python-package-doc/" class="md-nav__link">
+        开发-包管理
+      </a>
     </li>
   
 
@@ -6986,13 +7002,20 @@ code
 <span class="w">    </span>├──<span class="w"> </span>main.py<span class="w"> </span><span class="c1"># 启动文件</span>
 <span class="w">    </span>└──<span class="w"> </span>mymodule.py<span class="w"> </span><span class="c1"># 自己写的模块</span>
 </code></pre></div>
-<p>启动文件中，直接 <code>import 模块名称</code>，就可以调用模块中的函数方法</p>
+<p>模块中会写一些自定义的函数功能.
+<div class="highlight"><pre><span></span><code>$ cat code/module/mymodule.py
+def greet(name):
+    return f&quot;Hello, {name}!&quot;
+
+pi = 3.14159
+</code></pre></div></p>
+<p>启动文件中，直接 <code>import 模块名称</code>，就可以调用模块中的函数方法
 <div class="highlight"><pre><span></span><code><span class="err">$</span> <span class="n">cat</span> <span class="n">code</span><span class="o">/</span><span class="n">module</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span>
 <span class="kn">import</span> <span class="nn">mymodule</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">mymodule</span><span class="o">.</span><span class="n">greet</span><span class="p">(</span><span class="s2">&quot;Barry&quot;</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">mymodule</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-</code></pre></div>
+</code></pre></div></p>
 
               
             </article>
@@ -7027,13 +7050,13 @@ code
       
       
         
-        <a href="../2025-03-27-5-python-poetry-doc/" class="md-footer__link md-footer__link--next" aria-label="下一页: Poetry 环境配置" rel="next">
+        <a href="../2025-04-15-python-package-doc/" class="md-footer__link md-footer__link--next" aria-label="下一页: 开发-包管理" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              Poetry 环境配置
+              开发-包管理
             </div>
           </div>
           <div class="md-footer__button md-icon">
