@@ -11,6 +11,3 @@ print(json_str)
 
 # 将Json 字符串转换为字典。
 print(json.loads(json_str))
-
-
-bark
