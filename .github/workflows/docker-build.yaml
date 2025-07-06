@@ -27,9 +27,9 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_NAME_SPACE }}/mkdocs_blog:${{ github.sha }} .  # 使用 git commit hash 作为 tag 名
+        docker build -t ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_NAME_SPACE }}/mkdocs_blog:${{ steps.vars.outputs.TAG }} .  # 使用 git commit hash 作为 tag 名
 
     - name: Push Docker image to Alibaba Cloud
       run: |
-        docker push ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_NAME_SPACE }}/mkdocs_blog:${{ github.sha }}  # 推送镜像到阿里云仓库
+        docker push ${{ secrets.ALIYUN_REGISTRY }}/${{ secrets.ALIYUN_NAME_SPACE }}/mkdocs_blog:${{ steps.vars.outputs.TAG }}  # 推送镜像到阿里云仓库
 
