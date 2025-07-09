@@ -1,0 +1,2120 @@
+[
+    {
+        "type": "text",
+        "text": "用户、组和权限",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "讲师：王晓春 ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "用户、组和权限",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "内容概述",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "1 Linux安全模型",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "1.1 用户  \n1.2 用户组  \n1.3 用户和组的关系  \n1.3 安全上下文",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "2 用户和组的配置文件",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "2.1 用户和组的主要配置文件  \n2.2 passwd文件格式  \n2.3  shadow文件格式  \n2.4 group文件格式  \n2.5 gshdow文件格式  \n2.6 文件操作",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "3 用户和组管理命令",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "3.1 用户创建  \n3.2 用户属性修改  \n3.3 删除用户  \n3.4 查看用户相关的ID信息  \n3.5 切换用户或以其他用户身份执行命令  \n3.6 设置密码  \n3.7 修改用户密码策略  \n3.8 用户相关的其它命令  \n3.9 创建组  \n3.10 修改组  \n3.11 组删除  \n3.12 更改组密码  \n3.13 临时切换主组  \n3.14 更改和查看组成员  \n3.15 练习",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "4 文件权限管理",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "4.1 文件所有者和属组属性操作",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "4.1.1 设置文件的所有者chown4.1.2 设置文件的属组信息chgrp4.2 文件权限4.2.1 文件权限说明",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "4.2.2 修改文件权限chmod  \n4.3 新建文件和目录的默认权限  \n4.4 Linux文件系统上的特殊权限4.4.1 特殊权限SUID4.4.2 特殊权限SGID4.4.3 特殊权限 Sticky 位4.4.4 特殊权限数字法  \n4.5 设定文件特殊属性  \n4.6 访问控制列表 ACL4.6.1 ACL权限功能4.6.2 ACL相关命令4.6.3 备份和还原ACL",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "用户、组和权限",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "内容概述",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Linux的安全模型  \n用户和组相关文件  \n用户和组管理命令  \n理解并设置文件权限  \n默认权限  \n特殊权限  \n文件访问控制列表",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "1 Linux安全模型",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "资源分派：",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Authentication：认证，验证用户身份Authorization：授权，不同的用户设置不同权限Accouting|Audition：审计",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "当用户登录成功时，系统会自动分配令牌 token，包括：用户标识和组成员等信息",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "1.1 用户",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Linux中每个用户是通过 User Id （UID）来唯一标识的管理员：root, 0普通用户：1-60000 自动分配",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "系统用户：1-499 （CentOS 6以前）, 1-999 （CentOS 7以后）对守护进程获取资源进行权限分配  \n登录用户： $500+$ （CentOS6以前）, $\\boldsymbol{\\mathrm{1000+}}$ （CentOS7以后）给用户进行交互式登录使用",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "1.2 用户组",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Linux中可以将一个或多个用户加入用户组中，用户组是通过Group ID（GID） 来唯一标识的。",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "管理员组：root, 0  \n普通组：系统组：1-499（CentOS 6以前）, 1-999（CentOS7以后）, 对守护进程获取资源进行权限分配普通组： $500+$ （CentOS 6以前）, $1000+$ （CentOS7以后）, 给用户使用",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "1.3 用户和组的关系",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "用户的主要组(primary group)：用户必须属于一个且只有一个主组，默认创建用户时会自动创建和用户名同名的组，做为用户的主要组，由于此组中只有一个用户，又称为私有组用户的附加组(supplementary group)：  一个用户可以属于零个或多个辅助组，附属组",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#id postfixui $\\scriptstyle\\mathbf{d}=89$ (postfix) gi $\\scriptstyle\\mathsf{d}=89$ (postfix) groups=89(postfix),12(mail)",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "1.3 安全上下文",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Linux安全上下文Context：运行中的程序，即进程 (process)，以进程发起者的身份运行，进程所能够访问资源的权限取决于进程的运行者的身份",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "比如：分别以root 和wang 的身份运行 /bin/cat  /etc/shadow  ，得到的结果是不同的，资源能否能被访问，是由运行者的身份决定，非程序本身",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "[wang@centos8 \\~]\\$cat /etc/shadow   \ncat: /etc/shadow: Permission denied   \n[root@centos8 \\~]#cat /etc/shadow   \nroot:\\$6\\$zsrWEC56PrKifAEz\\$hylCuGySe.H6l6O2MRvbtqy/VZgnZbau.y57dE85.YHq03MTJVV4UvQ   \nVIDcYA1IJzbgpWE0vTU.BtPHLbNBNn0:18246:0:99999:7:::   \nbin:\\*:18027:0:99999:7:::   \ndaemon:\\*:18027:0:99999:7:::   \nadm:\\*:18027:0:99999:7:::   \nlp:\\*:18027:0:99999:7::: ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "2 用户和组的配置文件",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "2.1 用户和组的主要配置文件",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "/etc/passwd：用户及其属性信息(名称、UID、主组ID等）/etc/shadow：用户密码及其相关属性  \n/etc/group：组及其属性信息/etc/gshadow：组密码及其相关属性",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "2.2 passwd文件格式",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "login name：登录用名（wang）  \npasswd：密码  (x)  \nUID：用户身份编号 (1000)  \nGID：登录默认所在组编号  (1000)  \nGECOS：用户全名或注释  \nhome directory：用户主目录 (/home/wang)  \nshell：用户默认使用shell (/bin/bash)",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "2.3 shadow文件格式",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "登录用名",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "用户密码:一般用sha512加密  \n从1970年1月1日起到密码最近一次被更改的时间  \n密码再过几天可以被变更（0表示随时可被变更）  \n密码再过几天必须被变更（99999表示永不过期）  \n密码过期前几天系统提醒用户（默认为一周）  \n密码过期几天后帐号会被锁定  \n从1970年1月1日算起，多少天后帐号失效",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "更改密码加密算法：",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "authconfig --passalgo $\\v=$ sha256 --update ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "密码的安全策略",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "足够长  \n使用数字、大写字母、小写字母及特殊字符中至少3种  \n使用随机密码  \n定期更换,不要使用最近曾经使用过的密码",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "范例：生成随机密码",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#tr  -dc '[:alnum:]' $\\angle\\cdot\\angle$ /dev/urandom | head -c 12   \nsFg6C8g5FAfe   \n[root@centos8 \\~]#openssl rand -base64 9   \nhvMkPmAyIrXMQInt ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "生成随机密码：https://suijimimashengcheng.51240.com/ ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "2.4 group文件格式",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "群组名称：就是群组名称  \n群组密码：通常不需要设定，密码是被记录在 /etc/gshadow  \nGID：就是群组的 ID  \n以当前组为附加组的用户列表(分隔符为逗号)",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2.5 gshdow文件格式",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "群组名称：就是群的名称  \n群组密码：  \n组管理员列表：组管理员的列表，更改组密码和成员以当前组为附加组的用户列表：多个用户间用逗号分隔",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2.6 文件操作",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "vipw和vigr pwck和grpck ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "3 用户和组管理命令",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "用户管理命令",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "useradd usermod userdel ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "组帐号维护命令",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "groupadd groupmod ? groupdel ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "3.1 用户创建",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "useradd 命令可以创建新的Linux用户",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "useradd [options] LOGIN ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "-u UID  \n-o 配合-u 选项，不检查UID的唯一性  \n-g GID  指明用户所属基本组，可为组名，也可以GID  \n-c \"COMMENT“ 用户的注释信息  \n-d HOME_DIR 以指定的路径(不存在)为家目录  \n-s SHELL 指明用户的默认shell程序，可用列表在/etc/shells文件中  \n-G GROUP1[,GROUP2,...]  为用户指明附加组，组须事先存在  \n-N 不创建私用组做主组，使用users组做主组  \n-r 创建系统用户 CentOS 6之前: ID $<500$ ，CentOS7 以后: I ${\\mathsf{D}}{<}1000$   \n-m 创建家目录，用于系统用户  \n-M 不创建家目录，用于非系统用户  \n-p 指定加密的密码",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "useradd -r -u 48 -g apache -s /sbin/nologin -d /var/www -c \"Apache\" apache useradd 命令默认值设定由/etc/default/useradd定义 ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#cat /etc/default/useradd  \n# useradd defaults file  \nGROU $\\scriptstyle\\mathtt{\\mathtt{O}=100}$   \nHOME $\\c=$ /home  \nINACTIVE=-1 #对应/etc/shadow文件第7列，即用户密码过期的宽限期  \nEXPIRE= #对应/etc/shadow文件第8列，即用户帐号的有效期  \nSHELL $\\c=$ /bin/bash  \nSKEL $\\c=$ /etc/skel  \nCREATE_MAIL_SPOOL $\\c=$ yes",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "显示或更改默认设置 ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "useradd -D useradd –D -s SHELL useradd –D –b BASE_DIR useradd –D –g GROUP ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "新建用户的相关文件",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "/etc/default/useradd /etc/skel/\\* /etc/login.defs ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "批量创建用户",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "newusers passwd 格式文件批量修改用户口令",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "echo username:passwd chpasswd范例: CentOS 6 创建并指定基于sha512的用户密码[root@centos6 \\~]#grub-crypt --helpUsage: grub-crypt [OPTION]..Encrypt a password.",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "-h, --help  \n-v, --version  \n--md5  \n--sha-256  \n--sha-512",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Print this message and exit Print the version information and exit Use MD5 to encrypt the password Use SHA-256 to encrypt the password Use SHA-512 to encrypt the password (default) ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Report bugs to <bug-grub@gnu.org>. ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "EOF ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "[root@centos6 \\~]#grub-crypt --sha-512 Password: ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Retype password:   \n\\$6\\$v9A2/xUNwAWwEmHN\\$q7Wz.uscsV/8J5Gss3KslX8hKXOoaP3hDpOBWeBfMQHVIRZiwHUUkii84cvQ   \nWIMnvtnXYsdVHuLO4KhOiSOMh/   \n[root@centos6 \\~]#useradd -p   \n'\\$6\\$v9A2/xUNwAWwEmHN\\$q7Wz.uscsV/8J5Gss3KslX8hKXOoaP3hDpOBWeBfMQHVIRZiwHUUkii84cv   \nQWIMnvtnXYsdVHuLO4KhOiSOMh/' test   \n[root@centos6 \\~]#getent shadow test   \ntest:\\$6\\$v9A2/xUNwAWwEmHN\\$q7Wz.uscsV/8J5Gss3KslX8hKXOoaP3hDpOBWeBfMQHVIRZiwHUUkii   \n84cvQWIMnvtnXYsdVHuLO4KhOiSOMh/:18459:0:99999:7::: ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "范例: CentOS7 利用Python程序在 生成sha512加密密码",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "[root@centos7 \\~]#python -c 'import   \ncrypt,getpass;pw=\"magedu\";print(crypt.crypt(pw))'   \n\\$6\\$pt0SFMf6YqKea3mh\\$.7Hkslg17uI.Wu7BcMJStVVtkzrwktXrOC8DxcMFC4JO1igrqR7VAi87H5PH   \nOuLTUEjl7eJqKUhMT1e9ixojn1 ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "范例: CentOS8 生成sha512加密密码",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#openssl passwd -6 magedu   \n\\$6\\$UOyYOao.iM2.rPnM\\$jCpTnBVIQBuGCLOm4N5hqh5YUc3wWXcDzkDMddthpKNL3scOZjTHh9fXds8E u6gNdEQqLMQgOboipZ08mnz2V. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "3.2 用户属性修改",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "usermod 命令可以修改用户属性格式：",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "usermod [OPTION] login ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "-u UID: 新UID  \n-g GID: 新主组  \n-G GROUP1[,GROUP2,...[,GROUPN]]]：新附加组，原来的附加组将会被覆盖；若保留原有，则要同时使  \n用-a选项  \n-s SHELL：新的默认SHELL  \n-c 'COMMENT'：新的注释信息  \n-d HOME: 新家目录不会自动创建；若要创建新家目录并移动原家数据，同时使用-m选项  \n-l login_name: 新的名字  \n-L: lock指定用户,在/etc/shadow 密码栏的增加 !  \n-U: unlock指定用户,将 /etc/shadow 密码栏的 ! 拿掉  \n-e YYYY-MM-DD: 指明用户账号过期日期  \n-f INACTIVE: 设定非活动期限，即宽限期",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "3.3 删除用户 ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "userdel [OPTION]... Login",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "-f, --force 强制-r, --remove 删除用户家目录和邮箱",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "范例:  强制删除用户和数据",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#useradd test   \n[root@centos8 \\~]#id test   \nuid=1001(test) gi $\\scriptstyle\\mathsf{d}=\\mathsf{1001}$ (test) groups $\\v{r}=\\v{r}$ 1001(test) ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "#在另一终端用test登录 [root@centos8 \\~]#su - test [test@centos8 \\~]\\$ ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "#删除正在登录的用户失败",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#userdel -r test   \nuserdel: user test is currently used by process 29909   \n[root@centos8 \\~]#id test   \nuid=1001(test) gi $\\mathsf{d}{=}\\mathsf{1001}$ (test) groups=1001(test) ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "#强制删除用户 ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#userdel -rf test   \nuserdel: user test is currently used by process 29909   \n[root@centos8 \\~]#id test   \nid: ‘test’: no such user ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "3.4 查看用户相关的ID信息",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "id 命令可以查看用户的UID，GID等信息",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "id [OPTION]... [USER] ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "-u: 显示UID  \n-g: 显示GID  \n-G: 显示用户所属的组的ID  \n-n: 显示名称，需配合ugG使用",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "3.5 切换用户或以其他用户身份执行命令",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "su:  即 switch user，命令可以切换用户身份，并且以指定用户的身份执行命令",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "su [options...] [-] [user [args...]] ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "-l  --login su -l UserName 相当于 su - UserName -c, --command <command> pass a single command to the shell with -c ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "切换用户的方式：",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "su UserName：非登录式切换，即不会读取目标用户的配置文件，不改变当前工作目录，即不完全切换su - UserName：登录式切换，会读取目标用户的配置文件，切换至自已的家目录，即完全切换",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "说明：root su至其他用户无须密码；非root用户切换时需要密码",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "注意：su 切换新用户后，使用 exit 退回至旧的用户身份，而不要再用 su 切换至旧用户，否则会生成很多的bash子进程，环境可能会混乱。",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "换个身份执行命令：",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "su [-] UserName -c 'COMMAND' ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#getent passwd mage   \nmage:x:1001:1001::/home/mage:/bin/bash   \n[root@centos8 \\~]#usermod -s /bin/false mage   \n[root@centos8 \\~]#getent passwd mage   \nmage:x:1001:1001::/home/mage:/bin/false   \n[root@centos8 \\~]#su - mage   \nLast login: Fri Mar 27 09:18:57 CST 2020 on pts/0   \n[root@centos8 \\~]#whomai   \n-bash: whomai: command not found   \n[root@centos8 \\~]#whoami   \nroot ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#su -s /sbin/nologin wang This account is currently not available. [root@centos8 \\~]#whoami   \nroot   \n[root@centos8 \\~]#su -s /bin/false wang [root@centos8 \\~]#whoami   \nroot ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "[wang@centos8 \\~]\\$su - root -c \"getent shadow\" ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#su - wang -c 'touch wang.txt' [root@centos8 \\~]#ll \\~wang/   \ntotal 0   \n-rw-rw-r-- 1 wang wang 0 Mar 27 09:31 wang1.txt -rw-rw-r-- 1 wang wang 0 Mar 27 09:32 wang2.txt ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#su  bin   \nThis account is currently not available. [root@centos8 \\~]#su -s /bin/bash bin bash-4.4\\$ whoami   \nbin   \nbash-4.4\\$   \n[root@centos8 \\~]#getent passwd tss   \ntss:x:59:59:Account used by the trousers package to sandbox the tcsd   \ndaemon:/dev/null:/sbin/nologin   \n[root@centos8 \\~]#su - -s /bin/bash tss   \nLast login: Fri Mar 27 09:46:43 CST 2020 on pts/0   \nsu: warning: cannot change directory to /dev/null: Not a directory   \n-bash: /dev/null/.bash_profile: Not a directory   \n[tss@centos8 root]\\$pwd   \n/root   \n[tss@centos8 root]\\$whoami   \ntss ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "3.6 设置密码",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/e261393bd76d7fdb689902d253d60c0d3d251e2245f8380271b7a009f07ca506.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "passwd 可以修改用户密码",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "passwd [OPTIONS] UserName ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "常用选项：",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "-d：删除指定用户密码  \n-l：锁定指定用户  \n-u：解锁指定用户  \n-e：强制用户下次登录修改密码  \n-f：强制操作  \n-n mindays：指定最短使用期限  \n-x maxdays：最大使用期限  \n-w warndays：提前多少天开始警告  \n-i inactivedays：非活动期限  \n--stdin：从标准输入接收用户密码,Ubuntu无此选项",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "范例：非交互式修改用户密码",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "#此方式更通用，适用于各种Linux版本，如:ubuntu   \n[root@centos8 \\~]#echo -e '123456\\n123456' | passwd mage   \nChanging password for user mage.   \nNew password: BAD PASSWORD: The password is shorter than 8 characters Retype new password: passwd: all authentication tokens updated successfully. ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "#适用于红帽系列的Linux版本",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#echo  '123456' | passwd --stdin mage Changing password for user mage. passwd: all authentication tokens updated successfully. ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "范例: Ubuntu 非交互式修改用户密码",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "[root@ubuntu1804 \\~]#echo wang:centos |chpasswd   \n[root@ubuntu1804 \\~]#passwd wang <<EOF   \n$>$ centos   \n$>$ centos   \n$>$ EOF   \nEnter new UNIX password: Retype new UNIX password: passwd: password updated   \nsuccessfully   \n[root@ubuntu1804 \\~]#echo -e 'magedu\\nmagedu' | passwd wang   \nEnter new UNIX password: Retype new UNIX password: passwd: password updated   \nsuccessfully ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "范例：设置用户下次必须更改密码",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#useradd wang   \n[root@centos8 \\~]#echo 123456 | passwd --stdin wang   \nChanging password for user wang.   \npasswd: all authentication tokens updated successfully.   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$4f78ko7hJ4fcMvIH\\$lpbOkFfziDBLT.8XBCi8c/N7wysDAejN5H9Fgxkt99HRDLTEosO43CK Yi2XSSVHxAK568Olj3C5bwfNExlves/:18348:0:99999:7:::   \n[root@centos8 \\~]#passwd -e wang   \nExpiring password for user wang.   \npasswd: Success   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$4f78ko7hJ4fcMvIH\\$lpbOkFfziDBLT.8XBCi8c/N7wysDAejN5H9Fgxkt99HRDLTEosO43CK Yi2XSSVHxAK568Olj3C5bwfNExlves/:0:0:99999:7:::   \n[root@centos8 \\~]#su - mage   \nLast login: Fri Mar 27 09:55:27 CST 2020 on pts/0 ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "[mage@centos8 \\~]\\$su - wang ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Password:   \nYou are required to change your password immediately (administrator enforced) Current password:   \nNew password:   \nBAD PASSWORD: The password is shorter than 8 characters   \nNew password:   \nBAD PASSWORD: The password fails the dictionary check - it is too   \nsimplistic/systematic   \nsu: Have exhausted maximum number of retries for service   \n[mage@centos8 \\~]\\$su - wang   \nPassword:   \nYou are required to change your password immediately (administrator enforced) Current password:   \nNew password:   \nRetype new password:   \nLast login: Fri Mar 27 10:01:20 CST 2020 on pts/0   \nLast failed login: Fri Mar 27 10:02:37 CST 2020 on pts/0   \nThere was 1 failed login attempt since the last successful login.   \n[wang@centos8 \\~]\\$exit   \nlogout   \n[mage@centos8 \\~]\\$exit   \nlogout   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$TX0iLjF52ByHh1zH\\$g.WI4LNfauuwgnxpRhd7ePqFKHZ85YU3r6Lh2S0PWRXWGjGlDVtomLW qpdiWrT.vwqD/Wzok.kzQhUHc8UCs91:18348:0:99999:7::: ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "3.7 修改用户密码策略",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "chage 可以修改用户密码策略",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "chage [OPTION]... LOGIN ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "#更改密码的时间",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "-d LAST_DAY   \n-m --mindays MIN_DAYS   \n-M --maxdays MAX_DAYS   \n-W --warndays WARN_DAYS   \n-I --inactive INACTIVE   \n-E --expiredate EXPIRE_DATE   \n-l 显示密码策略 ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "#密码过期后的宽限期#用户的有效期",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#chage wang   \nChanging the aging information for wang   \nEnter the new value, or press ENTER for the default Minimum Password Age [0]: 3 Maximum Password Age [99999]: 42 Last Password Change (YYYY-MM-DD) [2021-03-14]: 2021-03-29 Password Expiration Warning [7]: 10 ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Password Inactive [-1]: 20 Account Expiration Date (YYYY-MM-DD) [-1]: 2022-03-29 [root@centos8 \\~]#getent shadow  wang wang: $\\$65$ UpJNaaFGwCqFBSN9\\$MA4OMcJRJWbNPeMmQPvVjUcI4RYbGywipqYc9hlg87YUXvmpbi.Zcni 8ktdzw/DuECug4IBoEC/yXYv7dknu/0:18715:3:42:10:20:19080: ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#chage  -m 3 -M 42 -W 14 -I 7 -E 2020-10-10 wang   \n[root@centos8 \\~]#chage -l wang   \nLast password change : Dec 18, 2019   \nPassword expires : Jan 29, 2020   \nPassword inactive : Feb 05, 2020   \nAccount expires : Oct 10, 2020   \nMinimum number of days between password change : 3   \nMaximum number of days between password change : 42   \nNumber of days of warning before password expires : 14   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$82L7A37XJgzKTegH\\$lFzqrMHmFwW740U32bvWHUuakPDKOiULE/CxcyDzSe1qi1X2ALulDw1   \nWYrhd2wE00.lWO0im5//7biyV.juk5.:18248:3:42:14:7:18545: ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "#下一次登录强制重设密码 ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#chage  -d 0 wang   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$82L7A37XJgzKTegH\\$lFzqrMHmFwW740U32bvWHUuakPDKOiULE/CxcyDzSe1qi1X2ALulDw1   \nWYrhd2wE00.lWO0im5//7biyV.juk5.:0:3:42:14:7:18545:   \n[root@centos8 \\~]#chage -l wang   \nLast password change password must be changed   \nPassword expires password must be changed   \nPassword inactive password must be changed   \nAccount expires Oct 10, 2020   \nMinimum number of days between password change : 3   \nMaximum number of days between password change : 42   \nNumber of days of warning before password expires : 14   \n[root@centos8 \\~]#getent shadow wang   \nwang:\\$6\\$82L7A37XJgzKTegH\\$lFzqrMHmFwW740U32bvWHUuakPDKOiULE/CxcyDzSe1qi1X2ALulDw1   \nWYrhd2wE00.lWO0im5//7biyV.juk5.:0:3:42:14:7:18545: ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "3.8 用户相关的其它命令",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "chfn 指定个人信息  \nchsh 指定shell，相当于usermod -s  \nfinger 可看用户个人信息",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "[root@centos7 \\~]#chfn wang   \nChanging finger information for wang. Name [wang]: wangxiaochun   \nOffice []:it   \nOffice Phone []: 10000   \nHome Phone []: 11111 Finger information changed.   \n[root@centos7 \\~]#finger wang   \nLogin: wang Name: wangxiaochun   \nDirectory: /home/wang Shell: /bin/bash Office: it, x1-0000 Home Phone: x1-1111 Never logged in.   \nNo mail.   \nNo Plan.   \n[root@centos7 \\~]#getent passwd wang   \nwang:x:1000:1000:wangxiaochun,it,10000,11111:/home/wang:/bin/bash [root@centos7 \\~]#chsh -s /bin/csh wang   \nChanging shell for wang.   \nShell changed.   \n[root@centos7 \\~]#getent passwd wang   \nwang:x:1000:1000:wangsicong,wanda,10000,11111:/home/wang:/bin/csh [root@centos7 \\~]#usermod -s /bin/bash wang   \n[root@centos7 \\~]#getent passwd wang   \nwang:x:1000:1000:wangsicong,wanda,10000,11111:/home/wang:/bin/bash ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "范例: 修改用户使用不可登录的shell类型",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#getent passwd wang   \nwang:x:1000:1000:wangxiaochun,IT,110,119,:/home/wang:/bin/bash [root@centos8 \\~]#chsh -s /sbin/nologin wang   \nChanging shell for wang.   \nchsh: Warning: \"/sbin/nologin\" is not listed in /etc/shells. Shell changed.   \n[root@centos8 \\~]#su - wang   \nThis account is currently not available.   \n[root@centos8 \\~]#chsh -s /bin/false wang   \nChanging shell for wang.   \nchsh: Warning: \"/bin/false\" is not listed in /etc/shells. Shell changed.   \n[root@centos8 \\~]#su - wang   \n[root@centos8 \\~]#id   \nuid=0(root) gi $\\mathsf{d}{=}0$ (root) groups $_{,=0}$ (root)   \n[root@centos8 \\~]#chsh -s /bin/bash wang   \nChanging shell for wang.   \nShell changed.   \n[root@centos8 \\~]#su wang   \n[wang@centos8 \\~]\\$ ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "3.9 创建组",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "groupadd实现创建组",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "格式",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "groupadd [OPTION]... group_name ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "-g GID 指明GID号；[GID_MIN, GID_MAX]-r 创建系统组，CentOS 6之前: $I D<500$ ，CentOS 7以后: $I_{ Ḋ }\\mathsf{ Ḋ <} Ḍ \\mathsf{ Ḋ 00 Ḍ }$ ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "groupadd -g 48 -r apache ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "3.10 修改组",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "groupmod  组属性修改 ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "格式：",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "groupmod [OPTION]... group ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "-n group_name: 新名字-g GID: 新的GID",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "3.11 组删除 ",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "groupdel 可以删除组",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "格式",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "groupdel [options] GROUP ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "-f, --force 强制删除，即使是用户的主组也强制删除组,但会导致无主组的用户不可用无法登录",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "3.12 更改组密码",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "gpasswd命令，可以更改组密码，也可以修改附加组的成员关系格式",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "gpasswd [OPTION] GROUP ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "-a user 将user添加至指定组中-d user  从指定附加组中移除用户user-A user1,user2,...  设置有管理权限的用户列表",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "#增加组成员",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#groupadd admins   \n[root@centos8 \\~]#id wang   \nuid=1000(wang) gi $\\scriptstyle\\mathsf{d}=\\mathsf{1000}$ (wang) groups $\\v{x}=$ 1000(wang)   \n[root@centos8 \\~]#gpasswd -a wang admins   \nAdding user wang to group admins   \n[root@centos8 \\~]#id wang   \nuid=1000(wang) gi $\\scriptstyle\\mathsf{d}=\\mathtt{1}000$ (wang) groups $\\v{x}=$ 1000(wang),1002(admins)   \n[root@centos8 \\~]#groups wang   \nwang : wang admins   \n[root@centos8 \\~]#getent group admins   \nadmins:x:1002:wang ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "#删除组成员",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#gpasswd -d wang admins   \nRemoving user wang from group admins   \n[root@centos8 \\~]#groups wang   \nwang : wang   \n[root@centos8 \\~]#id wang   \nuid=1000(wang) gi $\\scriptstyle\\mathsf{d}=\\mathtt{1}000$ (wang) groups $\\mathbf{\\sigma}_{\\cdot=}$ 1000(wang)   \n[root@centos8 \\~]#getent group admins   \nadmins:x:1002: ",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "3.13 临时切换主组",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "newgrp 命令可以临时切换主组， 如果用户本不属于此组，则需要组密码格式：",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "newgrp [-] [group] ",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "如果使用 - 选项，可以初始化用户环境",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#gpasswd root   \nChanging the password for group root   \nNew Password:   \nRe-enter new password:   \n[root@centos8 \\~]#getent gshadow root   \nroot:\\$6\\$UKK78gqOvw/Ug\\$exBe4gHUYzSj/Gip0YkXII8RkPca7QGVto6Ws5SFd6lhxxklCsfKqiv1qy   \nEQZOfGK2WbR7/I.A2.7j1SUGuB91::   \n[wang@centos8 \\~]\\$newgrp root   \nPassword:   \n[wang@centos8 \\~]\\$id   \nuid=1000(wang) gid=0(root) groups $_{=0}$ (root),1000(wang)   \n[wang@centos8 \\~]\\$getent passwd wang   \nwang:x:1000:1000:wangxiaochun,IT,110,119,:/home/wang:/bin/bash   \n[wang@centos8 \\~]\\$touch wang1.txt   \n[wang@centos8 \\~]\\$ll   \ntotal 0   \n-rw-r--r-- 1 wang root 0 Dec 18 09:38 wang1.txt   \n[wang@centos8 \\~]\\$exit   \nexit   \n[wang@centos8 \\~]\\$id   \nuid=1000(wang) gid=1000(wang) groups $\\mathbf{\\sigma}_{\\cdot=}$ 1000(wang)   \n[wang@centos8 \\~]\\$touch wang2.txt   \n[wang@centos8 \\~]\\$ll   \ntotal 0   \n-rw-r--r-- 1 wang root 0 Dec 18 09:38 wang1.txt   \n-rw-rw-r-- 1 wang wang 0 Dec 18 09:38 wang2.txt ",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "3.14 更改和查看组成员",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "groupmems 可以管理附加组的成员关系格式",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "groupmems [options] [action] ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "常见选项：",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "-g, --group groupname  \n-a, --add username  \n-d, --delete username  \n-p, --purge  \n-l,  --list  \n#更改为指定组 (只有root)  \n#指定用户加入组  \n#从组中删除用户  \n#从组中清除所有成员  \n#显示组成员列表",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "groups 可查看用户组关系",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "格式",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "#查看用户所属组列表groups [OPTION].[USERNAME].",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#groupmems -l -g admins   \n[root@centos8 \\~]#groupmems -a mage -g admins   \n[root@centos8 \\~]#id mage   \nuid=1001(mage) gid=1001(mage) groups=1001(mage),1002(admins)   \n[root@centos8 \\~]#groupmems -g admins   \nmage   \n[root@centos8 \\~]#groupmems -a wang -g admins   \n[root@centos8 \\~]#groupmems -l -g admins   \nmage  wang   \n[root@centos8 \\~]#groupmems d wang -g admins   \n[root@centos8 \\~]#groups wang   \nwang : wang admins   \n[root@centos8 \\~]#groupmems g admins   \nmage   \n[root@centos8 \\~]#groupmems -p $^{-9}$ admins   \n[root@centos8 \\~]#groupmems -l -g admins ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "3.15 练习 ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "1. 创建用户gentoo，附加组为bin和root，默认shell为/bin/csh，注释信息为\"Gentoo Distribution\"",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "2. 创建下面的用户、组和组成员关系名字为webs 的组用户nginx，使用webs 作为附加组用户varnish，使用webs 作为附加组",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "用户mysql，不可交互登录系统，且不是webs 的成员，nginx，varnish，mysql密码都是magedu",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "4 文件权限管理",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "程序访问文件时的权限，取决于此程序的发起者",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "进程的发起者，同文件的属主：则应用文件属主权限进程的发起者，属于文件属组；则应用文件属组权限应用文件“其它”权限",
+        "page_idx": 17
+    },
+    {
+        "type": "image",
+        "img_path": "images/24d3ba02168ff1849a7249a7b2287963c04bc1723d07abe6a5abcdcdb2e766db.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "4.1 文件所有者和属组属性操作",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "4.1.1 设置文件的所有者chown",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "chown 命令可以修改文件的属主，也可以修改文件属组格式",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "chown [OPTION]... [OWNER][:[GROUP]] FILE...   \nchown [OPTION]... --reference $\\cdot$ RFILE FILE.. ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "用法说明：",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "OWNER #只修改所有者OWNER:GROUP #同时修改所有者和属组:GROUP #只修改属组，冒号也可用 . 替换--reference $=$ RFILE #参考指定的的属性，来修改-R #递归，此选项慎用，非常危险！",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#cp /etc/fstab f1.txt   \n[root@centos8 data]#pwd   \n/data   \n[root@centos8 data]#ll   \ntotal 4   \n-rw-r--r-- 1 root root 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#chown wang f1.txt   \n[root@centos8 data]#ll   \ntotal 4   \n-rw-r--r-- 1 wang root 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#chown :admins f1.txt   \n[root@centos8 data]#ll f1.txt   \n-rw-r--r-- 1 wang admins 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#chown root.bin f1.txt   \n[root@centos8 data]#ll   \ntotal 4   \n-rw-r--r-- 1 root bin 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#chown wang:admins f1.txt   \n[root@centos8 data]#ll   \ntotal 4   \n-rw-r--r-- 1 wang admins 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#cp /etc/issue f2.txt   \n[root@centos8 data]#ll   \ntotal 8   \n-rw-r--r-- 1 wang admins 709 Dec 18 10:13 f1.txt   \n-rw-r--r-- 1 root root 23 Dec 18 10:15 f2.txt   \n[root@centos8 data]#chown --reference $\\c=$ f1.txt f2.txt   \n[root@centos8 data]#ll   \ntotal 8   \n-rw-r--r-- 1 wang admins 709 Dec 18 10:13 f1.txt   \n-rw-r--r-- 1 wang admins  23 Dec 18 10:15 f2.txt ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#chown -R wang.admins /data/ ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "4.1.2 设置文件的属组信息chgrp",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "chgrp 命令可以只修改文件的属组",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "格式",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "chgrp [OPTION]... GROUP FILE.  \nchgrp [OPTION]... --reference $\\mathrel{\\mathop:}=$ RFILE FILE.",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "-R 递归 范例: ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll f1.txt   \n-rw-r--r-- 1 wang root 709 Dec 18 10:13 f1.txt   \n[root@centos8 data]#chgrp admins f1.txt   \n[root@centos8 data]#ll f1.txt   \n-rw-r--r-- 1 wang admins 709 Dec 18 10:13 f1.txt ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "4.2 文件权限",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "4.2.1 文件权限说明",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "文件的权限主要针对三类对象进行定义",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "owner 属主, u group 属组, g other 其他, o ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "注意：",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "用户的最终权限，是从左向右进行顺序匹配，即，所有者，所属组，其他人，一旦匹配权限立即生效，不再向  \n右查看其权限  \nr和w权限对root 用户无效  \n只要所有者,所属组或other三者之一有x权限,root就可以执行",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "每个文件针对每类访问者都定义了三种常用权限每个文件针对每类访问者都定义了三种权限",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Readable w Writable x eXcutable ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "对文件的权限：",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "可使用文件查看类工具，比如：cat，可以获取其内容  \nw 可修改其内容  \nx 可以把此文件提请内核启动为一个进程，即可以执行（运行）此文件（此文件的内容必须是可执行）",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "对目录的权限：",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "可以使用ls查看此目录中文件列表$w$ 可在此目录中创建文件，也可删除此目录中的文件，而和此被删除的文件的权限无关$\\times$ 可以cd进入此目录，可以使用ls -l查看此目录中文件元数据（须配合r权限），属于目录的可访问的最小权限X 只给目录x权限，不给无执行权限的文件x权限",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "面试题：",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Linux中的目录和文件的权限区别？(分别说明读，写和执行权限的区别",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "数学法的权限 ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "table",
+        "img_path": "images/11c44d452cc4bc6b01355eef1d69b015026c470b3ef62c5b268811a5925490cb.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>权限项</td><td>文件类型</td><td>读写</td><td></td><td>执行</td><td>读写</td><td></td><td>执行</td><td>读写</td><td></td><td>执行</td></tr><tr><td>字符表示</td><td>(dl/c(slp)</td><td>(r)</td><td>(w)</td><td>(x)</td><td>(r)</td><td>(W)</td><td>(x)</td><td>(r)</td><td>(w)</td><td>(x)</td></tr><tr><td>数字表示</td><td></td><td>4</td><td>2</td><td>1</td><td>4</td><td>2</td><td>1</td><td>4</td><td>2</td><td>1</td></tr><tr><td>权限分配</td><td></td><td colspan=\"3\">文件所有者</td><td colspan=\"3\">文件所属组用户</td><td colspan=\"3\">其他用户</td></tr></table></body></html>\n\n",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "八进制数字",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "000 0  \nx 001 1  \n-w- 010 2  \n-wx 011 3  \nr-- 100 4  \nr-x 101 5  \nrw- 110 6  \nrwx 111 /",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "例如：",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "rw-r- 640   \nrwxr-xr-x 755 ",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "4.2.2 修改文件权限chmod",
+        "text_level": 1,
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "格式",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "chmod [OPTION]... MODE[,MODE]... FILE..chmod [OPTION]... OCTAL-MODE FILE.#参考RFILE文件的权限，将FILE的修改为同RFILEchmod [OPTION]... --reference $\\cdot$ RFILE FILE.",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "说明： 模式法格式",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "MODE：who opt permission  \nwho:u,g,o,a  \nopt:+,-, $\\mathbf{\\Sigma}=\\mathbf{\\Sigma}$   \npermission:r,w,x  \n修改指定一类用户的所有权限  \nu= $\\scriptstyle{\\mathfrak{g}}=\\ 0=$ ug $\\c=$ a= u=,g=  \n修改指定一类用户某个或某个权限  \n$\\mathsf{u}+$ u- ${\\mathfrak{g}}+$ g- $^{0+}$ o- a+ a- +  \n-R: 递归修改权限",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "范例:  设置 X 权限",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll dir   \ntotal 8   \n-rw-r--r-- 1 root root 709 Dec 18 11:09 f1.txt   \n-rwxr--r-- 1 root root 709 Dec 18 11:09 f2.txt   \ndrw-r--r-- 2 root root 6 Dec 18 11:15 subdir   \n[root@centos8 data]#ll -d dir   \ndrwxr-xr-- 3 root root 48 Dec 18 11:15 dir   \n[root@centos8 data]#chmod -R a+X dir   \n[root@centos8 data]#ll -d dir   \ndrwxr-xr-x 3 root root 48 Dec 18 11:15 dir   \n[root@centos8 data]#ll dir   \ntotal 8   \n-rw-r--r-- 1 root root 709 Dec 18 11:09 f1.txt ",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "-rwxr-xr-x 1 root root 709 Dec 18 11:09 f2.txt drwxr-xr-x 2 root root 6 Dec 18 11:15 subdir ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "chmod u+wx,g-r, $\\scriptstyle\\mathtt{o=r\\times}$ file chmod -R $\\mathsf{g}+\\mathsf{r w}\\mathsf{x}$ /testdir chmod 600 file ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "范例：面试题",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "执行 cp /etc/issue  /data/dir/ 所需要的最小权限？  \n/bin/cp 需要x权限  \n/etc/ 需要x权限  \n/etc/issue 需要r权限  \n/data 需要xw,权x限权限",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "4.3 新建文件和目录的默认权限",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "umask 的值可以用来保留在创建文件权限",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "实现方式：",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "新建文件的默认权限: 666-umask，如果所得结果某位存在执行（奇数）权限，则将其权限 $^+$ 1,偶新数建不目变录的默认权限: 777-umask",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "非特权用户umask默认是 002root的umask 默认是 022查看umask",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "umask #模式方式显示 umask –S #输出可被调用 umask –p ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "修改umask",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#umask   \n0022   \n[root@centos8 \\~]#umask -S   \n$\\mathsf{u}=$ rwx, $\\mathsf{g}\\mathsf{=}\\mathsf{r}\\mathsf{\\times}$ , $\\scriptstyle0={\\mathsf{r}}\\times$   \n[root@centos8 \\~]#umask -p   \numask 0022 ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#umask   \n0022   \n[root@centos8 \\~]#( umask 666; touch /data/f1.txt )   \n[root@centos8 \\~]#umask   \n0022   \n[root@centos8 \\~]#ll /data/f1.txt 1 root root 0 Mar 27 14:55 /data/f1.txt ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "练习 ",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "1. 当用户docker对/testdir 目录无执行权限时，意味着无法做哪些操作？  \n2. 当用户mongodb对/testdir 目录无读权限时，意味着无法做哪些操作？  \n3. 当用户redis 对/testdir 目录无写权限时，该目录下的只读文件file1是否可修改和删除？  \n4. 当用户zabbix对/testdir 目录有写和执行权限时，该目录下的只读文件file1是否可修改和删除？  \n5. 复制/etc/fstab文件到/var/tmp下，设置文件所有者为tomcat读写权限，所属组为apps组有读写  \n权限，其他人无权限  \n6. 误删除了用户git的家目录，请重建并恢复该用户家目录及相应的权限属性",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "4.4 Linux文件系统上的特殊权限",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "前面介绍了三种常见的权限：r, w, x  还有三种特殊权限：SUID, SGID, Sticky特殊权限",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "SUID 作用于二进制可执行文件上,用户将继承此程序所有者的权限  \nSGID作用于二进制可执行文件上,用户将继承此程序所有组的权限作于于目录上, 此目录中新建的文件的所属组将自动从此目录继承  \nSTICKY 作用于目录上,此目录中的文件只能由所有者自已来删除",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "4.4.1 特殊权限SUID ",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "前提：进程有属主和属组；文件有属主和属组任何一个可执行程序文件能不能启动为进程,取决发起者对程序文件是否拥有执行权限启动为进程之后，其进程的属主为发起者,进程的属组为发起者所属的组进程访问文件时的权限，取决于进程的发起者",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "二进制的可执行文件上SUID权限功能：",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "任何一个可执行程序文件能不能启动为进程：取决发起者对程序文件是否拥有执行权限  \n启动为进程之后，其进程的属主为原程序文件的属主  \nSUID只对二进制可执行程序有效  \nSUID设置在目录上无意义",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "SUID权限设定：",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "chmod $u+s$ FILE.. chmod $4\\times\\times\\times$ FILE chmod u-s FILE.. ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#ls -l /usr/bin/passwd -rwsr-xr-x. 1 root root 34928 May 11  2019 /usr/bin/passwd ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "4.4.2 特殊权限SGID ",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "二进制的可执行文件上SGID权限功能：",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "任何一个可执行程序文件能不能启动为进程：取决发起者对程序文件是否拥有执行权限启动为进程之后，其进程的属组为原程序文件的属组",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "SGID权限设定：",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "chmod $9+5$ FILE.. chmod 2xxx FILE chmod g-s FILE.. ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "目录上的SGID权限功能：",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "默认情况下，用户创建文件时，其属组为此用户所属的主组，一旦某目录被设定了SGID，则对此目录有写权限的用户在此目录中创建的文件所属的组为此目录的属组，通常用于创建一个协作目录",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "SGID权限设定：",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "chmod $\\mathsf{g}{+}\\mathsf{s}$ DIR.. chmod $2x\\times x$ DIR chmod g-s DIR.. ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "4.4.3 特殊权限 Sticky 位",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "具有写权限的目录通常用户可以删除该目录中的任何文件，无论该文件的权限或拥有权  \n在目录设置Sticky 位，只有文件的所有者或root可以删除该文件  \nsticky 设置在文件上无意义",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "Sticky权限设定：",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "chmod $0+t$ DIR.. chmod 1xxx DIR chmod o-t DIR.. ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 \\~]#ll -d /tmp drwxrwxrwt. 15 root root 4096 Dec 12 20:16 /tmp ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "4.4.4 特殊权限数字法",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "000 0   \n001 1   \n010 2   \n011 3   \n100 4   \n101 5   \n110 6   \n111 7 ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "chmod 4777 /tmp/a.txt ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "权限位映射 ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "SUID: user,占据属主的执行权限位s：属主拥有x权限S：属主没有x权限  \nSGID: group,占据属组的执行权限位s： group拥有x权限S：group没有x权限  \nSticky: other,占据other的执行权限位t：other拥有x权限T：other没有x权限",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "4.5 设定文件特殊属性",
+        "text_level": 1,
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "设置文件的特殊属性，可以访问 root 用户误操作删除或修改文件",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "不能删除，改名，更改chattr $+\\dot{7}$ file只能追加内容，不能删除，改名chattr $\\cdot$ file显示特定属性",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll   \ntotal 8   \ndrwxr-xr-x 2 root root 33 Dec 18 14:32 dir   \n-rw-r--r-- 1 root root 719 Dec 18 14:30 f11.txt   \n-rw-r--r-- 1 root root 6 Dec 18 14:30 f22.txt   \n[root@centos8 data]#rm -rf dir   \nrm: cannot remove 'dir/fstab': Operation not permitted   \nrm: cannot remove 'dir/f1.txt': Operation not permitted   \n[root@centos8 data]#lsattr ./f11.txt ./f22.txt ./dir   \n[root@centos8 data]#chattr -i dir   \n[root@centos8 data]#lsattr ./f11.txt ./f22.txt ./dir ",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "4.6 访问控制列表 ACL",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "4.6.1 ACL权限功能",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "ACL：Access Control List，实现灵活的权限管理除了文件的所有者，所属组和其它人，可以对更多的用户设置权限CentOS7 默认创建的xfs和ext4文件系统具有ACL功能CentOS7 之前版本，默认手工创建的ext4文件系统无ACL功能,需手动增加tune2fs –o acl /dev/sdb1mount –o acl /dev/sdb1 /mnt/test",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "ACL生效顺序：",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "所有者，自定义用户，所属组|自定义组，其他人",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "4.6.2 ACL相关命令",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "setfacl  可设置ACL权限getfacl  可查看设置的ACL权限",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll f1.txt   \n-rw-r--r-- 1 root root 709 Dec 18 14:37 f1.txt   \n[root@centos8 data]#setfacl -m u:wang:- f1.txt   \n[root@centos8 data]#ll   \ntotal 4   \n$-r w-r--r\\mathrm{-+~1~}$ root root 709 Dec 18 14:37 f1.txt   \n[root@centos8 data]#getfacl f1.txt   \n# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:- ",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "group::r--mask::r--other::r--",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#su wang [wang@centos8 data]\\$cat f1.txt cat: f1.txt: Permission denied [wang@centos8 data]\\$echo xx >> f1.txt bash: f1.txt: Permission denied ",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#getfacl f1.txt   \n# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \ngroup::r--   \nother::r-- ",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#setfacl -m u:wang:0 f1.txt [root@centos8 data]#setfacl -m g:admins:w f1.txt [root@centos8 data]#ll f1.txt -rw-rw-r--+ 1 root root 718 Dec 18 14:44 f1.txt [root@centos8 data]#getfacl f1.txt ",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:---   \ngroup::r--   \ngroup:admins:-w  \nmask::rw  \nother::r--   \n[root@centos8 data]#id wang   \nuid=1000(wang) gid=1000(wang) groups=1000(wang)   \n[root@centos8 data]#id mage   \nuid=1001(mage) gid=1001(mage) groups=1001(mage)   \n[root@centos8 data]#su mage   \n[mage@centos8 data]\\$cat f1.txt ",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "# ",
+        "text_level": 1,
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "# /etc/fstab   \n# Created by anaconda on Wed Dec 11 11:11:16 2019   \n#   \n# Accessible filesystems, by reference, are maintained under '/dev/disk/'. # See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info. #   \n# After editing this file, run 'systemctl daemon-reload' to update systemd # units generated from this file.   \n#   \nUUID $\\vDash$ 1b950ef9-7142-46bd-975c-c4ac1e0d47e8 / xfs defaults 0 0   \nUUID=667a4c81-8b4b-4a39-a111-b11cb6d09309 /boot ext4 defaults 1 2   \nUUID=38d14714-c018-41d5-922c-49e415decbca /data xfs   \ndefaults 0 0   \nUUID $\\vDash$ a0efb2bb-8227-4317-a79d-0a70d515046c swap swap   \ndefaults 0 0   \nmagedata   \n[mage@centos8 data]\\$echo magedata2 $\\gg$ f1.txt   \nbash: f1.txt: Permission denied   \n[mage@centos8 data]\\$exit   \nexit   \n[root@centos8 data]#gpasswd -a mage admins   \nAdding user mage to group admins   \n[root@centos8 data]#id mage   \nuid=1001(mage) gi $\\mathsf{d}{=}\\mathsf{1001}$ (mage) groups $\\v{x}=$ 1001(mage),1002(admins)   \n[root@centos8 data]#su mage   \n[mage@centos8 data]\\$echo magedata3 $\\gg$ f1.txt   \n[mage@centos8 data]\\$cat f1.txt   \ncat: f1.txt: Permission denied   \n[mage@centos8 data]\\$exit   \ne[xriotot@centos8 data]#su wang   \n[wang@centos8 data]\\$cat f1.txt   \ncat: f1.txt: Permission denied   \nb[awsahn:g fc1e.ntxots:8 Pdeartmai]\\$sescihoon wdaengideadta >> f1.txt   \n[wang@centos8 data]\\$exit   \ne[xriotot@centos8 data]#groupmems -a wang -g admins   \n[root@centos8 data]#id wang   \nuid=1000(wang) gi $\\scriptstyle\\mathsf{d}=\\mathsf{1000}$ (wang) groups=1000(wang),1002(admins)   \n[root@centos8 data]#su wang   \n[wang@centos8 data]\\$getfacl f1.txt   \n# file: f1.txt   \n# owner: root   \n# group: root   \nuser::wrawn-g:-   \ngroup::r  \ngroup:admins:-w  \nmask::rw  \nother::r--   \n[wang@centos8 data]\\$cat f1.txt   \ncat: f1.txt: Permission denied   \n[wang@centos8 data]\\$echo wangdata2 $\\gg$ f1.txt   \nbash: f1.txt: Permission denied ",
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "text_level": 1,
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "mount -o acl /directory   \ngetfacl file |directory   \nsetfacl -m u:wang:rwx file|directory   \nsetfacl -m g:admins:rw file| directory   \nsetfacl $-{\\sf x}$ u:wang  file |directory   \n#清除所有ACL权限   \nsetfacl -b  file1   \n#复制file1的acl权限给file2   \ngetfacl  file1 | setfacl --set-file=- file2 ",
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "mask 权限 ",
+        "text_level": 1,
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "mask只影响除所有者和other的之外的人和组的最大权限  \nmask需要与用户的权限进行逻辑与运算后，才能变成有限的权限(Effective  Permission)  \n$\\cdot\\cdot$ 用户或组的设置必须存在于mask权限设定范围内才会生效",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "setfacl -m mask::rx file ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "text_level": 1,
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll f1.txt   \n-rw-rw-r--+ 1 root root 728 Dec 18 14:51 f1.txt   \n[root@centos8 data]#chmod $\\mathsf{g}=\\mathsf{r}$ f1.txt   \n[root@centos8 data]#ll f1.txt   \n- $-r w-r--r\\mathrm{--+~}1$ root root 728 Dec 18 14:51 f1.txt   \n[root@centos8 data]#getfacl f1.txt   \n# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:---   \ngroup::r--   \ngroup:admins:-w- #effective:-   \nmask::r--   \nother::r-- ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#setfacl -m mask::rw f1.txt [root@centos8 data]#getfacl f1.txt ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:---   \ngroup::r--   \ngroup:admins:-w  \nmask::rw  \nother::r-- ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#setfacl -m u:wang:rwx f1.txt [root@centos8 data]#getfacl f1.txt ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:rwx   \ngroup::r--   \ngroup:admins:-w  \nmask::rwx   \nother::r-- ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#setfacl -m mask::rw f1.txt [root@centos8 data]#getfacl f1.txt ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "# file: f1.txt # owner: root # group: root ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "user::rw  \nuser:wang:rwx #effective:rw  \ngroup::r--   \ngroup:admins:-w  \nmask::rw  \nother::r-- ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "--set选项会把原有的ACL项都删除，用新的替代，需要注意的是一定要包含UGO的设置，不能象-m一样只是添加ACL就可以",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "setfacl --set u::rw,u:wang:rw,g::r,o::- file1 ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "4.6.3 备份和还原ACL ",
+        "text_level": 1,
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "主要的文件操作命令cp和mv都支持ACL，只是cp命令需要加上-p 参数。但是tar等常见的备份工具是不会保留目录和文件的ACL信息",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "范例：",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "#备份ACL   \ngetfacl -R /tmp/dir $>$ acl.txt   \n#消除ACL权限   \nsetfacl -R -b /tmp/dir   \n#还原ACL权限   \nsetfacl -R  --set-file=acl.txt /tmp/dir   \n#还原ACL权限   \nsetfacl --restore acl.txt ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "#查看ACL权限 getfacl -R /tmp/dir ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "范例:",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#getfacl   \n# file: f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:rwx #effective:rw  \ngroup::r--   \ngroup:admins:-w  \nmask::rw  \nother::r-- ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "# file: f2.txt # owner: root # group: root user::rwgroup::r-- other::r-- ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "# file: f3.txt # owner: root ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "# group: root   \nuser::rw  \nuser:wang:rwx #effective:rw  \ngroup::r  \ngroup:admins:-w  \nmask::rw  \nother::r--   \n[root@centos8 data]#cd   \n[root@centos8 \\~]#tar cvf data.tar /data/   \ntar: Removing leading \\`/' from member names   \n/data/   \n/data/f1.txt   \n/data/f2.txt   \n/data/f3.txt   \n[root@centos8 \\~]#tar xvf data.tar  -C /opt   \ndata/   \ndata/f1.txt   \ndata/f2.txt   \ndata/f3.txt   \n[root@centos8 \\~]#ls /opt   \n[root@centos8 \\~]#cd /opt/data   \n[root@centos8 data]#ll   \ntotal 12   \n-rw-rw-r-- 1 root root 728 Dec 18 14:51 f1.txt - 1 root root 728 Dec 18 15:01 f2.txt   \n-rw-rw-r-- 1 root root 728 Dec 18 14:51 f3.txt   \n[root@centos8 data]#getfacl -R /data $>$ /root/acl.txt   \ngetfacl: Removing leading '/' from absolute path names   \n[root@centos8 data]#cat /root/acl.txt   \n# file: data   \n# owner: root   \n# group: admins   \nuser::rwx   \ngroup::rwx   \nother::rwx   \n# file: data/f1.txt   \n# owner: root   \n# group: root   \nuser::rw  \nuser:wang:rwx #effective:rw  \ngroup::r  \ngroup:admins:-w  \nmask::rw  \nother::r--   \n# file: data/f2.txt   \n# owner: root ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "# group: root user::rwgroup::r-- other::r-- ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "# file: data/f3.txt # owner: root # group: root ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "user::rw  \nuser:wang:rwx #effective:rw  \ngroup::r--   \ngroup:admins:-w  \nmask::rw  \nother::r-- ",
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "[root@centos8 data]#ll /opt/data ",
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "total 12   \n-rw-rw-r-- 1 root root 728 Dec 18 14:51 f1.txt   \n-rw-r--r-- 1 root root 728 Dec 18 15:01 f2.txt   \n-rw-rw-r-- 1 root root 728 Dec 18 14:51 f3.txt   \n[root@centos8 data]#cd   \n[root@centos8 \\~]#setfacl -R --set-file $=$ /root/acl.txt /opt   \n[root@centos8 \\~]#ll /opt/data/   \ntotal 12   \n$-r w-r w-r\\mathrm{--+~1~}$ root root 728 Dec 18 14:51 f1.txt   \n$-r w-r w-r\\mathrm{--+~1~}$ root root 728 Dec 18 15:01 f2.txt   \n$-r w-r w-r\\mathrm{--}+\\ 1$ root root 728 Dec 18 14:51 f3.txt   \n[root@centos8 \\~]#setfacl -b -R /opt/data   \n[root@centos8 \\~]#ll /opt/data   \ntotal 12   \n-rw-r--r-- 1 root root 728 Dec 18 14:51 f1.txt   \n-rw-r--r-- 1 root root 728 Dec 18 15:01 f2.txt   \n-rw-r--r-- 1 root root 728 Dec 18 14:51 f3.txt   \n[root@centos8 \\~]# ",
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "练习 ",
+        "text_level": 1,
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "1. 在/testdir/dir里创建的新文件自动属于webs组，组apps的成员如：tomcat能对这些新文件有读写权限，组dbs的成员如：mysql只能对新文件有读权限，其它用户（不属于webs,apps,dbs）不能访问这个文件夹  \n2. 误将 /bin/chmod 文件的执行权限删除，如何恢复？",
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "祝大家学业有成",
+        "text_level": 1,
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "谢谢",
+        "text_level": 1,
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "讲师：王晓春邮箱：29308620@qq.com电话：400-080-6560",
+        "page_idx": 31
+    }
+]
