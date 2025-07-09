@@ -1,2 +1,0 @@
-class MagikaError(Exception):
-    pass
