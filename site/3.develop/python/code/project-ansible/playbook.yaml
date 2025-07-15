@@ -1,0 +1,14 @@
+hosts:
+  - address: 192.168.0.201
+    username: openbayes
+    password: "openbayes"
+    port: 22
+  - address: 192.168.0.202
+    username: openbayes
+    password: "openbayes"
+    port: 22
+
+tasks:
+  - name: list task
+    command: ls -l /
+

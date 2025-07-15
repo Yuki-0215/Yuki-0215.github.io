@@ -19,7 +19,7 @@
     
     
       
-        <title>Dockerfile build 多架构镜像 - Kubernetes 进阶训练营</title>
+        <title>20250 07 09 docker dockerfie docs - Kubernetes 进阶训练营</title>
       
     
     
@@ -105,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dockerfile build 多架构镜像
+              20250 07 09 docker dockerfie docs
             
           </span>
         </div>
@@ -246,15 +246,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../basic/cncf-docs/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../basic/cncf-docs/" class="md-tabs__link">
         2、kubernetes
       </a>
     </li>
@@ -2935,21 +2933,15 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
       
       
       
-        
-          
-        
-          
         
           
         
@@ -3112,160 +3104,6 @@
       <a href="../../containerd/2024-04-08-containerd-remove-none-tag-image-doc/" class="md-nav__link">
         Containerd 镜像管理
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../2025-07-09-docker-jupyterlab-docs/" class="md-nav__link">
-        Dockerfile 构建 jupyter 镜像
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Dockerfile build 多架构镜像
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Dockerfile build 多架构镜像
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#dockerfile-build" class="md-nav__link">
-    使用 Dockerfile build 多架构镜像
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#buildx-builder" class="md-nav__link">
-    ✅ 解决方案:使用支持多平台的 Buildx Builder
-  </a>
-  
-    <nav class="md-nav" aria-label="✅ 解决方案:使用支持多平台的 Buildx Builder">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#buildx-builder_1" class="md-nav__link">
-    方法一:创建一个新的 buildx builder(推荐)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    方法二:只构建单平台镜像(临时避开)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#builder" class="md-nav__link">
-    🔍 检查当前 builder 状态
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    ✅ 总结
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#buildx-builder_2" class="md-nav__link">
-    ✅ 解决步骤(一步一步教你切换到支持多平台的 buildx builder)
-  </a>
-  
-    <nav class="md-nav" aria-label="✅ 解决步骤(一步一步教你切换到支持多平台的 buildx builder)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#builder_1" class="md-nav__link">
-    ✅ 第一步:安装并切换到支持多平台的 Builder
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#qemu" class="md-nav__link">
-    ✅ 第二步:确保已安装 QEMU(用于跨平台支持)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    ✅ 第三步:重新执行你的构建脚本
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    ✅ 第四步(可选):推送镜像到远程仓库
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    🔁 补充说明:构建并导出到本地
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3898,7 +3736,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_50" data-md-state="indeterminate" type="checkbox" id="__nav_4_50" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_48" data-md-state="indeterminate" type="checkbox" id="__nav_4_48" checked>
       
       
       
@@ -3907,13 +3745,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_50">
+        <label class="md-nav__link" for="__nav_4_48">
           kubernetes 证书管理
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="kubernetes 证书管理" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_50">
+        <label class="md-nav__title" for="__nav_4_48">
           <span class="md-nav__icon md-icon"></span>
           kubernetes 证书管理
         </label>
@@ -3951,7 +3789,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_51" data-md-state="indeterminate" type="checkbox" id="__nav_4_51" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_49" data-md-state="indeterminate" type="checkbox" id="__nav_4_49" checked>
       
       
       
@@ -3960,13 +3798,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_51">
+        <label class="md-nav__link" for="__nav_4_49">
           kubernetes 网络管理
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="kubernetes 网络管理" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_51">
+        <label class="md-nav__title" for="__nav_4_49">
           <span class="md-nav__icon md-icon"></span>
           kubernetes 网络管理
         </label>
@@ -4004,7 +3842,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_52" data-md-state="indeterminate" type="checkbox" id="__nav_4_52" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_50" data-md-state="indeterminate" type="checkbox" id="__nav_4_50" checked>
       
       
       
@@ -4015,13 +3853,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_52">
+        <label class="md-nav__link" for="__nav_4_50">
           K8s 认证
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="K8s 认证" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_52">
+        <label class="md-nav__title" for="__nav_4_50">
           <span class="md-nav__icon md-icon"></span>
           K8s 认证
         </label>
@@ -4073,7 +3911,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_53" data-md-state="indeterminate" type="checkbox" id="__nav_4_53" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_51" data-md-state="indeterminate" type="checkbox" id="__nav_4_51" checked>
       
       
       
@@ -4086,13 +3924,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_53">
+        <label class="md-nav__link" for="__nav_4_51">
           Helm
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Helm" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_53">
+        <label class="md-nav__title" for="__nav_4_51">
           <span class="md-nav__icon md-icon"></span>
           Helm
         </label>
@@ -4158,7 +3996,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_54" data-md-state="indeterminate" type="checkbox" id="__nav_4_54" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_52" data-md-state="indeterminate" type="checkbox" id="__nav_4_52" checked>
       
       
       
@@ -4167,13 +4005,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_54">
+        <label class="md-nav__link" for="__nav_4_52">
           Helm FAQ
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Helm FAQ" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_54">
+        <label class="md-nav__title" for="__nav_4_52">
           <span class="md-nav__icon md-icon"></span>
           Helm FAQ
         </label>
@@ -4211,7 +4049,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_55" data-md-state="indeterminate" type="checkbox" id="__nav_4_55" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_53" data-md-state="indeterminate" type="checkbox" id="__nav_4_53" checked>
       
       
       
@@ -4220,13 +4058,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_55">
+        <label class="md-nav__link" for="__nav_4_53">
           Helmfile
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Helmfile" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_55">
+        <label class="md-nav__title" for="__nav_4_53">
           <span class="md-nav__icon md-icon"></span>
           Helmfile
         </label>
@@ -4264,7 +4102,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_56" data-md-state="indeterminate" type="checkbox" id="__nav_4_56" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_54" data-md-state="indeterminate" type="checkbox" id="__nav_4_54" checked>
       
       
       
@@ -4275,13 +4113,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_56">
+        <label class="md-nav__link" for="__nav_4_54">
           k3s
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="k3s" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_56">
+        <label class="md-nav__title" for="__nav_4_54">
           <span class="md-nav__icon md-icon"></span>
           k3s
         </label>
@@ -4333,7 +4171,7 @@
     <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_57" data-md-state="indeterminate" type="checkbox" id="__nav_4_57" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_55" data-md-state="indeterminate" type="checkbox" id="__nav_4_55" checked>
       
       
       
@@ -4342,13 +4180,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_4_57">
+        <label class="md-nav__link" for="__nav_4_55">
           dragonfly
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="dragonfly" data-md-level="2">
-        <label class="md-nav__title" for="__nav_4_57">
+        <label class="md-nav__title" for="__nav_4_55">
           <span class="md-nav__icon md-icon"></span>
           dragonfly
         </label>
@@ -5694,6 +5532,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_11_1">
@@ -5800,6 +5640,20 @@
     <li class="md-nav__item">
       <a href="../../../9.other/Macos/6-2024-02-20-mac-mkdocs-docs/" class="md-nav__link">
         如何利用Mac 写博客文章
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/10-2025-6-11-mac-ncdu-cli-doc/" class="md-nav__link">
+        Mac 磁盘分析命令 ncdu
       </a>
     </li>
   
@@ -7144,7 +6998,7 @@
 </a>
 
 
-  <h1>Dockerfile build 多架构镜像</h1>
+  <h1>20250 07 09 docker dockerfie docs</h1>
 
 <h2 id="dockerfile-build">使用 Dockerfile build 多架构镜像<a class="headerlink" href="#dockerfile-build" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>buildx<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64,linux/arm64<span class="w"> </span>...
@@ -7291,41 +7145,6 @@ docker<span class="w"> </span>buildx<span class="w"> </span>build<span class="w"
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="页脚">
-      
-        
-        <a href="../2025-07-09-docker-jupyterlab-docs/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Dockerfile 构建 jupyter 镜像" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                上一页
-              </span>
-              Dockerfile 构建 jupyter 镜像
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../2024-02-20-docker-docs/" class="md-footer__link md-footer__link--next" aria-label="下一页: Docker 基本管理" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                下一页
-              </span>
-              Docker 基本管理
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
