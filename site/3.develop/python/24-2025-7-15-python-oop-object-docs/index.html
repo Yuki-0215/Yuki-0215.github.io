@@ -5235,6 +5235,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_8">
@@ -5283,20 +5285,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../6.Devops/2024-10-10-Github-rsync-Gitee/" class="md-nav__link">
-        Github Rysnc 同步 Gitee
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../6.Devops/2025-3-31-Git-rebase-error-docs.md" class="md-nav__link">
         Git rebase报错指南
       </a>
@@ -5311,8 +5299,36 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../6.Devops/2025-07-16-git-merger-commit-doc/" class="md-nav__link">
+        Git 合并两个 commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../6.Devops/github/" class="md-nav__link">
         Github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../6.Devops/2024-10-10-Github-rsync-Gitee/" class="md-nav__link">
+        Github Rysnc 同步 Gitee
       </a>
     </li>
   
@@ -7017,12 +7033,12 @@
 <p>面向对象编程-object oriented programming, 简称 OOP,一种程序思想,一种编程范式, 它将程序组织为一组对象,每个对象包含数据(属性)和操作这些数据的方法(函数)</p>
 <h2 id="_1"><strong>基本概念</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>在 python 中,一切皆对象。我们可以用一个例子来说明面向过程和面向对象在程序流程上的不同之处。假设我们要处理学生的成绩表，为了表示一个学生的成绩，面向过程的程序可以用一个字典表示：</p>
-<p><div class="highlight"><pre><span></span><code>std1 = {&#39;name&#39;: &#39;Tom&#39;, &#39;score&#39;: 99}
-std2 = {&#39;name&#39;: &#39;Yuki&#39;, &#39;score&#39;: 100}
+<p><div class="highlight"><pre><span></span><code><span class="n">std1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Tom&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">99</span><span class="p">}</span>
+<span class="n">std2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Yuki&#39;</span><span class="p">,</span> <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">}</span>
 </code></pre></div>
 通过函数实现，比如打印学生的成绩</p>
-<div class="highlight"><pre><span></span><code>def print_score(std):
-  print(f&quot;{std[&#39;name&#39;]}: {std[&#39;score&#39;]}&quot; )
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_score</span><span class="p">(</span><span class="n">std</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">std</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">std</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">)</span>
 </code></pre></div>
 <p>如果采用面向对象的程序设计思想,我们首先要思考的不是程序的执行流程,而是学生这种数据类型应该被视为一个对象,这个对象用于 name 和 score 这两个属性.如果要打印一个学生的成绩,首先必须创建出这个学生的对象,饭后给对象发一个 print_score 消息,让对象吧自己的数据打印出来.</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -7046,22 +7062,22 @@ Yuki.print_score()
 <p>面向对象的设计思想是从自然界中来的,因为在自然界中, 类(Class) 和实例(Instance) 的概念是很自然的,现实世界中的每个实体,(如汽车,人,狗)都可以看作一个类,他们有属性(如颜色,年龄,品种) 和行为(如行驶,说话,犬叫)等. 上面我们定义的 Student 就是指学生这个概念(类), 而 james 和 Yuki 则是两个具体的 Student 对象(实例)</p>
 <h2 id="_2"><strong>定义</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>类是对象的模版,定义了属性和方法. 对象是类的实例,通过类创建,在 python 中通过 class 关键字定义一个类,然后后面是类的名称,类的名称通常是大写字母开头的单词,然后是(),括号中是类的基类,如果没有基类可以省略,默认是 object 类,(object 类是 python 中所有类的基类)</p>
-<div class="highlight"><pre><span></span><code># 定义了一个狗的类型
-class Dog():
-  def __init__(self,name, age):
-    self.name = name
-    self.age = age
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义了一个狗的类型</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">():</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 
-  def bark(self):
-    print(f&quot;{self.name} says woof! I&#39;m {self.age} years old&quot;)
+  <span class="k">def</span> <span class="nf">bark</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> says woof! I&#39;m </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old&quot;</span><span class="p">)</span>
 
-# 创建一个对象
-my_dog = Dog(&#39;Tom&#39;, 3)
+<span class="c1"># 创建一个对象</span>
+<span class="n">my_dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s1">&#39;Tom&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-# 访问对象的属性和方法
-print(my_dog.name)
-print(my_dog.age)
-my_dog.bark()
+<span class="c1"># 访问对象的属性和方法</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_dog</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_dog</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>
+<span class="n">my_dog</span><span class="o">.</span><span class="n">bark</span><span class="p">()</span>
 </code></pre></div>
 <p>上面的代码中我们定义了一个Dog的类,包含 name 和 age 属性,以及 bark 方法,通过类创建 my_dog 对象,并访问其属性的方法.</p>
 <p>其中有一个比较重要的方法__init__ ,该方法是类的构造方法,用于初始化对象的属性,也就是你的类有什么属性,你就是在__init__方法中定义什么属性.</p>
@@ -7070,46 +7086,55 @@ my_dog.bark()
 然后初始化对象的属性,这样当我们调用 bark 方法时候,就可以访问到 name 和 age 属性了</p>
 <h2 id="_3"><strong>访问限制</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>在 Class 内部,可以有属性和方法,而外部代码可以通过直接调用实例变量的方法来操作数据,这样,就隐藏了内部的复杂逻辑,如果要让内部属性不被外部访问,可以把属性的名称前加上两个下划线__,这样这个属性就是私有属性了,外部无法直接访问</p>
-<div class="highlight"><pre><span></span><code># 定义一个类
-class Dog:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        self.__color = &#39;white&#39;  # 私有属性
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义一个类</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>  <span class="c1"># 私有属性</span>
 
-    def get_color(self):
-        return self.__color
+    <span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__color</span>
 
-    def set_color(self, color):
-        self.__color = color
+    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="n">color</span>
 
-# 创建一个对象
-my_dog = Dog(&quot;lucy&quot;, 3)
-print(my_dog.__color)  # 报错: AttributeError: &#39;Dog&#39; object has no attribute &#39;__color&#39;
-my_dog.__color = &#39;black&#39;  # 不会修改 __color 属性
+<span class="c1"># 创建一个对象</span>
+<span class="n">my_dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">&quot;lucy&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_dog</span><span class="o">.</span><span class="n">__color</span><span class="p">)</span>  <span class="c1"># 报错: AttributeError: &#39;Dog&#39; object has no attribute &#39;__color&#39;</span>
+<span class="n">my_dog</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>  <span class="c1"># 不会修改 __color 属性</span>
 </code></pre></div>
 <p>在上面的代码中,我们在 Dog 类中定义了一个__color 私有属性,私有属性的名称前加上两个下划线__,外部就无法直接访问,如果尝试访问会报错.这样就确保了外部代码不能随意修改对象内部的状态,这样通过访问限制的保护,代码更加健壮.</p>
 <p>但是如果外部代码要获取这个私有私有属性怎么办? 可以给类增加 getter, setter 方法,用于获取和修改私有属性.如下所示:</p>
-<p><div class="highlight"><pre><span></span><code># 定义一个类
-class Dog:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        self.__color = &#39;white&#39;  # 私有属性
+<p><div class="highlight"><pre><span></span><code><span class="c1"># 定义一个类</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span>  <span class="c1"># 私有属性</span>
 
-    def get_color(self):
-        return self.__color
+    <span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__color</span>
 
-    def set_color(self, color):
-        self.__color = color
+    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="n">color</span>
 
-# 创建一个对象
-my_dog = Dog(&quot;lucy&quot;, 3)
-my_dog.get_color()  # 输出: white
-my_dog.set_color(&#39;black&#39;) # 修改 __color 属性
-my_dog.get_color()  # 输出: black
+<span class="c1"># 创建一个对象</span>
+<span class="n">my_dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s2">&quot;lucy&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">my_dog</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>  <span class="c1"># 输出: white</span>
+<span class="n">my_dog</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span> <span class="c1"># 修改 __color 属性</span>
+<span class="n">my_dog</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>  <span class="c1"># 输出: black</span>
 </code></pre></div>
 上面的代码中,我们定义了 get_color 和 set_color 方法,用于获取和修改__color 私有属性,这样外部代码就可以通过这样两个方法来访问和修改私有属性</p>
+<p>为什么要定义私有属性?不定义不就行了吗?因为在方法中,我们可以对参数做检查,避免传入无效的参数</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Dog</span><span class="p">():</span>
+<span class="o">...</span>
+  <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">color</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">]:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid color&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__color</span> <span class="o">=</span> <span class="n">color</span>
+</code></pre></div>
+这样我们就可以在 set_color 方法中对传入的参数进行检查,确保传入的参数是有效的,这样就提高了代码的健壮性.</p>
 
               
             </article>

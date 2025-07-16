@@ -25,6 +25,8 @@ class Dog():
     return self.__color
 
   def set_color(self, color):
+    if color not in ['red', 'blue','yellow']:
+      raise ValueError('Invalid color')
     self.__color = color
 
 # my_dog = Dog('Tom', 3)
