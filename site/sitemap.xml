@@ -2136,11 +2136,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/3.develop/python/2025-05-16-python-venv-doc/</loc>
-         <lastmod>2025-07-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/3.develop/python/2025-05-23-python-concurrency-doc/</loc>
          <lastmod>2025-07-17</lastmod>
          <changefreq>daily</changefreq>
@@ -2162,6 +2157,16 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/3.develop/python/28-2025-07-17-python-py-concurrency-doc/</loc>
+         <lastmod>2025-07-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/3.develop/python/29-2025-07-17-python-py-multiprocess/</loc>
+         <lastmod>2025-07-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/3.develop/python/32-2025-07-17-python-py-venv-doc/</loc>
          <lastmod>2025-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
