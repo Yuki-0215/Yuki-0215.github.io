@@ -2146,11 +2146,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://barry-boy.github.io/3.develop/python/2025-05-24-python-concurrency-doc/</loc>
-         <lastmod>2025-07-17</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://barry-boy.github.io/3.develop/python/24-2025-07-15-python-oop-object-docs/</loc>
          <lastmod>2025-07-17</lastmod>
          <changefreq>daily</changefreq>
@@ -2162,6 +2157,11 @@
     </url>
     <url>
          <loc>https://barry-boy.github.io/3.develop/python/26-2025-07-17-python-property-doc/</loc>
+         <lastmod>2025-07-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://barry-boy.github.io/3.develop/python/28-2025-07-17-python-py-concurrency-doc/</loc>
          <lastmod>2025-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
