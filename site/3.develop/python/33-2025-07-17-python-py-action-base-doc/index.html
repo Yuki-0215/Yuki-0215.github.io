@@ -12,7 +12,7 @@
         <meta name="author" content="Li">
       
       
-        <link rel="canonical" href="https://barry-boy.github.io/3.develop/python/33-2025-07-17-python-py-action-base-doc/">
+        <link rel="canonical" href="https://yuki-0215.github.io/site/3.develop/python/33-2025-07-17-python-py-action-base-doc/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-8.0.0">
@@ -173,7 +173,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/barry-boy/barry-boy.github.io" title="前往仓库" class="md-source" data-md-component="source">
+        <a href="https://github.com/Yuki-0215/Yuki-0215.github.io" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -469,7 +469,7 @@
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/barry-boy/barry-boy.github.io" title="前往仓库" class="md-source" data-md-component="source">
+      <a href="https://github.com/Yuki-0215/Yuki-0215.github.io" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
@@ -4532,6 +4532,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    远程执行任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    并发执行任务
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7077,6 +7091,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    远程执行任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    并发执行任务
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7089,7 +7117,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/barry-boy/barry-boy.github.io/edit/master/docs/3.develop/python/33-2025-07-17-python-py-action-base-doc.md" title="编辑此页" class="md-content__button md-icon">
+<a href="https://github.com/Yuki-0215/Yuki-0215.github.io/edit/master/docs/3.develop/python/33-2025-07-17-python-py-action-base-doc.md" title="编辑此页" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
@@ -7145,6 +7173,66 @@ $<span class="w"> </span><span class="nb">source</span><span class="w"> </span>d
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>python3<span class="w"> </span>config.py
 <span class="o">{</span><span class="s1">&#39;hosts&#39;</span>:<span class="w"> </span><span class="o">[{</span><span class="s1">&#39;address&#39;</span>:<span class="w"> </span><span class="s1">&#39;10.0.10.140&#39;</span>,<span class="w"> </span><span class="s1">&#39;username&#39;</span>:<span class="w"> </span><span class="s1">&#39;openbayes&#39;</span>,<span class="w"> </span><span class="s1">&#39;password&#39;</span>:<span class="w"> </span><span class="s1">&#39;openbayes&#39;</span>,<span class="w"> </span><span class="s1">&#39;port&#39;</span>:<span class="w"> </span><span class="m">22</span><span class="o">}]</span>,<span class="w"> </span><span class="s1">&#39;tasks&#39;</span>:<span class="w"> </span><span class="o">[{</span><span class="s1">&#39;name&#39;</span>:<span class="w"> </span><span class="s1">&#39;list task&#39;</span>,<span class="w"> </span><span class="s1">&#39;command&#39;</span>:<span class="w"> </span><span class="s1">&#39;ls -l /&#39;</span><span class="o">}]}</span>
 </code></pre></div>
+<p>可以看到我们成功加载了配置文件,接下来我们就可以通过 SSH 连接到远程服务器并执行命令</p>
+<h2 id="_3"><strong>远程执行任务</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>上面我们已经成功加载了配置文件,接下来我们就可以通过 ssh 连接到远程服务器并执行命令.要实现 SSH 连接,我们可以使用 paramiko 这个库实现,这个库是一个纯 Python 实现的 SSH 客户端,主要用于远程执行命令和文件传输等任务,它是一个功能强大的工具,适用与需要进行 SSH 连接的自动化任务,可以通过 pip 安装这个包;</p>
+<div class="highlight"><pre><span></span><code>$ pip3 install paramiko
+</code></pre></div>
+<p>下面我们先了解下 paramiko 的基本用法,然后再来实现远程执行任务的功能.</p>
+<p>要连接到远程服务器,我们首先需要一个 SSHClient 对象,然后使用 connect 方法连接到远程服务器,示例代码如下:</p>
+<p><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">paramiko</span>
+
+<span class="c1"># 创建 SSH client 对象</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
+
+<span class="c1"># 自动添加主机密钥,(如果之前没有连接过)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+
+<span class="c1"># 连接到远程服务器</span>
+<span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;10.0.10.140&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s1">&#39;openbayes&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;openbayes&#39;</span><span class="p">)</span>
+
+<span class="c1"># 执行命令</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="s1">&#39;hostname &amp;&amp; hostname -I&#39;</span><span class="p">)</span>
+
+<span class="c1"># 输出结果</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+
+<span class="c1"># 关闭连接</span>
+<span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+上面的代码中,我们首先创建了一个 SSHClient 对象,然后使用 connect 方法连接到远程服务器,接着使用 exec_command 方法执行命令,最后读取输出并关闭连接,这个整个过程其实就是一个典型的 SSH 连接过程</p>
+<p>这里需要注意的是 exec_command 方法返回的是一个三元组,分别是标准输入,标准输出,和标准错误,我们可以通过这三个对象来读取命令的输入和输出.在读取输出的时候,需要使用 decode 方法将字节流转换为字符串.</p>
+<p>将上面的代码保存到一个名为 ssh.py 的文件中,然后运行,可以看到输出结果:</p>
+<p>可以看到我们成功连接到远程服务器并执行了 ls -l 命令</p>
+<p>接下来我们可以将上面的代码封装成一个函数,用于执行远程命令,代码如下:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">paramiko</span>
+
+<span class="c1"># 远程执行命令</span>
+<span class="k">def</span> <span class="nf">execute_remote_commond</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Executing command: </span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># 创建 SSHClient 对象</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">paramiko</span><span class="o">.</span><span class="n">SSHClient</span><span class="p">()</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">set_missing_host_key_policy</span><span class="p">(</span><span class="n">paramiko</span><span class="o">.</span><span class="n">AutoAddPolicy</span><span class="p">())</span>
+    <span class="c1"># 连接服务器</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="c1"># 执行命令</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+
+    <span class="c1"># 输出结果</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+    <span class="c1"># 关闭连接</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="n">error</span>
+  <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="_4"><strong>并发执行任务</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>上面我们已经实现了远程执行任务的功能,接下来我们需要实现并发执行任务的功能,即同时连接到多个远程服务器并执行命令,要实现并发执行任务,我们可以使用多线程或多进程来实现,由于我们这里是通过网络 IO 来实现并发,所以使用多线程更适合</p>
+<p>前面我们学过 Python 提供了一个 concurrent.futures 模块,可以用来实现并发编程,其中有一个ThreadPoolExecutor 类,可以用来创建一个线程池,方便并发执行任务,我们可以使用这个类并发执行无误的功能</p>
 
               
             </article>
