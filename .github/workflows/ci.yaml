@@ -23,18 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.x"
-
-      - name: Install dependencies
+      - name: Check if site directory exists
         run: |
-          pip install mkdocs-material==8.0.0
-
-      - name: Build site
-        run: |
-          mkdocs build
+          if [ ! -d "site" ]; then
+            echo "Error: site directory not found"
+            exit 1
+          fi
+          echo "site directory found, ready for deployment"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
