@@ -198,7 +198,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../custom_home.html" class="md-tabs__link">
+    <a href="../../../k8s_home/" class="md-tabs__link">
       首页
     </a>
   </li>
@@ -488,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../custom_home.html" class="md-nav__link">
+      <a href="../../../k8s_home/" class="md-nav__link">
         首页
       </a>
     </li>
@@ -4295,6 +4295,14 @@
         
           
         
+          
+        
+          
+        
+          
+        
+          
+        
       
       
         <label class="md-nav__link" for="__nav_5_1">
@@ -4345,6 +4353,62 @@
     <li class="md-nav__item">
       <a href="../2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
         pip-离线安装软件包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-2025-08-06-python-types-doc/" class="md-nav__link">
+        数据类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-2025-08-06-python-input-doc/" class="md-nav__link">
+        用户输入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-2025-08-06-python-list-tuple-doc/" class="md-nav__link">
+        列表元组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-2025-08-07-python-except-doc/" class="md-nav__link">
+        异常处理
       </a>
     </li>
   
@@ -5634,6 +5698,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_11_1">
@@ -5782,6 +5848,20 @@
     <li class="md-nav__item">
       <a href="../../../9.other/Macos/12-2025-07-16-mac-crontab-caffeinate-doc/" class="md-nav__link">
         Macbook 显示器定时禁止自动休眠
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/13-2025-8-25-mac-iso-doc/" class="md-nav__link">
+        Macos 制作 iso 镜像文件
       </a>
     </li>
   
@@ -7027,6 +7107,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    进程池
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    进程间通信
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7104,6 +7198,107 @@ Task<span class="w"> </span>B<span class="w"> </span>runs<span class="w"> </span
 All<span class="w"> </span>subprocesses<span class="w"> </span><span class="k">done</span><span class="w"> </span>.<span class="w"> </span><span class="nb">time</span><span class="w"> </span>is:<span class="w"> </span><span class="m">2</span>.0495917797088623
 </code></pre></div>
 从上面的输出可以看到 A、B 两个任务属于不同的进程，与主进程的 ID 不一样（也就是我们这里总共有 3 个进程），这两个进程是并发执行的，总共执行时间是 2.04 秒，比单进程执行时间快了接近一半。可以看到使用多进程可以大大提高程序的执行效率，特别是对于多核 CPU，多进程可以真正实现并行执行多任务。</p>
+<h2 id="_3"><strong>进程池</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>我们知道多进程可以大大提高程序的执行效率,那么是不是进程越多越好呢? 当然不是的,因为进程本身也是需要资源的,如果创建的进程过多,导致系统资源不足,反而会降低程序的执行效率,而且单个 CPU 核某时刻只能执行一个进程,所以最理想的情况是 CPU 核数和进程数相等,这样可以充分利用 CPU 资源.</p>
+<p>所以我们可以使用进程池的方式来批量创建子进程,这样可以控制同时执行的进程数量. 进程池就是一个可容纳最大进程数目的池子,当有新的请求时,如果进程池还有空闲的进程,就会将请求分配给空闲的进程执行,如果没有空闲的进程,就需要等待,知道有进程空闲为止,这样就可以控制同时执行的进程数量了,这里的上限设置成 CPU 的核数是不是就最合适了.</p>
+<p>multiprocessing 模块提供了 Pool 类来创建进程池,比如下面的例子:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">long_time_task</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Run task </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">)...&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()))</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task </span><span class="si">%s</span><span class="s1"> runs </span><span class="si">%0.2f</span><span class="s1"> seconds.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">cpu</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Parent process </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CPU core number: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">cpu</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">cpu</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cpu</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">long_time_task</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="p">,))</span>  <span class="c1"># 异步执行任务</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Waiting for all subprocesses done...&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭进程池，不再接受新的进程</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 等待所有进程执行完毕</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All subprocesses done. Total time: </span><span class="si">%0.2f</span><span class="s1"> seconds.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+</code></pre></div>
+<p>在上面代码中我们使用 cpu_count() 函数获取 cpu 的核数,然后使用 Pool 创建了一个进程池,最大进程数设置成 CPU 的核数,然后循环创建 cpu*2 个任务,然后调用 apply_async()方法异步执行任务,最后调用 close()方法关闭进程池,调用 join() 方法等待所有进程执行完毕</p>
+<p>从上面输出可以看出我们的 CPU 核数是 10,进程池里面最多创建 10 个进程,然后我们创建了 20 个任务,所以可以看到最开始的 10 个任务几乎是同时执行的,然后当有任务执行完毕后,下一个任务才有机会从池子里面取出来执行,这样就可以控制同时执行的进程数量了</p>
+<h2 id="_4"><strong>进程间通信</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>不同进程之间是无法共享内存的,每个进程有自己独立的内存空间,如果要实现进程之间通信,可以使用 multiprocessing 模块提供的 Queue ,Pipes 等方式.</p>
+<p>队列(queue) 在典型的生产者-消费者问题中是非常有用的,比如一个进程负责生产数据,另一个进程负责消费数据,这连个进程之间通过队列来传递数据.</p>
+<p>我们这里可以先创建一个生产者进程,然后创建一个消费者进程,然后通过队列来传递数据,比如下面的例子:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Queue</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Process to write: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Put </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> to queue...&#39;</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Process to read: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Get </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> from queue...&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+    <span class="n">pw</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">write</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,))</span>
+    <span class="n">pr</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">read</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">q</span><span class="p">,))</span>
+    <span class="n">pw</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">pw</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+</code></pre></div>
+<p>在上面代码中我们首先定义了两个函数 write 和 read, 分别表示生产者和消费者,在生产者进程中我们将数据放入队列,然后在消费者进程中我们从队列中获取数据,然后输出,这样就实现了进程间通信.注意这里的队列我们使用的是 multiprocessing 模块提供的 Queue 类,这个队列是进程安全的, 可以在多个进程之间共享数据.另外还需要注意的一点是这里消费者进程是一个死循环,所以我们只是在生产者进程加了阻塞,等待生产者进程执行完毕后我们调用 terminate() 方法强制终止消费者进程,否则消费者进程会一直等待数据,执行结果如下:</p>
+<div class="highlight"><pre><span></span><code>Process to write: 16221
+Put A to queue...
+Process to read: 16222
+Get A from queue...
+Put B to queue...
+Get B from queue...
+Put C to queue...
+Get C from queue...
+</code></pre></div>
+<p>同样对于 Pipe 也是一样的, Pipe 可以创建一个管道,两个进程之间可以通过管道来通信,比如下面的例子:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Pipe</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">conn</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Process to write: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Put </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> to pipe...&#39;</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># 将数据放入管道</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>  <span class="c1"># 随机休眠</span>
+
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">conn</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Process to read: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>  <span class="c1"># 从管道中获取数据</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Get </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> from pipe...&#39;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parent_conn</span><span class="p">,</span> <span class="n">child_conn</span> <span class="o">=</span> <span class="n">Pipe</span><span class="p">()</span>  <span class="c1"># 创建一个管道</span>
+    <span class="n">pw</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">write</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">parent_conn</span><span class="p">,))</span>  <span class="c1"># 创建一个生产者进程</span>
+    <span class="n">pr</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">read</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">child_conn</span><span class="p">,))</span>  <span class="c1"># 创建一个消费者进程</span>
+    <span class="n">pw</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># 启动生产者进程</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># 启动消费者进程</span>
+    <span class="n">pw</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># 等待生产者进程执行完毕</span>
+    <span class="n">pr</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>  <span class="c1"># 强制终止消费者进程</span>
+</code></pre></div>
+<p>Pipe 函数返回两个连接对象,这两个连接对象分别表示管道的两端,一个连接对象只能用于读取,另一个连接对象只能用于写入,这样就实现了进程间通信.这里我们将数据放入管道,然后从管道中获取数据,这样就实现了进程间通信,和队列的方式类似.执行结果如下:</p>
+<p>Queue 和 Pipe 都是进程安全的(Queue 的底层也是通过 Pipe 来实现的,所以性能比 Pipe 差), 可以在多个进程之间共享数据,但是 Queue 多个进程可以共享的,而 Pipe 是两个进程之间共享的.</p>
 
               
             </article>

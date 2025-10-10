@@ -198,7 +198,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../custom_home.html" class="md-tabs__link">
+    <a href="../../../k8s_home/" class="md-tabs__link">
       首页
     </a>
   </li>
@@ -490,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../custom_home.html" class="md-nav__link">
+      <a href="../../../k8s_home/" class="md-nav__link">
         首页
       </a>
     </li>
@@ -996,6 +996,40 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     附件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipmi-nfs" class="md-nav__link">
+    IPMI 来安装操作系统(NFS)
+  </a>
+  
+    <nav class="md-nav" aria-label="IPMI 来安装操作系统(NFS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-server" class="md-nav__link">
+    安装 nfs-server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipmi" class="md-nav__link">
+    IPMI 异常无法进入
   </a>
   
 </li>
@@ -4356,6 +4390,14 @@
         
           
         
+          
+        
+          
+        
+          
+        
+          
+        
       
       
         <label class="md-nav__link" for="__nav_5_1">
@@ -4406,6 +4448,62 @@
     <li class="md-nav__item">
       <a href="../../../3.develop/python/2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
         pip-离线安装软件包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/6-2025-08-06-python-types-doc/" class="md-nav__link">
+        数据类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/7-2025-08-06-python-input-doc/" class="md-nav__link">
+        用户输入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/8-2025-08-06-python-list-tuple-doc/" class="md-nav__link">
+        列表元组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../3.develop/python/14-2025-08-07-python-except-doc/" class="md-nav__link">
+        异常处理
       </a>
     </li>
   
@@ -5695,6 +5793,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_11_1">
@@ -5843,6 +5943,20 @@
     <li class="md-nav__item">
       <a href="../../../9.other/Macos/12-2025-07-16-mac-crontab-caffeinate-doc/" class="md-nav__link">
         Macbook 显示器定时禁止自动休眠
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/13-2025-8-25-mac-iso-doc/" class="md-nav__link">
+        Macos 制作 iso 镜像文件
       </a>
     </li>
   
@@ -7097,6 +7211,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#ipmi-nfs" class="md-nav__link">
+    IPMI 来安装操作系统(NFS)
+  </a>
+  
+    <nav class="md-nav" aria-label="IPMI 来安装操作系统(NFS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nfs-server" class="md-nav__link">
+    安装 nfs-server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipmi" class="md-nav__link">
+    IPMI 异常无法进入
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7146,6 +7294,31 @@ ipmitool<span class="w"> </span>lan<span class="w"> </span><span class="nb">set<
 <p class="admonition-title">Warning</p>
 <p>带外管理是运维中，比较重要的一个技能，可以不用在机房给系统重启，和安装系统等很多的操作</p>
 </div>
+<h2 id="ipmi-nfs"><strong>IPMI 来安装操作系统(NFS)</strong><a class="headerlink" href="#ipmi-nfs" title="Permanent link">&para;</a></h2>
+<h3 id="_4"><strong>环境配置</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>管理交换机→ 通过千兆网线连接→ 服务器（这个台服务器nfs-server 共享服务）</p>
+<ul>
+<li>在服务器上面配置一个管理交换器网络IP，一下例如： IP地址为：192.168.2.x/24</li>
+</ul>
+<h3 id="nfs-server"><strong>安装 nfs-server</strong><a class="headerlink" href="#nfs-server" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nfs-server
+
+/data/isos<span class="w"> </span>*<span class="o">(</span>rw,sync,no_root_squash<span class="o">)</span>
+
+$<span class="w"> </span>chown<span class="w"> </span>root.root<span class="w"> </span>/data/isos
+$<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nfs-server
+</code></pre></div>
+<ul>
+<li>上传镜像到服务器192.168.2.x 的/data/isos 目录下</li>
+</ul>
+<p><img alt="20250909142227" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20250909142227.png" />
+选择镜像，然后点击最右侧的启动就可以重装系统了</p>
+<p><img alt="20250909142252" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20250909142252.png" /></p>
+<h2 id="ipmi"><strong>IPMI 异常无法进入</strong><a class="headerlink" href="#ipmi" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 可以尝试换个密码复杂度高一点的密码,或者重启一下带外管理</span>
+ipmitool<span class="w"> </span>user<span class="w"> </span><span class="nb">set</span><span class="w"> </span>password<span class="w"> </span><span class="m">2</span><span class="w"> </span>mypassword
+ipmitool<span class="w"> </span>mc<span class="w"> </span>reset<span class="w"> </span>cold
+</code></pre></div>
 
               
             </article>

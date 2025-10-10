@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -193,7 +198,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../../custom_home.html" class="md-tabs__link">
+    <a href="../../../k8s_home/" class="md-tabs__link">
       首页
     </a>
   </li>
@@ -483,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../custom_home.html" class="md-nav__link">
+      <a href="../../../k8s_home/" class="md-nav__link">
         首页
       </a>
     </li>
@@ -4290,6 +4295,14 @@
         
           
         
+          
+        
+          
+        
+          
+        
+          
+        
       
       
         <label class="md-nav__link" for="__nav_5_1">
@@ -4340,6 +4353,62 @@
     <li class="md-nav__item">
       <a href="../2024-03-06-3-python-pip-offline-doc/" class="md-nav__link">
         pip-离线安装软件包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6-2025-08-06-python-types-doc/" class="md-nav__link">
+        数据类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7-2025-08-06-python-input-doc/" class="md-nav__link">
+        用户输入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8-2025-08-06-python-list-tuple-doc/" class="md-nav__link">
+        列表元组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-2025-08-07-python-except-doc/" class="md-nav__link">
+        异常处理
       </a>
     </li>
   
@@ -5629,6 +5698,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_11_1">
@@ -5777,6 +5848,20 @@
     <li class="md-nav__item">
       <a href="../../../9.other/Macos/12-2025-07-16-mac-crontab-caffeinate-doc/" class="md-nav__link">
         Macbook 显示器定时禁止自动休眠
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../9.other/Macos/13-2025-8-25-mac-iso-doc/" class="md-nav__link">
+        Macos 制作 iso 镜像文件
       </a>
     </li>
   
@@ -6991,6 +7076,37 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    创建线程
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -7003,7 +7119,61 @@
 
   <h1>30 2025 07 18 python py thread doc</h1>
 
+<p>多线程是一种轻量级的进程,线程是操作系统能够进行运算调度的最小单位,它被包含在进程之中,一个进程可以拥有多个线程,这些线程在共享内存的情况下相互独立,每个线程都有自己的一组寄存器,堆栈,和局部变量,线程之间的切换和调度不会引起进程的切换,只是线程的切换,这样就可以实现多个线程并发执行.</p>
+<p>在 Python 中,要实现多线程,我们可以使用 threading 模块,这个模块提供了 Thread 类来表示一个线程对象, 然后通过 start() 方法启动一个线程,通过 join() 方法等待线程执行完毕.</p>
+<h2 id="_1"><strong>创建线程</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>比如我们要开发一个爬虫程序,需要同时爬取多个网页,接下来我们就可以来对比下使用多线程和不使用多线程的区别.</p>
+<p>首先我们定义一个爬虫函数,模拟爬取网页的操作:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
+<span class="k">def</span> <span class="nf">crawl</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Crawling </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+  <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+  <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(</span>
+  <span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Crawling </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1"> done, time: </span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>如果不使用多线程,我们可以这样来执行
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start crawling...&#39;</span><span class="p">)</span>
+  <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://www.qq.com&#39;</span><span class="p">,</span> <span class="s1">&#39;https://fastclass.cn&#39;</span><span class="p">]</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+    <span class="n">crawl</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+  <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;All crawling done, time: </span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>上面代码中我们定义了一个 crawl 函数,模拟爬取网页的操作,然后我们定义了 3 个网页,然后循环调用 crawl 函数,模拟爬取这 3 个网页,执行结果如下:</p>
+<p>从输出可以看到,三个网页是顺序爬取的,需要一个网页爬取完毕后才能爬取下一个网页,总共耗时基本上就是 3 个网页的爬取时间之和.</p>
+<p>如果我们使用多线程的话,就可以同时爬取多个网页了,这样就可以大大提高程序的执行效率,减少总共耗时,我们可以这样来实现:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="kn">import</span> <span class="nn">threading</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Start crawing...&#39;</span><span class="p">)</span>
+  <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;http://www.baidu.com&#39;</span><span class="p">,</span> <span class="s1">&#39;http://www.qq.com&#39;</span><span class="p">,</span> <span class="s1">&#39;https://fastclass.cn&#39;</span><span class="p">]</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="n">threads</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">crawl</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">url</span><span class="p">,))</span>
+    <span class="n">threads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">threads</span><span class="p">:</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+  <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;All crawling done, time: </span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>上面代码中我们通过 Thread 类创建了 3 个线程对象,然后调用 start() 方法启动线程,最后调用 join() 方法等待线程执行完毕,执行结果如下:</p>
+<p><div class="highlight"><pre><span></span><code>Crawling<span class="w"> </span>http://www.baidu.com...Crawling<span class="w"> </span>http://www.qq.com...
+
+Crawling<span class="w"> </span>https://fastclass.cn...
+Crawling<span class="w"> </span>http://www.qq.com<span class="w"> </span><span class="k">done</span>,<span class="w"> </span>time:<span class="w"> </span><span class="m">1</span>.0018939971923828<span class="w"> </span>seconds
+Crawling<span class="w"> </span>http://www.baidu.com<span class="w"> </span><span class="k">done</span>,<span class="w"> </span>time:<span class="w"> </span><span class="m">2</span>.005094051361084<span class="w"> </span>seconds
+Crawling<span class="w"> </span>https://fastclass.cn<span class="w"> </span><span class="k">done</span>,<span class="w"> </span>time:<span class="w"> </span><span class="m">4</span>.001739025115967<span class="w"> </span>seconds
+All<span class="w"> </span>crawling<span class="w"> </span><span class="k">done</span>,<span class="w"> </span>time:<span class="w"> </span><span class="m">4</span>.005951881408691<span class="w"> </span>seconds
+</code></pre></div>
+从输出结果可以看到,三个网页爬取的,不需要等待一个网页爬取完毕后才能爬取下一个网页,总共耗时 4 秒左右,几乎等于耗时最长的一个任务的时间,大大提高了程序的执行效率.</p>
+<p>实际上除了可以直接通过 Thread 类来创建线程外,还可以通过继承 Thread 类并重写 run() 方法的方式来自定义线程,比如我们可以这样来实现,如下所示:</p>
 
               
             </article>

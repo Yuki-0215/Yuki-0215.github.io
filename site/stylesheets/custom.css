@@ -1,3 +1,283 @@
 .md-grid {
   max-width: 1440px;
 }
+
+/* K8s Training Home Page - 只在首页生效的特殊样式 */
+/* 只有当body有k8s-home-page类时才隐藏默认MkDocs布局 */
+body.k8s-home-page .md-main {
+    display: none;
+}
+
+body.k8s-home-page .md-content {
+    display: none;
+}
+
+/* 确保其他页面正常显示MkDocs内容 */
+body:not(.k8s-home-page) .md-main {
+    display: flex;
+}
+
+body:not(.k8s-home-page) .md-content {
+    display: block;
+}
+
+/* Custom hero section that replaces main content - 只在首页显示 */
+.k8s-hero-section {
+    position: relative;
+    min-height: 80vh;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1123 258'><path d='M1124,2c0,0 0,256 0,256l-1125,0l0,-48c0,0 16,5 55,5c116,0 197,-92 325,-92c121,0 114,46 254,46c140,0 214,-167 572,-166Z' style='fill: hsla(0, 0%, 100%, 1)' /></svg>") no-repeat bottom,
+        linear-gradient(180deg, #4051b5, #a63fd9 99%, #fff 0);
+    color: white;
+    padding: 2rem 0 8rem 0;
+    margin-top: 0;
+}
+
+.k8s-hero-container {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 0 0.8rem;
+    display: flex;
+    align-items: stretch;
+    min-height: 60vh;
+    gap: 4rem;
+}
+
+.k8s-hero-content {
+    flex: 1;
+    max-width: 32rem;
+    padding-top: 3rem;
+    z-index: 2;
+}
+
+.k8s-hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.k8s-hero-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 2.5rem;
+}
+
+.k8s-hero-content a {
+    color: currentColor;
+    text-decoration: line-through;
+}
+
+.k8s-hero-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.k8s-hero-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+    width: auto;
+}
+
+.k8s-hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.k8s-hero-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* 查看视频按钮 - 白色填充 */
+.k8s-hero-button--primary {
+    color: #7c3aed;
+    background-color: white;
+    border-color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.k8s-hero-button--primary:hover,
+.k8s-hero-button--primary:focus {
+    color: #7c3aed;
+    background-color: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* 开始学习按钮 - 透明边框 */
+.k8s-hero-button {
+    color: white;
+    background: transparent;
+}
+
+.k8s-hero-button:hover,
+.k8s-hero-button:focus {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Enhanced navigation styles to match original - 只在首页生效 */
+body.k8s-home-page .md-header {
+    position: relative;
+    z-index: 10;
+}
+
+body.k8s-home-page .md-tabs {
+    background: #4051b5;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+body.k8s-home-page .md-tabs__inner {
+    max-width: 80rem; /* 增加最大宽度 */
+    margin: 0 auto;
+    padding: 0 0.4rem; /* 减少内边距 */
+}
+
+body.k8s-home-page .md-tabs__list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: flex-start; /* 左对齐 */
+    flex-wrap: wrap; /* 允许换行 */
+}
+
+body.k8s-home-page .md-tabs__list::-webkit-scrollbar {
+    display: none;
+}
+
+body.k8s-home-page .md-tabs__item {
+    flex-shrink: 0;
+}
+
+body.k8s-home-page .md-tabs__link {
+    display: block;
+    padding: 0.4rem 0.6rem; /* 减少内边距 */
+    color: rgba(255,255,255,0.7);
+    font-size: 0.7rem; /* 减小字体 */
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.25s;
+    white-space: nowrap;
+    line-height: 1.2; /* 调整行高 */
+}
+
+body.k8s-home-page .md-tabs__link:hover,
+body.k8s-home-page .md-tabs__link--active {
+    color: white;
+}
+
+/* Responsive design */
+@media screen and (max-width: 76.25em) {
+    .k8s-hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .k8s-hero-content {
+        max-width: none;
+        order: 2;
+        padding-top: 1rem;
+    }
+
+    .k8s-hero-image {
+        order: 1;
+        margin-bottom: 2rem;
+    }
+
+    .k8s-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    body.k8s-home-page .md-tabs__list {
+        flex-wrap: wrap;
+        justify-content: flex-start; /* 保持左对齐 */
+        gap: 0.2rem; /* 添加间距 */
+    }
+
+    body.k8s-home-page .md-tabs__link {
+        padding: 0.3rem 0.5rem; /* 进一步减小 */
+        font-size: 0.65rem; /* 更小字体 */
+    }
+
+    body.k8s-home-page .md-tabs__inner {
+        max-width: 100%; /* 在小屏幕上使用全宽 */
+        padding: 0 0.2rem;
+    }
+}
+
+@media screen and (max-width: 59.9375em) {
+    .k8s-hero-section {
+        padding: 1rem 0 4rem 0;
+        min-height: 60vh;
+    }
+
+    .k8s-hero-container {
+        min-height: 50vh;
+        gap: 1.5rem;
+    }
+
+    .k8s-hero-content h1 {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (max-width: 29.9375em) {
+    .k8s-hero-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .k8s-hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .k8s-hero-button {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        padding: 0.9rem 2rem;
+        font-size: 0.95rem;
+    }
+
+    .k8s-hero-container {
+        padding: 0 0.4rem;
+    }
+
+    /* 超小屏幕导航栏优化 */
+    body.k8s-home-page .md-tabs__link {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.6rem;
+    }
+
+    body.k8s-home-page .md-tabs__list {
+        gap: 0.1rem;
+    }
+}
