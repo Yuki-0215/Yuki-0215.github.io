@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
          window.location.pathname === '/site/index.html') &&
         // 检查页面标题
         (document.title?.includes('Kubernetes 进阶训练营') ||
-         document.querySelector('h1')?.textContent?.includes('Kubernetes 进阶训练营第2期课程文档'))
+         document.querySelector('h1')?.textContent?.includes('Kubernetes 进阶训练营课程文档'))
     );
 
     // 排除其他页面 - 如果URL包含这些路径，则不应用首页样式
@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
         heroSection.innerHTML = `
             <div class="k8s-hero-container">
                 <div class="k8s-hero-content">
-                    <h1>Kubernetes 进阶训练营第1期课程文档</h1>
-                    <p>本文档为优点知识推出的<a href="https://youdianzhishi.com/web/course/1022">《Kubernetes 进阶训练营第一期》</a>课程文档，学完本课程以后，你将会对 Kubernetes 有一个更加深入全面的认识。</p>
+                    <h1>Kubernetes 进阶训练营课程文档</h1>
+                    <p>本文档为优点知识推出的<a href="https://youdianzhishi.com/web/course/1022">《Kubernetes 进阶训练营》</a>课程文档，学完本课程以后，你将会对 Kubernetes 有一个更加深入全面的认识。</p>
                     <div class="k8s-hero-buttons">
                         <a href="https://youdianzhishi.com/web/course/1022" class="k8s-hero-button k8s-hero-button--primary">查看视频</a>
                         <a href="basic/cncf-docs/" class="k8s-hero-button">开始学习</a>
