@@ -1,12 +1,16 @@
 // K8s Training Home Page - Complete Redesign
 document.addEventListener('DOMContentLoaded', function() {
-    // 更精确的首页检测 - 只在特定的k8s_home页面生效
+    // 更精确的首页检测 - 只在首页生效
     const isK8sHomePage = (
-        // 检查URL路径是否包含k8s_home
-        (window.location.pathname.includes('k8s_home') || window.location.pathname === '/') &&
+        // 检查URL路径 - 包含根路径、index页面或k8s_home页面
+        (window.location.pathname === '/' ||
+         window.location.pathname.includes('index') ||
+         window.location.pathname.includes('k8s_home') ||
+         window.location.pathname === '/site/' ||
+         window.location.pathname === '/site/index.html') &&
         // 检查页面标题
         (document.title?.includes('Kubernetes 进阶训练营') ||
-         document.querySelector('h1')?.textContent?.includes('Kubernetes 进阶训练营第1期课程文档'))
+         document.querySelector('h1')?.textContent?.includes('Kubernetes 进阶训练营第2期课程文档'))
     );
 
     // 排除其他页面 - 如果URL包含这些路径，则不应用首页样式
