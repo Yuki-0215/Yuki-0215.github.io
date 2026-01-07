@@ -6045,14 +6045,14 @@
         
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
-    配置服务器
+    客户端网络配置
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
-    使用配置文件
+    导入导出配置文件
   </a>
   
 </li>
@@ -7728,14 +7728,14 @@
         
           <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
-    配置服务器
+    客户端网络配置
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
-    使用配置文件
+    导入导出配置文件
   </a>
   
 </li>
@@ -7962,31 +7962,10 @@ rustdesk-rustdesk-1   lejianwen/rustdesk-server-s6:latest   rustdesk   53 minute
 </li>
 </ul>
 <p><img alt="20260106162525" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20260106162525.png" /></p>
-<h3 id="_8">配置服务器<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
-<ol>
-<li>打开 RustDesk 客户端</li>
-<li>点击 ID 旁边的设置（三点菜单）</li>
-<li>选择 "ID 服务器"</li>
-<li>填入以下信息：</li>
-<li><strong>ID 服务器</strong>: <code>http://你的IP:21116</code></li>
-<li><strong>中继服务器</strong>: <code>http://你的IP:21117</code></li>
-<li><strong>API 服务器</strong>: <code>http://你的IP:21114</code></li>
-<li>
-<p><strong>Key</strong>: 填入上面获取的公钥内容</p>
-</li>
-<li>
-<p>点击 "应用" 或 "确定"</p>
-</li>
-</ol>
-<h3 id="_9">使用配置文件<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>也可以直接导入配置文件，配置格式：</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;idServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;你的IP:21116&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;relayServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;你的IP:21117&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;apiServer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;你的IP:21114&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;你的公钥内容&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="_8">客户端网络配置<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><img alt="20260107171151" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20260107171151.png" /></p>
+<h3 id="_9">导入导出配置文件<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><img alt="20260107171438" src="https://barry-boy-1311671045.cos.ap-beijing.myqcloud.com/blog/20260107171438.png" /></p>
 <h2 id="_10"><strong>绑定域名（可选）</strong><a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>如果使用域名，可以使用 Nginx Proxy Manager 进行反向代理配置。</p>
 <p>参考文档: <a href="https://duan.yyzq.eu.org//npm-ch">NginxProxyManager 配置教程</a></p>
