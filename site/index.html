@@ -70,11 +70,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#kubernetes" class="md-skip">
-          跳转至
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -495,8 +490,6 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
-      
-        
       
       
       <a href="." class="md-nav__link md-nav__link--active">
@@ -7317,24 +7310,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -7345,12 +7320,172 @@
 </a>
 
 
-<h1 id="kubernetes">Kubernetes 进阶训练营课程文档<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h1>
-<p>本文档为优点知识推出的<a href="https://youdianzhishi.com/web/course/1022">《Kubernetes 进阶训练营》</a>课程文档，学完本课程以后，你将会对 Kubernetes 有一个更加深入全面的认识。</p>
-<div class="hero-buttons">
-    <a href="https://youdianzhishi.com/web/course/1022" class="md-button md-button--primary">查看视频</a>
-    <a href="basic/cncf-docs/" class="md-button">开始学习</a>
+<!-- Hero Section -->
+<div class="mdx-hero">
+  <div class="mdx-hero__content">
+    <h1>Kubernetes 进阶训练营课程文档</h1>
+    <p>本文档为优点知识推出的《Kubernetes 进阶训练营》课程文档，学完本课程以后，你将会对 Kubernetes 有一个更加深入全面的认识。</p>
+    <div class="mdx-hero__button-group">
+      <a href="https://youdianzhishi.com/web/course/1022" class="md-button md-button--primary">
+        查看视频
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+      <a href="basic/cncf-docs/" class="md-button">
+        开始学习
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="mdx-hero__image">
+    <img src="material/index.jpg" alt="Kubernetes Illustration" draggable="false" />
+  </div>
 </div>
+
+<!-- Features Section -->
+<h2 style="margin-top: 3rem; text-align: center;">课程特色</h2>
+
+<div class="mdx-features">
+  <div class="mdx-feature-card">
+    <div class="mdx-feature-icon">🚀</div>
+    <h3>实战导向</h3>
+    <p>基于真实生产环境的实践经验，深入理解 Kubernetes 核心原理</p>
+  </div>
+
+  <div class="mdx-feature-card">
+    <div class="mdx-feature-icon">📚</div>
+    <h3>系统全面</h3>
+    <p>从基础概念到高级特性，构建完整的云原生知识体系</p>
+  </div>
+
+  <div class="mdx-feature-card">
+    <div class="mdx-feature-icon">🔧</div>
+    <h3>动手实践</h3>
+    <p>丰富的实验和案例，边学边练，快速掌握运维技能</p>
+  </div>
+
+  <div class="mdx-feature-card">
+    <div class="mdx-feature-icon">💡</div>
+    <h3>最佳实践</h3>
+    <p>总结业界主流实践经验，学习企业级应用部署方案</p>
+  </div>
+</div>
+
+<style>
+  /* Hero Section Styles */
+  .mdx-hero {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    margin: 2rem 0;
+  }
+
+  .mdx-hero__content {
+    flex: 1;
+  }
+
+  .mdx-hero__content h1 {
+    font-size: 2.5rem;
+    margin: 0 0 1rem 0;
+    color: var(--md-primary-fg-color);
+  }
+
+  .mdx-hero__content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--md-typeset-color);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .mdx-hero__button-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .mdx-hero__button-group .md-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mdx-hero__button-group .md-button svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor;
+  }
+
+  .mdx-hero__image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mdx-hero__image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Features Section Styles */
+  .mdx-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .mdx-feature-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--md-code-bg-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .mdx-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .mdx-feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .mdx-feature-card h3 {
+    margin: 0.5rem 0;
+    color: var(--md-primary-fg-color);
+  }
+
+  .mdx-feature-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--md-typeset-color);
+    line-height: 1.5;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .mdx-hero {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .mdx-hero__content h1 {
+      font-size: 2rem;
+    }
+
+    .mdx-hero__button-group {
+      justify-content: center;
+    }
+
+    .mdx-features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 
               
             </article>
